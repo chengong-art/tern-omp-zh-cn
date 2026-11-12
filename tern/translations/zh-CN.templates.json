@@ -517,5 +517,6 @@
   "Pushed tag {} to {}": "已将标签 {} 推送到 {}",
   "Pushed {} to {}": "已将 {} 推送到 {}",
   "Put {} in the cell": "把 {} 放进单元格",
-  "Query changed {} rows": "查询更改了 {} 行"
+  "Query changed {} rows": "查询更改了 {} 行",
+  "Run a command…  {}": "运行命令…  {}"
 }

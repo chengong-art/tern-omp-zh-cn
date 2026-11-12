@@ -28,7 +28,7 @@ LC_CODE_SIGNATURE, LC_FUNCTION_STARTS, LC_DATA_IN_CODE = 0x1D, 0x26, 0x29
 SEGNAME = b"__ZHCN"
 
 
-def main(inp, outp, planpath):
+def main(inp, outp, planpath, sitespath=None):
     data = bytearray(open(inp, "rb").read())
     m = MachO(bytes(data))
     assert not any(s["name"] == SEGNAME.decode() for s in m.segments), "already patched"
@@ -105,6 +105,59 @@ def main(inp, outp, planpath):
             d = (pc - (text.addr + q * 4)) >> 2
             assert -(1 << 25) <= d < (1 << 25), "copy routine out of bl range"
             struct.pack_into("<I", data, text.offset + q * 4, 0x94000000 | (d & 0x3FFFFFF))
+    # ---- hand-located sites (see translations/zh-CN.sites.json) ----------
+    sites = json.load(open(sitespath)) if sitespath else {}
+    raw = lambda t: bytes.fromhex(t[4:]) if t.startswith("hex:") else t.encode("utf-8")
+    at = lambda a: m.addr_to_off(int(a, 16))
+    for a, old, new in sites.get("poke", []):
+        o = at(a)
+        assert u32(o) == int(old, 16), f"poke {a}: found {u32(o):08x}, expected {old}"
+        struct.pack_into("<I", data, o, int(new, 16))
+        nrefs += 1
+    for a, en, zh in sites.get("ptr", []):
+        o, pc = at(a), int(a, 16)
+        en, zh = raw(en), raw(zh)
+        assert len(zh) <= len(en), f"ptr {a}: replacement is longer than the original"
+        zh += b" " * (len(en) - len(zh))
+        adrp, nxt, nx2 = u32(o), u32(o + 4), u32(o + 8)
+        assert (adrp & 0x9F000000) == 0x90000000, f"ptr {a}: not an adrp"
+        rd = adrp & 31
+        imm = ((adrp >> 5) & 0x7FFFF) << 2 | (adrp >> 29) & 3
+        page = (pc & ~0xFFF) + ((imm - (1 << 21) if imm & (1 << 20) else imm) << 12)
+        is_add = lambda v: (v & 0xFFC003E0) == 0x91000000 | rd << 5 and (v & 31) == rd
+        is_ldrq = lambda v: (v & 0xFFC003E0) == 0x3DC00000 | rd << 5
+        if is_add(nxt):
+            tgt, mode = page + ((nxt >> 10) & 0xFFF), "add"
+        elif is_ldrq(nxt):
+            tgt, mode = page + ((nxt >> 10) & 0xFFF) * 16, "ldrq"
+        else:
+            assert nxt == 0xD503201F and is_ldrq(nx2), f"ptr {a}: unsupported instruction pair"
+            tgt, mode = page + ((nx2 >> 10) & 0xFFF) * 16, "nop-ldrq"
+        t = m.addr_to_off(tgt)
+        assert bytes(data[t:t + len(en)]) == en, f"ptr {a}: original bytes differ"
+        blob.extend(b"\0" * (-len(blob) % 16))
+        new = seg_addr + len(blob)
+        blob.extend(zh)
+        pages = ((new >> 12) - (pc >> 12)) & ((1 << 21) - 1)
+        struct.pack_into("<I", data, o, (adrp & 0x9F00001F) | ((pages & 3) << 29) | ((pages >> 2) << 5))
+        lo = new & 0xFFF
+        if mode == "add":
+            struct.pack_into("<I", data, o + 4, (nxt & 0xFFC003FF) | (lo << 10))
+        elif mode == "ldrq":
+            struct.pack_into("<I", data, o + 4, (nxt & 0xFFC003FF) | ((lo >> 4) << 10))
+        else:
+            struct.pack_into("<I", data, o + 4, 0x91000000 | (lo << 10) | (rd << 5) | rd)
+            struct.pack_into("<I", data, o + 8, nx2 & 0xFFC003FF)
+        nrefs += 1
+    for a, en, zh in sites.get("data", []):
+        o = at(a)
+        p, ln = struct.unpack_from("<QQ", data, o)
+        en, zh = raw(en), raw(zh)
+        assert ln == len(en) and bytes(data[m.addr_to_off(p):m.addr_to_off(p) + ln]) == en, f"data {a}: original differs"
+        blob.extend(b"\0" * (-len(blob) % 16))
+        struct.pack_into("<QQ", data, o, seg_addr + len(blob), len(zh))
+        blob.extend(zh)
+        nrefs += 1
     seg_size = max(PAGE, (len(blob) + PAGE - 1) // PAGE * PAGE)
     blob.extend(b"\0" * (seg_size - len(blob)))
 
@@ -197,4 +250,4 @@ def main(inp, outp, planpath):
 
 
 if __name__ == "__main__":
-    main(*sys.argv[1:4])
+    main(*sys.argv[1:5])

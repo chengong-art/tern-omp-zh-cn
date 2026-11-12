@@ -206,6 +206,35 @@ for t, ln, s, n, nc in json.load(open(rows)):
         if refs:
             plan.append([addr_zh[t], refs])
             stats["kept addr"] += len(refs)
+# A length-table slot can be shared by several pointer tables (copies of one match).
+# Rewriting the length for one copy and leaving another copy's pointer on the
+# English text would hand that copy a length that does not fit its string, so a
+# slot is rewritten for every table that uses it, or for none.
+slot_refs = defaultdict(list)
+for t, d in S.items():
+    for ln, refs in d.items():
+        for r in refs:
+            if r[0] == "table":
+                slot_refs[(r[2], r[3])].append(list(r))
+slot_zh, dropped = {}, set()
+for zh, refs in plan:
+    for r in refs:
+        if r[0] == "table":
+            k = (r[2], r[3])
+            if slot_zh.setdefault(k, zh) != zh:
+                dropped.add(k)  # two different translations claim one slot
+done = {(r[1]) for zh, refs in plan for r in refs if r[0] == "table"}
+for e in plan:
+    e[1] = [r for r in e[1] if not (r[0] == "table" and (r[2], r[3]) in dropped)]
+for k, zh in slot_zh.items():
+    if k in dropped:
+        stats["dropped table (conflict)"] += 1
+        continue
+    extra = [r for r in slot_refs[k] if r[1] not in done]
+    if extra:
+        plan.append([zh, extra])
+        stats["kept table (shared length)"] += len(extra)
+plan = [e for e in plan if e[1]]
 json.dump(plan, open(out, "w"), ensure_ascii=False)
 if nofit:
     json.dump(sorted(set(nofit)), open(out + ".nofit.json", "w"), ensure_ascii=False, indent=0)

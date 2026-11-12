@@ -1,0 +1,42 @@
+{
+ "_": "Hand-located sites for Tern 0.9.16 only. ptr: [adrp address, original text, replacement] - pointer-only, replacement is padded to the original byte length. data: [address of a (pointer, length) pair, original, replacement]. poke: [address, old instruction, new instruction].",
+ "ptr": [
+  ["0x104ba1e00", "Show Sidebar", "显示侧栏"],
+  ["0x104ba1e08", "Hide Sidebar", "隐藏侧栏"],
+  ["0x104ba1f70", "Show Files", "显文件"],
+  ["0x104ba1f78", "Hide Files", "隐文件"],
+  ["0x104f48f64", "Close tab", "关标签"],
+  ["0x10556c4e0", "Open Database…", "开数据库…"],
+  ["0x104ba265c", "hex:00000000000000800500000000000000", "hex:00000000000000800600000000000000"]
+ ],
+ "data": [
+  ["0x10a143738", "Note", "便签"],
+  ["0x10a143798", "Canvas", "画布"],
+  ["0x10a1437c8", "Screen", "屏幕"]
+ ],
+ "poke": [
+  ["0x1035f6efc", "528000a0", "528000c0"],
+  ["0x1035f6f0c", "52800e88", "529237c8"],
+  ["0x1035f6f10", "39001008", "79000808"],
+  ["0x1035f6f14", "5288a4c8", "52979ce8"],
+  ["0x1035f6f18", "72ad2c88", "72bd12c8"],
+  ["0x1035f6f30", "528000a8", "528000c8"],
+  ["0x1035f64e4", "528000e0", "528000c0"],
+  ["0x1035f64f4", "528c8dc8", "529cb2e8"],
+  ["0x1035f64f8", "72aeede8", "72b471e8"],
+  ["0x1035f64fc", "b8003008", "b8002008"],
+  ["0x1035f6500", "528ae4c8", "52955ce8"],
+  ["0x1035f6504", "72adcd28", "72bcb2e8"],
+  ["0x1035f651c", "528000e8", "528000c8"],
+  ["0x104ba261c", "528000a0", "528000c0"],
+  ["0x104ba262c", "52800e08", "52953148"],
+  ["0x104ba2630", "39001008", "79000808"],
+  ["0x104ba2634", "528904c8", "52971ca8"],
+  ["0x104ba2638", "72ad8ca8", "72bcb5c8"],
+  ["0x104ba2640", "528000a8", "528000c8"],
+  ["0x104ba1aec", "d28ca9c8", "d292dcc8"],
+  ["0x104ba1af0", "f2a40ee8", "f2a41608"],
+  ["0x104ba1af4", "f2cde9c8", "f2cde9c8"],
+  ["0x104ba1af8", "f2ecae88", "f2ecae88"]
+ ]
+}

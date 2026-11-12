@@ -11,5 +11,5 @@ python3 "$t/templates.py" "$1" "$w/refs.pkl" "$w/templates.json"
 python3 "$t/mkplan.py" "$1" "$w/strings.pkl" "$w/all_strings.json" "$tr/zh-CN.json" "$w/plan.json" \
         "$w/inline.json" "$tr/zh-CN.short.json" "$w/templates.json" "$tr/zh-CN.templates.json"
 rm -f "$2"
-python3 "$t/patch.py" "$1" "$2" "$w/plan.json"
+python3 "$t/patch.py" "$1" "$2" "$w/plan.json" "$tr/zh-CN.sites.json"
 chmod +x "$2"
