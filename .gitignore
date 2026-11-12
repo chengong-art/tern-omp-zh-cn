@@ -1,0 +1,6 @@
+.scratch/
+dist/
+target/
+__pycache__/
+*.pyc
+.DS_Store
