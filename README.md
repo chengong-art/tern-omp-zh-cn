@@ -10,6 +10,8 @@
 | omp | 18.15.0（npm / Homebrew 安装的 JS 版） | 就地修改 `cli.js`，自动留备份，可一键还原 |
 | omp | 18.20.0（源码，commit `57263720`） | 源码级全量汉化 patch（20,262 条 / 1,652 文件），见 [`omp-src/`](omp-src/) |
 
+已编译好的 macOS arm64 单文件二进制和打好的源码包在 [Releases](https://github.com/chengong-art/tern-omp-zh-cn/releases)（tag `omp-18.20.0-zh-cn`）里，不用自己装 bun 和 Rust 工具链。
+
 其他版本没有测试过。Tern 的补丁依赖二进制布局，换版本后很可能需要调整；omp 的补丁按原文匹配，新版本里改过措辞的条目会被跳过并列出来。
 
 ## Tern
