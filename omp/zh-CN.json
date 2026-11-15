@@ -121,7 +121,6 @@
   "Remove a workspace directory from this session": "从本会话移除一个工作区目录",
   "List this session's workspace directories": "列出本会话的工作区目录",
   "Exit the application": "退出应用",
-  "Restart omp with the same launch flags, resuming this session": "以相同启动参数重启 omp，并恢复本会话",
   "Force next turn to use a specific tool": "强制下一回合使用特定工具",
   "Start Codex-backed realtime voice mode": "启动 Codex 驱动的实时语音模式",
   "Start or stop recording this screen to a replayable file (omp play)": "开始或停止把本屏幕录制为可回放文件（omp play）",
@@ -194,9 +193,6 @@
   "Remove OAuth auth from a server": "移除服务器的 OAuth 认证",
   "Enable an MCP server": "启用一个 MCP 服务器",
   "Disable an MCP server": "禁用一个 MCP 服务器",
-  "Search Smithery registry and deploy an MCP server": "搜索 Smithery 注册表并部署一个 MCP 服务器",
-  "Login to Smithery and cache API key": "登录 Smithery 并缓存 API key",
-  "Remove cached Smithery API key": "移除缓存的 Smithery API key",
   "Reconnect to a specific MCP server": "重新连接指定的 MCP 服务器",
   "Force reload MCP runtime tools": "强制重新加载 MCP 运行时工具",
   "List available resources from connected servers": "列出已连接服务器提供的资源",
@@ -207,7 +203,23 @@
   "Install registry skills": "安装注册表技能",
   "List installed registry skills": "列出已安装的注册表技能",
   "Update registry skills within their ranges": "在允许范围内更新注册表技能",
-  "Return to the planning model and re-arm the handoff (default prewalk.from → prewalk.into)": "回到规划模型并重新装填交接（默认 prewalk.from → prewalk.into）"
+  "Return to the planning model and re-arm the handoff (default prewalk.from → prewalk.into)": "回到规划模型并重新装填交接（默认 prewalk.from → prewalk.into）",
+  "Commit only the changes this agent and its subagents made": "仅提交本 agent 及其子 agent 所做的改动",
+  "Create any built-in mental models that are missing": "创建缺失的内置 mental model",
+  "Delete a mental model from the bank (id required)": "从库中删除一个 mental model（需提供 id）",
+  "Detect and fix project diagnostics with weighted parallel subagents": "用加权并行子 agent 检测并修复项目诊断",
+  "Diff the change history of a mental model": "对比某个 mental model 的变更历史",
+  "List mental models on the active bank": "列出当前库中的 mental model",
+  "Re-pull the cached <mental_models> block": "重新拉取缓存的 <mental_models> 块",
+  "Refresh auto-refresh models bank-wide, or one model by id": "刷新全库自动刷新的模型，或按 id 刷新单个模型",
+  "Restart omp with the same launch flags, resuming this session and its running subagents": "以相同启动参数重启 omp，恢复本会话及正在运行的子 agent",
+  "Select a one-off model for this consultation": "为本次咨询选择一个临时模型",
+  "Show one mental model (id required)": "查看某个 mental model（需提供 id）",
+  "Unpin a session from the top of the resume list": "将某会话从恢复列表顶部取消固定",
+  "Use the active role or default model saved with this session": "使用本会话保存的活跃角色或默认模型",
+  "Exa search": "Exa 搜索",
+  "Find-replace": "查找替换",
+  "Version control": "版本控制"
  },
  "tips": {
   "Tired of typing \"keep going\"? Just send a '.'": "懒得一遍遍输入“keep going”？发一个 '.' 就行",
@@ -243,12 +255,13 @@
   "Press {key:shift+tab} to cycle through reasoning effort levels": "按 {key:shift+tab} 轮换推理强度等级",
   "omp can reconfigure and extend itself — ask any questions you have!": "omp 可以重新配置和扩展自己 — 有任何问题尽管问！",
   "Lint/type errors piling up? `omp cleanse` (or /cleanse right here) hunts project diagnostics and fixes them with parallel subagents — {key:escape} cancels": "Lint/类型错误越积越多？`omp cleanse`（或在这里用 /cleanse）会找出项目诊断问题并用并行子智能体修复 — {key:escape} 取消",
-  "[NO-TERN] Psst, omp has a natural habitat 🐦 [tern](https://scl.so/tern)": "[NO-TERN] 嘘，omp 有个天然栖息地 🐦 [tern](https://scl.so/tern)"
+  "[NO-TERN] Psst, omp has a natural habitat 🐦 [tern](https://scl.so/tern)": "[NO-TERN] 嘘，omp 有个天然栖息地 🐦 [tern](https://scl.so/tern)",
+  "Agent overthinking? Say `chillax` — on models with per-message effort, thinking drops to the lowest level, even mid-turn — watch it glow as you type": "agent 想太多？说一声 `chillax`——对支持逐消息 effort 的模型，思考会降到最低档，回合中途也生效——边打字边看它发光"
  },
  "literals": [
   [
-   "aZl=\"What are we cooking?\"",
-   "aZl=\"今天做点什么？\""
+   "RUc=\"What are we cooking?\"",
+   "RUc=\"今天做点什么？\""
   ],
   [
    "n=`New version ${e} is available. Run: `",
@@ -259,8 +272,8 @@
    "M(\"有可用更新\",\"strong\"),M(` \\xB7 新版本 ${e} 已发布，请运行 `)"
   ],
   [
-   "new Ie(`Update Available\n${n}omp update`,1,0)",
-   "new Ie(`有可用更新\n${n}omp update`,1,0)"
+   "new Pe(`Update Available\n${n}omp update`,1,0)",
+   "new Pe(`有可用更新\n${n}omp update`,1,0)"
   ],
   [
    "R.bold(R.fg(\"warning\",\"Update Available\"))",
@@ -310,7 +323,6 @@
   "\"Cannot open a fork in another terminal: the current session is no longer persisted.\"": "无法在另一个终端打开分叉：当前会话已不再保存。",
   "\"Cannot open a fork in another terminal: the persisted session transcript is unavailable.\"": "无法在另一个终端打开分叉：已保存的会话记录不可用。",
   "\"Cannot pin an account while the session is streaming.\"": "会话正在流式输出时无法固定账户。",
-  "\"Chat about this isn't available when re-answering from the tree \\u2014 pick an option or type a custom answer instead.\"": "从会话树重新回答时无法就此聊天 — 请选择一个选项或输入自定义回答。",
   "\"Checking saved rate-limit resets\\u2026\"": "正在检查已保存的限流重置…",
   "\"Checking the registry for updates\\u2026\"": "正在检查注册表更新…",
   "\"Cleared all todos.\"": "已清除所有待办。",
@@ -362,8 +374,6 @@
   "\"Invalid --port value. Must be an integer between 1 and 65535.\"": "--port 的值无效。必须是 1 到 65535 之间的整数。",
   "\"Loading provider accounts\\u2026\"": "正在加载服务商账户…",
   "\"Local execution is host-only during a collab session\"": "协作会话期间，本地执行仅主持人可用",
-  "\"MCP Smithery selection cancelled.\"": "已取消 MCP Smithery 选择。",
-  "\"MCP deploy cancelled.\"": "已取消 MCP 部署。",
   "\"MCP manager not available.\"": "MCP 管理器不可用。",
   "\"Memory consolidation enqueued.\"": "已将记忆合并加入队列。",
   "\"Memory consolidation ran.\"": "记忆合并已运行。",
@@ -391,7 +401,6 @@
   "\"No command to copy.\"": "没有可复制的命令。",
   "\"No editor configured. Set $VISUAL or $EDITOR environment variable.\"": "未配置编辑器。请设置 $VISUAL 或 $EDITOR 环境变量。",
   "\"No entries in session\"": "会话中没有条目",
-  "\"No extension links on screen\"": "屏幕上没有扩展链接",
   "\"No goal set.\"": "尚未设置目标。",
   "\"No goal to drop.\"": "没有可放弃的目标。",
   "\"No link to copy.\"": "没有可复制的链接。",
@@ -444,7 +453,6 @@
   "\"Resume the current goal first, or drop it before setting a new objective.\"": "请先恢复当前目标，或先放弃它再设置新目标。",
   "\"Rewound to selected point\"": "已回退到所选位置",
   "\"Select a model before pinning a provider account.\"": "请先选择模型，再固定服务商账户。",
-  "\"Server name cannot be empty.\"": "服务器名称不能为空。",
   "\"Server name required. Usage: /mcp reauth <name>\"": "必须提供服务器名称。用法：/mcp reauth <name>",
   "\"Server name required. Usage: /mcp reconnect <name>\"": "必须提供服务器名称。用法：/mcp reconnect <name>",
   "\"Server name required. Usage: /mcp remove <name> [--scope project|user]\"": "必须提供服务器名称。用法：/mcp remove <name> [--scope project|user]",
@@ -456,9 +464,6 @@
   "\"Session shared\"": "会话已分享",
   "\"Share cancelled\"": "分享已取消",
   "\"Skipped queued compaction: context is already compacting\"": "已跳过排队的压缩：上下文正在压缩中",
-  "\"Smithery API key cannot be empty.\"": "Smithery API key 不能为空。",
-  "\"Smithery API key saved.\"": "Smithery API key 已保存。",
-  "\"Smithery login cancelled.\"": "已取消 Smithery 登录。",
   "\"Speech-to-text is disabled. Enable it in settings: stt.enabled\"": "语音转文字已禁用。请在设置中启用：stt.enabled",
   "\"Still closing\\u2026 (flushing memory backend / network)\"": "仍在关闭…（正在刷新记忆后端 / 网络）",
   "\"Stop hosting first (/collab stop)\"": "请先停止主持（/collab stop）",
@@ -507,10 +512,18 @@
   "\"Wait for the current /btw answer to finish or cancel it before moving.\"": "请等待当前 /btw 回答结束或取消它，然后再移动。",
   "\"Wait for the current response to finish or abort it before changing directories.\"": "请等待当前回复结束或中止它，然后再切换目录。",
   "\"Wait for the current response to finish or abort it before creating a worktree.\"": "请等待当前回复结束或中止它，然后再创建 worktree。",
-  "\"Wait for the current response to finish or abort it before forking.\"": "请等待当前回复结束或中止它，然后再分叉。",
   "\"Wait for the current response to finish or abort it before handing off.\"": "请等待当前回复结束或中止它，然后再交接。",
   "\"Wait for the current response to finish or abort it before moving.\"": "请等待当前回复结束或中止它，然后再移动。",
   "\"Wait for the current response to finish or abort it before refreshing provider state.\"": "请等待当前回复结束或中止它，然后再刷新服务商状态。",
-  "\"Wait for the current response to finish or abort it before resetting the context.\"": "请等待当前回复结束或中止它，然后再重置上下文。"
+  "\"Wait for the current response to finish or abort it before resetting the context.\"": "请等待当前回复结束或中止它，然后再重置上下文。",
+  "\"Dictation is unavailable: the active session provider changed in offline mode.\"": "离线模式下当前会话的提供商已更改，听写不可用。",
+  "\"No dictation model matches the active session provider in offline mode.\"": "离线模式下没有与当前会话提供商匹配的听写模型。",
+  "\"No extension links in the transcript\"": "会话记录中没有扩展链接",
+  "\"No prompt to resend before this answer\"": "此回答之前没有可重发的提示",
+  "\"Retrying the turn\"": "正在重试本轮",
+  "\"Rewind undone\"": "已撤销回退",
+  "\"Send or clear the draft to retry this turn\"": "请发送或清空草稿以重试本轮",
+  "\"Session close cancelled\"": "已取消关闭会话",
+  "\"That message is no longer on this branch\"": "该消息已不在此分支上"
  }
 }
