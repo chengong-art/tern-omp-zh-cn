@@ -56,7 +56,7 @@ def oidc():
 
 
 def save(refresh):
-    os.makedirs(os.path.dirname(STATE), exist_ok=True)
+    os.makedirs(os.path.dirname(os.path.abspath(STATE)), exist_ok=True)
     tmp = STATE + ".tmp"
     with os.fdopen(os.open(tmp, os.O_WRONLY | os.O_CREAT | os.O_TRUNC, 0o600), "w") as f:
         json.dump({"refresh_token": refresh, "saved": int(time.time())}, f)
