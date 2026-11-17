@@ -66,6 +66,8 @@ def writes_reg(v, r):
         return True  # add/orr/and/eor forms (mov alias)
     if (v & 0x3B000000) == 0x39000000 and (v & 0x00400000) and (v & 31) == r:  # ldr
         return True
+    if (v & 0x7FE00C00) == 0x1A800000 and (v & 31) == r:  # csel: r now holds one of two values
+        return True
     return False
 
 

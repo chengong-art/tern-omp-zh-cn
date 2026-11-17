@@ -8,17 +8,22 @@ src=${1:-/Applications/Tern.app}; dst=${2:-"$here/dist/Tern.app"}; w="$here/.scr
 mkdir -p "$w" "$(dirname "$dst")"
 rm -rf "$dst"
 ditto "$src" "$dst"
-helper="Contents/Helpers/Tern Daemon.app"
-for rel in "$helper/Contents/MacOS/tern" "Contents/MacOS/tern"; do
-    "$here/tools/build.sh" "$src/$rel" "$dst/$rel"
-done
-codesign -d --entitlements "$w/helper.ent" --xml "$src/$helper" 2>/dev/null || true
-codesign -d --entitlements "$w/app.ent" --xml "$src" 2>/dev/null || true
-sign() { # bundle, entitlements file
-    if [ -s "$2" ]; then codesign -f -s - --options runtime --entitlements "$2" "$1"
-    else codesign -f -s - --options runtime "$1"; fi
+exe() { /usr/libexec/PlistBuddy -c "Print :CFBundleExecutable" "$1/Contents/Info.plist"; }
+sign() { # original bundle, copied bundle: ad-hoc sign the copy with the original's entitlements
+    rm -f "$w/ent.xml"
+    codesign -d --entitlements "$w/ent.xml" --xml "$1" 2>/dev/null || true
+    if [ -s "$w/ent.xml" ]; then codesign -f -s - --options runtime --entitlements "$w/ent.xml" "$2"
+    else codesign -f -s - --options runtime "$2"; fi
 }
-sign "$dst/$helper" "$w/helper.ent"
-sign "$dst" "$w/app.ent"
+# Helper bundles first (their name changes between releases), the app itself last.
+for helper in "$src"/Contents/Helpers/*.app; do
+    [ -d "$helper" ] || continue
+    rel="Contents/Helpers/$(basename "$helper")"; bin="Contents/MacOS/$(exe "$helper")"
+    "$here/tools/build.sh" "$helper/$bin" "$dst/$rel/$bin" "$w/helper"
+    sign "$helper" "$dst/$rel"
+done
+bin="Contents/MacOS/$(exe "$src")"
+"$here/tools/build.sh" "$src/$bin" "$dst/$bin"
+sign "$src" "$dst"
 codesign -v --deep --strict "$dst"
 echo "built $dst"

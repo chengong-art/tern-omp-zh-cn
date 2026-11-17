@@ -6,13 +6,13 @@
 
 | 对象 | 测试过的版本 | 方式 |
 | --- | --- | --- |
-| Tern | 0.9.16（macOS，Apple 芯片） | 生成一份汉化后的 `Tern.app` 副本，原程序只读不改 |
+| Tern | 0.9.16、0.9.26（macOS，Apple 芯片） | 生成一份汉化后的 `Tern.app` 副本，原程序只读不改 |
 | omp | 18.20.2（npm / Homebrew 安装的 JS 版） | 就地修改 `cli.js`，自动留备份，可一键还原 |
 | omp | 18.20.2（源码，commit `7c49c11a`） | 源码级全量汉化 patch（20,280 条 / 1,670 文件），见 [`omp-src/`](omp-src/) |
 
 已编译好的 macOS arm64 单文件二进制和打好的源码包在 [Releases](https://github.com/chengong-art/tern-omp-zh-cn/releases)（tag `omp-18.20.2-zh-cn`）里，不用自己装 bun 和 Rust 工具链。
 
-其他版本没有测试过。Tern 的补丁依赖二进制布局，换版本后很可能需要调整；omp 的补丁按原文匹配，新版本里改过措辞的条目会被跳过并列出来。
+其他版本没有测试过。Tern 的补丁按特征在二进制里定位改写点，换版本后个别条目可能定位不到（会列出来，那几处保持英文）；omp 的补丁按原文匹配，新版本里改过措辞的条目会被跳过并列出来。
 
 ## Tern
 
@@ -25,7 +25,7 @@ tools/make_app.sh /Applications/Tern.app dist/Tern.app
 
 第一个参数必须是**未修改过的官方 Tern.app**，脚本只读取它。几分钟后得到 `dist/Tern.app`，确认能正常打开后再用它替换 `/Applications/Tern.app`。替换前请自己留一份官方原版。
 
-汉化范围：设置页、命令面板、菜单、提示与报错等界面文字，目前约 7500 处引用。仍有一部分保持英文（见下文“做不到的部分”）。
+汉化范围：设置页、命令面板、菜单、提示与报错等界面文字，目前约 7800 处引用。仍有一部分保持英文（见下文“做不到的部分”）。
 
 ### 使用前要知道的
 
@@ -49,9 +49,12 @@ Tern 是一个 Rust 写的单文件程序，没有可替换的语言资源，界
 | `analyze.py`、`extract.py`、`dump.py` | 扫描二进制，找出字符串及其引用方式 |
 | `inline.py` | 处理被编译器内联成“定长拷贝”的字符串 |
 | `templates.py` | 处理带占位符的格式化模板 |
+| `resolve.py` | 按 `zh-CN.sites.json` 的描述，在当前这份二进制里找出手工改写点的地址 |
 | `mkplan.py` | 根据译文表决定哪些引用可以安全替换 |
 | `patch.py` | 写入新段并改写引用 |
-| `build.sh`、`make_app.sh` | 串起以上步骤，并重新签名 |
+| `build.sh`、`make_app.sh` | 串起以上步骤，并重新签名（`Contents/Helpers/` 下的辅助程序自动发现） |
+| `candidates.py` | 列出新版本里新增、还没有译文的界面文字 |
+| `fetch.py` | 登录 Stencil，查询并下载最新的官方 Tern 安装包 |
 
 译文表（`tern/translations/`）：
 
@@ -60,10 +63,30 @@ Tern 是一个 Rust 写的单文件程序，没有可替换的语言资源，界
 | `zh-CN.json` | 英文 → 中文，主表 |
 | `zh-CN.short.json` | 定长位置放不下时使用的较短译法 |
 | `zh-CN.templates.json` | 带 `{}` 占位符的模板；占位符顺序不能变 |
-| `zh-CN.addr.json` | 按字符串地址指定的译法，用于同一个单词在不同位置含义不同的情况（仅对应 0.9.16） |
-| `zh-CN.sites.json` | 手工定位的改写点：菜单栏标题、工具栏提示等自动扫描找不到的位置（仅对应 0.9.16） |
+| `zh-CN.sites.json` | 自动扫描处理不了的位置，按特征描述而不是按地址：同一个单词在不同位置含义不同的（`context`，用相邻的字符串区分）、数据表里的条目（`data`）、只有指针没有长度的引用（`ptr`）、用立即数拼出来的短字符串（`imm`，如菜单栏标题） |
+| `seen.txt` | `candidates.py` 已经看过的字符串的短哈希，用来只列出新版本新增的部分 |
 
 **单个英文单词不会一律替换。** `Agent`、`Light` 这样的词既可能是界面标签，也可能是写进配置文件的值或协议里的标识符，后者译掉会导致设置存不上。`mkplan.py` 只在能确认是界面文字时才替换，传给“接收标识符的函数”的单词一律不动。
+
+### 适配新版本
+
+Tern 是邀请制内测，安装包要登录后才能下载。`fetch.py` 用 Tern 客户端自己的设备登录方式（不需要密码）：
+
+```sh
+cd tern
+python3 tools/fetch.py login              # 只需一次：打印一个链接，在浏览器里批准
+python3 tools/fetch.py latest             # 最新稳定版的版本号、下载地址和 SHA-256
+python3 tools/fetch.py download build     # 下载、校验并解压出 build/Tern.app
+tools/make_app.sh build/Tern.app dist/Tern.app
+python3 tools/candidates.py .scratch      # 新增的、还没有译文的界面文字
+```
+
+登录状态存在 `~/.config/tern-zh/stencil.json`（可用环境变量 `TERN_ZH_STATE` 改位置）。Stencil 的刷新令牌每用一次就换一个新的，所以这个文件每次运行都会被改写，不能复制到别处同时使用。
+
+`make_app.sh` 的输出里要看两处：
+
+- `sites: … N of M entries not placed` 和后面的 `not placed` 行：`zh-CN.sites.json` 里没能在新版本中定位到的条目。通常是它旁边的字符串变了，改一下该条目的邻居列表即可；`.scratch/all_strings.json` 里能查到新版本的字符串和地址。
+- `candidates.py` 列出的新文字：译好后加进 `zh-CN.json` 或 `zh-CN.templates.json`，再运行 `candidates.py .scratch --mark` 记为已处理。
 
 ### 做不到的部分
 

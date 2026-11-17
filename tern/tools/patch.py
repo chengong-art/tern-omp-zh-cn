@@ -15,6 +15,7 @@ copies (see inline.py). Its first store becomes `bl` to a copy routine emitted
 after the strings; the segment is therefore mapped r-x.
 """
 import json
+import re
 import struct
 import sys
 
@@ -25,7 +26,39 @@ from templates import encode as encode_template  # noqa: E402
 PAGE = 0x4000
 LC_SYMTAB, LC_DYSYMTAB, LC_DYLD_INFO_ONLY = 0x2, 0xB, 0x80000022
 LC_CODE_SIGNATURE, LC_FUNCTION_STARTS, LC_DATA_IN_CODE = 0x1D, 0x26, 0x29
+LC_LOAD_DYLIB, LC_BUILD_VERSION = 0xC, 0x32
 SEGNAME = b"__ZHCN"
+
+
+def make_room(cmds, room):
+    """Shrink load commands until they fit in the `room` bytes before the first section.
+
+    The linker leaves 0-63 spare bytes there, fewer than a segment command needs, so
+    whatever is still missing is taken from commands that lose nothing at run time:
+    the linker tool list of LC_BUILD_VERSION, then the "Versions/X/" part of framework
+    install names (dyld follows the top-level symlink of the framework instead).
+    """
+    cmds = list(cmds)
+
+    def over():
+        return sum(map(len, cmds)) - room
+
+    for k, raw in enumerate(cmds):
+        if over() <= 0:
+            break
+        cmd, size = struct.unpack_from("<II", raw, 0)
+        if cmd == LC_BUILD_VERSION and size > 24:
+            cmds[k] = struct.pack("<II", cmd, 24) + raw[8:20] + struct.pack("<I", 0)
+        elif cmd == LC_LOAD_DYLIB:
+            off = struct.unpack_from("<I", raw, 8)[0]
+            name = raw[off:].split(b"\0", 1)[0]
+            short = re.sub(rb"^(/System/Library/Frameworks/(\w+)\.framework)/Versions/\w+/\2$", rb"\1/\2", name)
+            body = raw[:off] + short + b"\0"
+            body += b"\0" * (-len(body) % 8)
+            if len(body) < size:
+                cmds[k] = body[:4] + struct.pack("<I", len(body)) + body[8:]
+    assert over() <= 0, f"no room for the new load command ({over()} bytes short)"
+    return cmds
 
 
 def main(inp, outp, planpath, sitespath=None):
@@ -239,8 +272,8 @@ def main(inp, outp, planpath, sitespath=None):
         elif cmd in (LC_CODE_SIGNATURE, LC_FUNCTION_STARTS):
             bump(8)
         cmds.append(bytes(raw))
+    cmds = make_room(cmds, first_sect - 32)
     lc = b"".join(cmds)
-    assert 32 + len(lc) <= first_sect, "no room for the new load command"
     struct.pack_into("<II", data, 16, len(cmds), len(lc))
     data[32:first_sect] = lc + b"\0" * (first_sect - 32 - len(lc))
 
