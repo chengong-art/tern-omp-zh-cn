@@ -250,17 +250,23 @@ def main(binpath, refs, strings, rows, sitespath, outdir):
             if len(z) != n:
                 v = int(ins[w0])
                 pokes.append((w0, v, (v & 0xFFE0001F) | len(z) << 5))
+                lens = []  # where the String's len/capacity is set, as an immediate or a constant pair
                 for q in range(end + 1, end + 1 + LEN_SCAN):
                     v = int(ins[q])
                     if is_branch(v):
                         break
                     if (v & 0x7FE00000) == 0x52800000 and (v >> 5) & 0xFFFF == n:
                         pokes.append((q, v, (v & 0xFFE0001F) | len(z) << 5))
+                        lens.append(q)
                     elif is_adrp[q]:
                         for t, sites in q_refs.items():
                             if q in sites and struct.unpack_from("<QQ", data, m.addr_to_off(t)) == (NICHE, n):
-                                out["ptr"].append([f"{pc(q):#x}", "hex:" + struct.pack("<QQ", NICHE, n).hex(),
-                                                   "hex:" + struct.pack("<QQ", NICHE, len(z)).hex()])
+                                lens.append([f"{pc(q):#x}", "hex:" + struct.pack("<QQ", NICHE, n).hex(),
+                                             "hex:" + struct.pack("<QQ", NICHE, len(z)).hex()])
+                if not lens:  # resizing the buffer alone would leave the old length in the String
+                    miss("imm", en, f"site {pc(j):#x}: the length is not set right after the text")
+                    continue
+                out["ptr"] += [x for x in lens if isinstance(x, list)]
             out["poke"] += [[f"{pc(k):#x}", f"{old:08x}", f"{new:08x}"] for k, old, new in sorted(set(pokes)) if old != new]
     for en, zh in T.get("imm", []):
         if not hits[en]:
