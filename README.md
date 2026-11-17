@@ -55,6 +55,7 @@ Tern 是一个 Rust 写的单文件程序，没有可替换的语言资源，界
 | `build.sh`、`make_app.sh` | 串起以上步骤，并重新签名（`Contents/Helpers/` 下的辅助程序自动发现） |
 | `candidates.py` | 列出新版本里新增、还没有译文的界面文字 |
 | `fetch.py` | 登录 Stencil，查询并下载最新的官方 Tern 安装包 |
+| `preflight.py` | 每日自动化的预检脚本：保管登录状态，只在出现新版本时启动一次汉化会话 |
 
 译文表（`tern/translations/`）：
 
@@ -87,6 +88,18 @@ python3 tools/candidates.py .scratch      # 新增的、还没有译文的界面
 
 - `sites: … N of M entries not placed` 和后面的 `not placed` 行：`zh-CN.sites.json` 里没能在新版本中定位到的条目。通常是它旁边的字符串变了，改一下该条目的邻居列表即可；`.scratch/all_strings.json` 里能查到新版本的字符串和地址。
 - `candidates.py` 列出的新文字：译好后加进 `zh-CN.json` 或 `zh-CN.templates.json`，再运行 `candidates.py .scratch --mark` 记为已处理。
+
+### 每日自动适配
+
+一条 Devin 自动化每天运行一次 `tools/preflight.py`（在会话启动之前、独立的小虚拟机里）：
+
+1. 用保存在自动化状态里的刷新令牌换取访问令牌，并把换回来的新令牌存回去；
+2. 查询最新稳定版，和 `tern/VERSION`（上一次处理完的 `版本号 构建号`）比较；
+3. 相同就结束，不启动会话；不同就把安装包的限时下载链接和 SHA-256 交给一次新会话。
+
+会话按上面的步骤打补丁、补译、验证签名和启动，通过后更新译文表和 `tern/VERSION` 并推送；汉化后的 `Tern.app` 只作为会话附件交付，不发布。令牌只在预检脚本里，会话拿不到。同一个构建最多尝试 3 次。
+
+登录失效（长期未运行，或令牌被别处用掉）时预检会报错，需要重新批准一次设备登录，把新的刷新令牌存为组织 secret `STENCIL_REFRESH_TOKEN`。本机 `fetch.py login` 是另一份独立的登录，两边不要共用同一个令牌。
 
 ### 做不到的部分
 
