@@ -21,6 +21,7 @@ usage: mkplan.py BIN strings.pkl all_strings.json translations.json plan.json
 """
 import bisect
 import json
+import os
 import pickle
 import sys
 from collections import defaultdict
@@ -46,7 +47,7 @@ tr = json.load(open(trs))
 # serde variant or protocol token.
 try:
     addr_zh = {(int(k.split(":")[0], 16), int(k.split(":")[1])): v
-               for k, v in json.load(open(out.rsplit("/", 1)[0] + "/addr.json")).items()}
+               for k, v in json.load(open(os.path.join(os.path.dirname(out), "addr.json"))).items()}
 except FileNotFoundError:
     addr_zh = {}
 
