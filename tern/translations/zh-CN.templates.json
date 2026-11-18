@@ -39,7 +39,7 @@
   "Couldn't copy Tern: {}": "无法复制 Tern：{}",
   "Couldn't download Tern: {}": "无法下载 Tern：{}",
   "Couldn't make a temporary folder: {}": "无法创建临时文件夹：{}",
-  "Couldn't open a copy of {} from {}": "无法从 {} 打开 {} 的副本",
+  "Couldn't open a copy of {} from {}": "无法打开 {} 的副本（来源：{}）",
   "Couldn't open {}": "无法打开 {}",
   "Couldn't reach {}": "无法连接 {}",
   "Couldn't read the file: {}": "无法读取文件：{}",
