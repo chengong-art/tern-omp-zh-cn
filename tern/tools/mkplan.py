@@ -51,6 +51,21 @@ try:
 except FileNotFoundError:
     addr_zh = {}
 
+# (ptr, len) descriptors some code uses structurally: the "Open recent
+# database N" table is indexed by the pointer's offset inside the packed
+# __TEXT strings, so pointing an entry at the new segment crashes
+# Settings -> Keyboard. Matching strings keep every other ref kind; their
+# data refs are left on the English bytes.
+try:
+    import re as _re
+    _nodata = [_re.compile(p) for p in json.load(
+        open(os.path.join(os.path.dirname(trs), "no-data-refs.json")))]
+    def no_data_ptr(s):
+        return any(p.search(s) for p in _nodata)
+except FileNotFoundError:
+    def no_data_ptr(s):
+        return False
+
 
 def near(sorted_list, x, d):
     k = bisect.bisect_left(sorted_list, x - d)
@@ -173,7 +188,9 @@ for s, zh, refs, t in items:
     keep = []
     wu = word_ui(s, t, refs)
     for r in refs:
-        if sentence(s) or wu:
+        if r[0] == "data" and no_data_ptr(s):
+            ok = False
+        elif sentence(s) or wu:
             ok = True
         elif to_ident(r):
             ok = False
