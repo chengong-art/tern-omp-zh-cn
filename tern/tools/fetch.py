@@ -107,8 +107,13 @@ def access_token():
 
 
 def find_zip(node):
-    """The arm64 zip of the build description: (path or URL, sha256 or None)."""
+    """The arm64 zip of the build description: (path or URL, sha256 or None).
+    A sibling "url" key wins over a bare file "name", which downloads as a 404."""
     if isinstance(node, dict):
+        for k, v in node.items():
+            if k == "url" and isinstance(v, str) and v.endswith("macos-arm64.zip"):
+                sha = next((x for k, x in node.items() if "sha" in k.lower() and isinstance(x, str)), None)
+                return v, sha
         for v in node.values():
             if isinstance(v, str) and v.endswith("macos-arm64.zip"):
                 sha = next((x for k, x in node.items() if "sha" in k.lower() and isinstance(x, str)), None)
@@ -127,7 +132,9 @@ def latest(token):
     hit = find_zip(info)
     if not hit:
         sys.exit(f"no macOS arm64 zip in the build description: {json.dumps(info)[:400]}")
-    return {"version": info.get("version"), "build": info.get("buildId") or info.get("build_id") or info.get("id"),
+    build = info.get("build") if isinstance(info.get("build"), dict) else {}
+    return {"version": info.get("version") or build.get("version"),
+            "build": info.get("buildId") or info.get("build_id") or info.get("id") or build.get("id"),
             "zip": urllib.parse.urljoin(BUILD, hit[0]), "sha256": hit[1]}
 
 

@@ -1,5 +1,5 @@
 {
- "_": "Sites the automatic scan cannot classify, named by what they are rather than by address (see tools/resolve.py). context: [word, translation, strings stored next to that copy of the word]. data: [word, translation, strings the neighbouring table rows point at]. ptr: [text, translation] - pointer-only references, the translation is padded to the original byte length. imm: [text, translation] - strings built from immediate operands.",
+ "_": "Sites the automatic scan cannot classify, named by what they are rather than by address (see tools/resolve.py). context: [word, translation, strings stored next to that copy of the word]. data: [word, translation, strings the neighbouring table rows point at]. ptr: [text, translation] - pointer-only references, the translation is padded to the original byte length; an optional third element 'packed' allows a literal fused end to end with its neighbours (no NUL; only when the reference carries an explicit length). imm: [text, translation] - strings built from immediate operands.",
  "context": [
   ["Status", "状态（Status）", [" (active)", "git.status", "git status", "Diffs"]],
   ["Remotes", "远程（Remotes）", ["git tag", "git.remote", "git remote -v", "git.transfer"]],
@@ -27,7 +27,7 @@
   ["Calendar", "日历（Calendar）", ["Installs", "Go tests", "ctrl+tab", "last_tab"]],
   ["System", "系统（System）", ["Command line", "Browser", "Shared"]],
   ["Check for Updates", "检查更新（Check for Updates）", ["btn", "sm", "Stop Managing", "Update automatically", "Update ready"]],
-  ["navigate", "导航", ["ScreenCx", "AgentsCx", "put away", "oh-my-pi", "tn-ql-at"]],
+  ["navigate", "导航", ["tn-sw-fg", ".ks-list", "Raw cell", "Run cell"]],
   ["run", "运行", ["right", "prompt", "reply", "wait"]],
   ["close", "关闭", ["set", "get", "rename", "Alter"]],
   ["&File", "文件", ["&View", "default"]],
@@ -39,7 +39,7 @@
   ["Screen", "屏幕", ["Task manager", "Git"]]
  ],
  "ptr": [
-  ["Show Sidebar", "显示侧栏"],
+  ["Show Sidebar", "显示侧栏", "packed"],
   ["Hide Sidebar", "隐藏侧栏"],
   ["Show Files", "显文件"],
   ["Hide Files", "隐文件"],

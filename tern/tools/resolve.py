@@ -166,13 +166,16 @@ def main(binpath, refs, strings, rows, sitespath, outdir):
         gap = (targets[k] if k < len(targets) else hi) - t
         return n == gap or (n < gap and data[t + n - base] == 0)
 
-    for en, zh in T.get("ptr", []):
+    for en, zh, *packed in T.get("ptr", []):
         b = en.encode()
         if len(zh.encode()) > len(b):
             miss("ptr", en, "the translation is longer than the original")
             continue
+        # "packed": the compiler fused literals end to end (no NUL after `en`), so the
+        # whole-literal check cannot apply; the reference must carry its own length.
         found = [i for i, t, _, _ in R["code_refs"]
-                 if i not in resolved and i not in copied and raw(t, len(b)) == b and whole(t, len(b))]
+                 if i not in resolved and i not in copied and raw(t, len(b)) == b
+                 and (packed or whole(t, len(b)))]
         if len(b) == 16:
             found += [i for t, sites in q_refs.items() if lo <= t < hi and raw(t, 16) == b for i in sites]
         if not found:

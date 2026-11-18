@@ -58,6 +58,10 @@ def call(url, form=None, token=None):
 
 def find_zip(node):
     if isinstance(node, dict):
+        # A sibling "url" key wins over a bare file "name", which downloads as a 404.
+        for k, v in node.items():
+            if k == "url" and isinstance(v, str) and v.endswith("macos-arm64.zip"):
+                return v, next((x for k, x in node.items() if "sha" in k.lower() and isinstance(x, str)), None)
         for v in node.values():
             if isinstance(v, str) and v.endswith("macos-arm64.zip"):
                 return v, next((x for k, x in node.items() if "sha" in k.lower() and isinstance(x, str)), None)
@@ -103,10 +107,12 @@ def handled():
 def decide(state, token):
     info = call(LATEST, token=token)
     hit = None if "error" in info else find_zip(info)
-    if not hit or not hit[1] or not info.get("version"):
+    bld = info.get("build") if isinstance(info.get("build"), dict) else {}
+    ver = info.get("version") or bld.get("version")
+    if not hit or not hit[1] or not ver:
         return {"run": False, "reason": f"build service: {json.dumps(info)[:200]}"}
-    version = str(info["version"])
-    build = str(info.get("buildId") or info.get("build_id") or info.get("id") or hit[1][:12])
+    version = str(ver)
+    build = str(info.get("buildId") or info.get("build_id") or info.get("id") or bld.get("id") or hit[1][:12])
     key = f"tern-{version}-{build}"
     done = handled()
     if done is None:
