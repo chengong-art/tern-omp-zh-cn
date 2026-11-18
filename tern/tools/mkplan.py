@@ -187,19 +187,26 @@ for s, zh, refs, _t in items:
 
 plan, stats = [], defaultdict(int)
 for s, zh, refs, t in items:
-    if no_data_ptr(s):
+    if no_data_ptr(s) and any(r[0] == "data" for r in refs):
         # Overwrite the original bytes in place (idata); every descriptor and
         # table slot keeps its original pointer and length, so the string
         # reads Chinese wherever it is looked up. The translation must fit
         # the English byte length — fall back to its short form.
-        cap = min((struct.unpack_from("<QQ", data, r[1])[1]
-                   for r in refs if r[0] == "data"), default=0)
+        try:
+            drefs = [(struct.unpack_from("<QQ", data, r[1]), r[1])
+                     for r in refs if r[0] == "data"]
+            en = s.encode()
+            drefs = [(p, ln, off) for (p, ln), off in drefs
+                     if ln == len(en) and data[_m.addr_to_off(p):_m.addr_to_off(p) + ln] == en]
+        except struct.error:
+            drefs = []
+        cap = min((ln for _, ln, _ in drefs), default=0)
         z = zh if len(zh.encode()) <= cap else short.get(s)
         if z and len(z.encode()) <= cap:
-            keep = [["idata", r[1]] for r in refs if r[0] == "data"]
-            if keep:
-                plan.append([z, keep])
-                stats["kept in-place"] += len(keep)
+            keep = [["idata", off] for _, _, off in drefs]
+            keep += [r for r in refs if r[0] == "code"]
+            plan.append([z, keep])
+            stats["kept in-place"] += len(drefs)
         else:
             stats["skipped in-place (no fit)"] += 1
         continue
@@ -240,6 +247,8 @@ if len(sys.argv) > 9:
 for t, ln, s, n, nc in json.load(open(rows)):
     if (t, ln) in addr_zh:
         refs = [list(r) for r in S[t][ln]]
+        if no_data_ptr(s):
+            refs = [r for r in refs if r[0] != "data"]
         if refs:
             plan.append([addr_zh[t, ln], refs])
             stats["kept addr"] += len(refs)
