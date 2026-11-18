@@ -21,6 +21,7 @@ usage: mkplan.py BIN strings.pkl all_strings.json translations.json plan.json
 """
 import bisect
 import json
+import os
 import pickle
 import sys
 from collections import defaultdict
@@ -34,16 +35,19 @@ NEAR, SINK_MIN = 40, 3
 
 binpath, strings, rows, trs, out = sys.argv[1:6]
 data = open(binpath, "rb").read()
-text = MachO(data).sect("__TEXT", "__text")
+_m = MachO(data)
+text = _m.sect("__TEXT", "__text")
+new_seg = _m.seg("__LINKEDIT")["vmaddr"]  # where patch.py puts the translated strings
 ins = np.frombuffer(data, dtype="<u4", count=text.size // 4, offset=text.offset)
 S = pickle.load(open(strings, "rb"))["strings"]
 tr = json.load(open(trs))
-# per-address overrides: pin a translation to specific UI copies of a string,
-# so a bare word can be translated at its settings-row address without touching
-# the same bytes where they are a serde variant or protocol token.
-_addr = trs.rsplit("/", 1)[0] + "/zh-CN.addr.json"
+# per-copy overrides (addr.json, written by resolve.py next to the plan): pin a
+# translation to specific UI copies of a string, so a bare word can be translated
+# at its settings-row address without touching the same bytes where they are a
+# serde variant or protocol token.
 try:
-    addr_zh = {int(k, 16): v for k, v in json.load(open(_addr)).items()}
+    addr_zh = {(int(k.split(":")[0], 16), int(k.split(":")[1])): v
+               for k, v in json.load(open(os.path.join(os.path.dirname(out), "addr.json"))).items()}
 except FileNotFoundError:
     addr_zh = {}
 
@@ -117,7 +121,7 @@ for s, n, q, off, drops, lens in inline:
     zh = tr.get(s)
     if not zh or zh == s:
         continue
-    if text_addr + q * 4 < 0x10a20c000 - (1 << 27) + (1 << 20):
+    if text_addr + q * 4 < new_seg - (1 << 27) + (1 << 20):
         continue  # too far below the new segment for a bl
     if not lens and len(zh.encode()) > n:
         zh = short.get(s)
@@ -201,10 +205,10 @@ if len(sys.argv) > 9:
             plan.append([zh, refs])
             stats["kept template"] += len(refs)
 for t, ln, s, n, nc in json.load(open(rows)):
-    if t in addr_zh:
+    if (t, ln) in addr_zh:
         refs = [list(r) for r in S[t][ln]]
         if refs:
-            plan.append([addr_zh[t], refs])
+            plan.append([addr_zh[t, ln], refs])
             stats["kept addr"] += len(refs)
 # A length-table slot can be shared by several pointer tables (copies of one match).
 # Rewriting the length for one copy and leaving another copy's pointer on the
