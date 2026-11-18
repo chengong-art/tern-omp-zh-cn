@@ -220,6 +220,17 @@ def main(inp, outp, planpath, sitespath=None):
             elif ref[0] == "data":
                 off = ref[1]
                 struct.pack_into("<QQ", data, off, new, ln)
+            elif ref[0] == "idata":
+                # Overwrite the original string bytes in place; the (ptr, len)
+                # descriptor keeps pointing at them — needed where the pointer
+                # itself is used structurally ("Open recent database N" is
+                # indexed by its offset inside the packed __TEXT strings).
+                o = ref[1]
+                p, en_len = struct.unpack_from("<QQ", data, o)
+                zb = zh.encode("utf-8")
+                assert len(zb) <= en_len, f"{zh!r} does not fit in place ({len(zb)} > {en_len})"
+                so = m.addr_to_off(p)
+                data[so:so + en_len] = zb + b" " * (en_len - len(zb))
             elif ref[0] == "table":
                 width = ref[3]
                 assert ln < 1 << (8 * width), f"{zh!r} is too long for its {width}-byte length table"

@@ -23,6 +23,7 @@ import bisect
 import json
 import os
 import pickle
+import struct
 import sys
 from collections import defaultdict
 
@@ -54,8 +55,9 @@ except FileNotFoundError:
 # (ptr, len) descriptors some code uses structurally: the "Open recent
 # database N" table is indexed by the pointer's offset inside the packed
 # __TEXT strings, so pointing an entry at the new segment crashes
-# Settings -> Keyboard. Matching strings keep every other ref kind; their
-# data refs are left on the English bytes.
+# Settings -> Keyboard. Matching strings are translated in place instead
+# (idata): the English bytes are overwritten, descriptor and table slots
+# keep their original pointer and length.
 try:
     import re as _re
     _nodata = [_re.compile(p) for p in json.load(
@@ -185,12 +187,26 @@ for s, zh, refs, _t in items:
 
 plan, stats = [], defaultdict(int)
 for s, zh, refs, t in items:
+    if no_data_ptr(s):
+        # Overwrite the original bytes in place (idata); every descriptor and
+        # table slot keeps its original pointer and length, so the string
+        # reads Chinese wherever it is looked up. The translation must fit
+        # the English byte length — fall back to its short form.
+        cap = min((struct.unpack_from("<QQ", data, r[1])[1]
+                   for r in refs if r[0] == "data"), default=0)
+        z = zh if len(zh.encode()) <= cap else short.get(s)
+        if z and len(z.encode()) <= cap:
+            keep = [["idata", r[1]] for r in refs if r[0] == "data"]
+            if keep:
+                plan.append([z, keep])
+                stats["kept in-place"] += len(keep)
+        else:
+            stats["skipped in-place (no fit)"] += 1
+        continue
     keep = []
     wu = word_ui(s, t, refs)
     for r in refs:
-        if r[0] == "data" and no_data_ptr(s):
-            ok = False
-        elif sentence(s) or wu:
+        if sentence(s) or wu:
             ok = True
         elif to_ident(r):
             ok = False
