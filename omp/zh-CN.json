@@ -81,7 +81,6 @@
   "Switch to visible mode": "切换到可见模式",
   "Pick text or code from the conversation to copy": "从对话中挑选文本或代码复制",
   "Open the last link from the conversation in your browser (or pick one with /copy)": "在浏览器中打开对话里的最后一个链接（或用 /copy 挑选）",
-  "Consult a saved session without resuming it": "只读咨询一个已保存会话，不恢复它",
   "Manage SSH hosts (add, list, remove)": "管理 SSH 主机（添加、列出、移除）",
   "Add an SSH host": "添加一个 SSH 主机",
   "List all configured SSH hosts": "列出所有已配置的 SSH 主机",
@@ -96,7 +95,6 @@
   "Strip tool results + large blocks (default)": "去掉工具结果 + 大块（默认）",
   "Strip image blocks": "去掉图像块",
   "Drop all thinking blocks": "丢弃所有思考块",
-  "Summarize the session into a handoff document and compact in place": "把会话摘要成交接文档并就地压缩",
   "Resume a different session": "恢复另一个会话",
   "Pin or unpin a session at the top of the resume list": "在恢复列表顶部固定或取消固定一个会话",
   "Ask a side question, or browse this session's BTW history": "提一个旁支问题，或浏览本会话的 BTW 历史",
@@ -213,10 +211,8 @@
   "Re-pull the cached <mental_models> block": "重新拉取缓存的 <mental_models> 块",
   "Refresh auto-refresh models bank-wide, or one model by id": "刷新全库自动刷新的模型，或按 id 刷新单个模型",
   "Restart omp with the same launch flags, resuming this session and its running subagents": "以相同启动参数重启 omp，恢复本会话及正在运行的子 agent",
-  "Select a one-off model for this consultation": "为本次咨询选择一个临时模型",
   "Show one mental model (id required)": "查看某个 mental model（需提供 id）",
   "Unpin a session from the top of the resume list": "将某会话从恢复列表顶部取消固定",
-  "Use the active role or default model saved with this session": "使用本会话保存的活跃角色或默认模型",
   "Exa search": "Exa 搜索",
   "Find-replace": "查找替换",
   "Version control": "版本控制"
@@ -260,8 +256,8 @@
  },
  "literals": [
   [
-   "RUc=\"What are we cooking?\"",
-   "RUc=\"今天做点什么？\""
+   "Vbd=\"What are we cooking?\"",
+   "Vbd=\"今天做点什么？\""
   ],
   [
    "n=`New version ${e} is available. Run: `",
@@ -272,12 +268,12 @@
    "M(\"有可用更新\",\"strong\"),M(` \\xB7 新版本 ${e} 已发布，请运行 `)"
   ],
   [
-   "new Pe(`Update Available\n${n}omp update`,1,0)",
-   "new Pe(`有可用更新\n${n}omp update`,1,0)"
+   "new Oe(`Update Available\n${n}omp update`,1,0)",
+   "new Oe(`有可用更新\n${n}omp update`,1,0)"
   ],
   [
-   "R.bold(R.fg(\"warning\",\"Update Available\"))",
-   "R.bold(R.fg(\"warning\",\"有可用更新\"))"
+   "A.bold(A.fg(\"warning\",\"Update Available\"))",
+   "A.bold(A.fg(\"warning\",\"有可用更新\"))"
   ]
  ],
  "messages": {
