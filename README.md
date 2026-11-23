@@ -7,10 +7,10 @@
 | 对象 | 测试过的版本 | 方式 |
 | --- | --- | --- |
 | Tern | 0.9.16、0.9.26、0.9.30（macOS，Apple 芯片；0.9.30 已复测 Option-as-Alt、中文菜单和帧同步文案） | 生成一份汉化后的 `Tern.app` 副本，原程序只读不改 |
-| omp | 19.1.0（npm / Homebrew 安装的 JS 版） | 就地修改 `cli.js`，自动留备份，可一键还原 |
-| omp | 19.1.0（源码，commit `a7135b8f`） | 源码级全量汉化 patch（20,494 条 / 1,776 文件），见 [`omp-src/`](omp-src/) |
+| omp | 19.1.1（npm / Homebrew 安装的 JS 版） | 就地修改 `cli.js`，自动留备份，可一键还原 |
+| omp | 19.1.1（源码，commit `31ffee51`） | 源码级全量汉化 patch（20,566 条 / ~1,783 文件），见 [`omp-src/`](omp-src/) |
 
-已编译好的 macOS arm64 单文件二进制和打好的源码包在 [Releases](https://github.com/chengong-art/tern-omp-zh-cn/releases)（tag `omp-19.1.0-zh-cn`）里，不用自己装 bun 和 Rust 工具链。
+已编译好的 macOS arm64 单文件二进制和打好的源码包在 [Releases](https://github.com/chengong-art/tern-omp-zh-cn/releases)（tag `omp-19.1.1-zh-cn`）里，不用自己装 bun 和 Rust 工具链。
 
 其他版本没有测试过。Tern 的补丁按特征在二进制里定位改写点，换版本后个别条目可能定位不到（会列出来，那几处保持英文）；omp 的补丁按原文匹配，新版本里改过措辞的条目会被跳过并列出来。
 

@@ -1,4 +1,4 @@
-# omp 源码级简体中文汉化（v19.1.0）
+# omp 源码级简体中文汉化（v19.1.1）
 
 对 [oh-my-pi](https://github.com/can1357/oh-my-pi) 做**源码级**全量汉化的产物。与 `../omp/` 的就地补丁不同，这里直接改源码树里的英文字符串字面量，覆盖全部用户可见文案。
 
@@ -6,16 +6,16 @@
 
 | 项 | 值 |
 | --- | --- |
-| 基线 | `@oh-my-pi/pi-coding-agent` **19.1.0**，commit `a7135b8f31826c878734388b648f52bed8da436e` |
-| 词表 | `zh-CN-src.json`，**20,494 条** `{en, zh}` 对照，覆盖 ~1,780 个文件 |
+| 基线 | `@oh-my-pi/pi-coding-agent` **19.1.1**，commit `31ffee513f27a01bba7d4dfbe12bae239cdc646a` |
+| 词表 | `zh-CN-src.json`，**20,566 条** `{en, zh}` 对照，覆盖 ~1,783 个文件 |
 | 补丁 | `omp-zh-src.patch`，**1,776 个文件**改动，`git apply` 干净应用 |
-| 测试 | `bun test` 42,218 个测试：除断言英文原文的失败外无翻译引起的破坏；二进制 `--smoke-test` 通过 |
+| 测试 | `bun test` 41,767 个测试：除断言英文原文的失败外无翻译引起的破坏；二进制 `--smoke-test` 通过 |
 
 ## 用法
 
 ```sh
 git clone https://github.com/can1357/oh-my-pi.git && cd oh-my-pi
-git checkout a7135b8f31826c878734388b648f52bed8da436e
+git checkout 31ffee513f27a01bba7d4dfbe12bae239cdc646a
 git apply /path/to/omp-zh-src.patch
 bun install
 bun packages/coding-agent/src/cli.ts   # 中文界面
@@ -35,8 +35,8 @@ bun packages/coding-agent/src/cli.ts   # 中文界面
 
 | 文件 | 内容 |
 | --- | --- |
-| `omp-zh-src.patch` | `git diff` 产物，打在 a7135b8f 上 |
-| `zh-CN-src.json` | `{文件相对路径: [{en, zh}]}`，全部 20,494 条对照 |
+| `omp-zh-src.patch` | `git diff` 产物，打在 31ffee51 上 |
+| `zh-CN-src.json` | `{文件相对路径: [{en, zh}]}`，全部 20,566 条对照 |
 | `apply-dict.mjs` | 词表回灌工具：`bun apply-dict.mjs <dict.json>`，用于增量更新 |
 
 ## 已知边界

@@ -393,6 +393,14 @@
   {
    "en": "${}\n\nAdditional focus: ${}",
    "zh": "${}\n\n额外关注点：${}"
+  },
+  {
+   "en": "Handoff input does not fit ${}/${}: at least ${} prompt tokens ",
+   "zh": "Handoff 输入放不进 ${}/${}：至少 ${} 个 prompt 词元"
+  },
+  {
+   "en": "leave no room for output in its ${}-token window",
+   "zh": "在其 ${} 词元窗口里没给输出留位置"
   }
  ],
  "packages/agent/src/compaction/errors.ts": [
@@ -637,6 +645,10 @@
   {
    "en": "dependency ${} failed",
    "zh": "依赖 ${} 失败"
+  },
+  {
+   "en": "speculative execution aborted",
+   "zh": "推测执行已中止"
   }
  ],
  "packages/agent/src/telemetry.ts": [
@@ -947,6 +959,10 @@
   {
    "en": "auth-broker snapshot refresh after upload failed",
    "zh": "上传后的 auth-broker 快照刷新失败"
+  },
+  {
+   "en": "auth-broker snapshot stream not routed; long-polling once",
+   "zh": "auth-broker 快照流未被路由；改为长轮询一次"
   }
  ],
  "packages/ai/src/auth-broker/server.ts": [
@@ -1491,6 +1507,22 @@
   {
    "en": "deleted by user",
    "zh": "被用户删除"
+  },
+  {
+   "en": "quarantined store has no readable auth_credentials table",
+   "zh": "被隔离的存储没有可读的 auth_credentials 表"
+  },
+  {
+   "en": "No local-provider markers salvaged from the quarantined auth database",
+   "zh": "未能从被隔离的 auth 数据库中救出本地服务商标记"
+  },
+  {
+   "en": "Restored credentials from the quarantined auth database",
+   "zh": "已从被隔离的 auth 数据库恢复凭据"
+  },
+  {
+   "en": "Could not restore credentials from the quarantined auth database; stored credentials are missing until you log in again or recover them manually",
+   "zh": "无法从被隔离的 auth 数据库恢复凭据；存储的凭据将缺失，直到你重新登录或手动找回"
   }
  ],
  "packages/ai/src/auth/usage-report.ts": [
@@ -11857,6 +11889,18 @@
   {
    "en": "coloured extension status",
    "zh": "带颜色的扩展状态"
+  },
+  {
+   "en": "on a branch",
+   "zh": "在分支上"
+  },
+  {
+   "en": "rewound on a branch",
+   "zh": "在分支上回退"
+  },
+  {
+   "en": "hidden (tip of a single line)",
+   "zh": "隐藏（单条线的 tip）"
   }
  ],
  "packages/coding-agent/src/cli/gallery-fixtures/shell.ts": [
@@ -12406,7 +12450,7 @@
   },
   {
    "en": "${}\n  ${}\n  ANTHROPIC_API_KEY          - Anthropic Claude models\n  ANTHROPIC_OAUTH_TOKEN      - Anthropic OAuth (takes precedence over API key)\n  CLAUDE_CODE_USE_FOUNDRY    - Enable Anthropic Foundry mode (uses Foundry endpoint + mTLS)\n  FOUNDRY_BASE_URL           - Anthropic Foundry base URL (e.g., https://<foundry-host>)\n  ANTHROPIC_FOUNDRY_API_KEY  - Anthropic token used as Authorization: Bearer <token> in Foundry mode\n  ANTHROPIC_CUSTOM_HEADERS   - Extra headers for Foundry or any custom ANTHROPIC_BASE_URL gateway (e.g., \"user-id: USERNAME\")\n  CLAUDE_CODE_DISABLE_EXPERIMENTAL_BETAS - Omit pre-release Anthropic fields (context_management, beta tool fields, task budgets, thinking.block_binding) for gateways that reject them\n  CLAUDE_CODE_CLIENT_CERT    - Client certificate (PEM path or inline PEM) for mTLS\n  CLAUDE_CODE_CLIENT_KEY     - Client private key (PEM path or inline PEM) for mTLS\n  NODE_EXTRA_CA_CERTS        - CA bundle path (or inline PEM) for server certificate validation\n  OPENAI_API_KEY             - OpenAI GPT models\n  GEMINI_API_KEY             - Google Gemini models\n  COPILOT_GITHUB_TOKEN      - GitHub Copilot\n\n  ${}\n  AZURE_OPENAI_API_KEY       - Azure OpenAI models\n  GROQ_API_KEY               - Groq models\n  CEREBRAS_API_KEY           - Cerebras models\n  XAI_API_KEY                - xAI Grok models\n  OPENROUTER_API_KEY         - OpenRouter aggregated models\n  KILO_API_KEY               - Kilo Gateway models\n  MISTRAL_API_KEY            - Mistral models\n  ZAI_API_KEY                - z.ai models (ZhipuAI/GLM)\n  UMANS_AI_CODING_PLAN_API_KEY - Umans AI Coding Plan models\n  ABLITERATION_API_KEY       - Abliteration uncensored GLM models\n  KIRO_API_KEY               - Kiro agentic IDE models\n  UMANS_WEBSEARCH_PROVIDER    - Umans gateway web search backend (native or exa)\n  MINIMAX_API_KEY            - MiniMax models\n  OPENCODE_API_KEY           - OpenCode Zen/OpenCode Go models\n  CURSOR_ACCESS_TOKEN        - Cursor AI models\n  CLINE_API_KEY              - ClinePass subscription models\n  COMMAND_CODE_API_KEY       - Command Code Provider API models\n  CHARM_HYPER_API_KEY        - Charm Hyper inference gateway models\n  AI_GATEWAY_API_KEY         - Vercel AI Gateway\n  STEPFUN_API_KEY            - StepFun Step models\n  HELMCODE_API_KEY           - Helmcode private EU inference\n  WAFER_SERVERLESS_API_KEY   - Wafer Serverless (pay-as-you-go)\n  YOLO_AUTO_API_KEY          - Yolo-Auto flat-rate Qwen models\n  SINGULARITYAPI_DEV_API_KEY - SingularityAPI universal gateway (300+ models)\n  SINGULARITYAPI_TECH_API_KEY - SingularityAPI reserved DeepSeek lanes\n  SCW_SECRET_KEY             - Scaleway Generative APIs models\n  OTARI_API_KEY              - Otari AI gateway (workspace models)\n  OTARI_BASE_URL             - Otari self-hosted API root (e.g. https://host/api/v1)\n\n  ${}\n  AWS_PROFILE                - AWS Bedrock (or AWS_ACCESS_KEY_ID + AWS_SECRET_ACCESS_KEY)\n  GOOGLE_CLOUD_PROJECT       - Google Vertex AI (requires GOOGLE_CLOUD_LOCATION)\n  GOOGLE_APPLICATION_CREDENTIALS - Service account for Vertex AI\n\n  ${}\n  EXA_API_KEY                - Exa web search\n  BRAVE_API_KEY              - Brave web search\n  PERPLEXITY_API_KEY         - Perplexity web search API key (optional; anonymous fallback)\n  PERPLEXITY_COOKIES         - Perplexity web search (session cookie)\n  TAVILY_API_KEY             - Tavily web search\n  TINYFISH_API_KEY           - TinyFish web search\n  KEENABLE_API_KEY           - Keenable web search (optional; keyless public fallback)\n  SOFYA_API_KEY              - Sofya web search\n  FIRECRAWL_API_KEY          - Firecrawl web search + fetch reader backend\n  ANTHROPIC_SEARCH_API_KEY   - Anthropic web search (override; isolates search from main ANTHROPIC_API_KEY)\n  ANTHROPIC_SEARCH_BASE_URL  - Anthropic web search base URL (override; pairs with ANTHROPIC_SEARCH_API_KEY)\n  TYPESAFE_API_KEY           - TypeSafe System One judgments (auto thinking, unexpected-stop, AI staging, eval judge())\n\n  ${}\n  OMP_PROFILE                 - Named profile for isolated agent state (same as --profile)\n  Use `omp --profile <name> --alias <command>` to create a shell shortcut for a profile\n  PI_CODING_AGENT_DIR        - Session storage directory (default: ~/${}/agent)\n  PI_PACKAGE_DIR             - Override package directory (for Nix/Guix store paths)\n  PI_SMOL_MODEL              - Override smol/fast model (see --smol)\n  PI_SLOW_MODEL              - Override slow/reasoning model (see --slow)\n  PI_PLAN_MODEL              - Override planning model (see --plan)\n  PI_NO_PTY                  - Disable PTY-based interactive bash execution\n  For complete environment variable reference, see:\n  ${}\n${}\n  ${}\n${}\n\n  ${}\n${}\n\n  Browser and computer use run inside eval: toggle with the browser.enabled\n  (default on) and computer.enabled (default off) settings.\n\n${}\n  --plugin-dir <path>        Load plugin from directory (repeatable)\n\n${}\n  omp agents unpack           - Export bundled subagents to ~/.omp/agent/agents (default)\n  omp agents unpack --project - Export bundled subagents to ./.omp/agents",
-   "zh": "${}\n  ${}\n  ANTHROPIC_API_KEY          - Anthropic Claude 模型\n  ANTHROPIC_OAUTH_TOKEN      - Anthropic OAuth（优先于 API key）\n  CLAUDE_CODE_USE_FOUNDRY    - 启用 Anthropic Foundry 模式（用 Foundry 端点 + mTLS）\n  FOUNDRY_BASE_URL           - Anthropic Foundry 基础 URL（如 https://<foundry-host>）\n  ANTHROPIC_FOUNDRY_API_KEY  - Foundry 模式下作 Authorization: Bearer <token> 的 Anthropic token\n  ANTHROPIC_CUSTOM_HEADERS   - Foundry 或自定义 ANTHROPIC_BASE_URL 网关的额外头（如 \"user-id: USERNAME\"）\n  CLAUDE_CODE_DISABLE_EXPERIMENTAL_BETAS - 为拒绝预发布 Anthropic 字段的网关省略它们（context_management、beta 工具字段、任务预算、thinking.block_binding）\n  CLAUDE_CODE_CLIENT_CERT    - mTLS 客户端证书（PEM 路径或内联 PEM）\n  CLAUDE_CODE_CLIENT_KEY     - mTLS 客户端私钥（PEM 路径或内联 PEM）\n  NODE_EXTRA_CA_CERTS        - 服务器证书校验用 CA 包路径（或内联 PEM）\n  OPENAI_API_KEY             - OpenAI GPT 模型\n  GEMINI_API_KEY             - Google Gemini 模型\n  COPILOT_GITHUB_TOKEN      - GitHub Copilot\n\n  ${}\n  AZURE_OPENAI_API_KEY       - Azure OpenAI 模型\n  GROQ_API_KEY               - Groq 模型\n  CEREBRAS_API_KEY           - Cerebras 模型\n  XAI_API_KEY                - xAI Grok 模型\n  OPENROUTER_API_KEY         - OpenRouter 聚合模型\n  KILO_API_KEY               - Kilo Gateway 模型\n  MISTRAL_API_KEY            - Mistral 模型\n  ZAI_API_KEY                - z.ai 模型（ZhipuAI/GLM）\n  UMANS_AI_CODING_PLAN_API_KEY - Umans AI Coding Plan 模型\n  ABLITERATION_API_KEY       - Abliteration 无审查 GLM 模型\n  KIRO_API_KEY               - Kiro agentic IDE 模型\n  UMANS_WEBSEARCH_PROVIDER    - Umans 网关 web 搜索后端（native 或 exa）\n  MINIMAX_API_KEY            - MiniMax 模型\n  OPENCODE_API_KEY           - OpenCode Zen/OpenCode Go 模型"
+   "zh": "${}\n  ${}\n  ANTHROPIC_API_KEY          - Anthropic Claude 模型\n  ANTHROPIC_OAUTH_TOKEN      - Anthropic OAuth（优先于 API key）\n  CLAUDE_CODE_USE_FOUNDRY    - 启用 Anthropic Foundry 模式（用 Foundry 端点 + mTLS）\n  FOUNDRY_BASE_URL           - Anthropic Foundry 基础 URL（如 https://<foundry-host>）\n  ANTHROPIC_FOUNDRY_API_KEY  - Foundry 模式下作 Authorization: Bearer <token> 的 Anthropic token\n  ANTHROPIC_CUSTOM_HEADERS   - Foundry 或自定义 ANTHROPIC_BASE_URL 网关的额外头（如 \"user-id: USERNAME\"）\n  CLAUDE_CODE_DISABLE_EXPERIMENTAL_BETAS - 为拒绝预发布 Anthropic 字段的网关省略它们（context_management、beta 工具字段、任务预算、thinking.block_binding）\n  CLAUDE_CODE_CLIENT_CERT    - mTLS 客户端证书（PEM 路径或内联 PEM）\n  CLAUDE_CODE_CLIENT_KEY     - mTLS 客户端私钥（PEM 路径或内联 PEM）\n  NODE_EXTRA_CA_CERTS        - 服务器证书校验用 CA 包路径（或内联 PEM）\n  OPENAI_API_KEY             - OpenAI GPT 模型\n  GEMINI_API_KEY             - Google Gemini 模型\n  COPILOT_GITHUB_TOKEN      - GitHub Copilot\n\n  ${}\n  AZURE_OPENAI_API_KEY       - Azure OpenAI 模型\n  GROQ_API_KEY               - Groq 模型\n  CEREBRAS_API_KEY           - Cerebras 模型\n  XAI_API_KEY                - xAI Grok 模型\n  OPENROUTER_API_KEY         - OpenRouter 聚合模型\n  KILO_API_KEY               - Kilo Gateway 模型\n  MISTRAL_API_KEY            - Mistral 模型\n  ZAI_API_KEY                - z.ai 模型（ZhipuAI/GLM）\n  UMANS_AI_CODING_PLAN_API_KEY - Umans AI Coding Plan 模型\n  ABLITERATION_API_KEY       - Abliteration 无审查 GLM 模型\n  KIRO_API_KEY               - Kiro agentic IDE 模型\n  UMANS_WEBSEARCH_PROVIDER    - Umans 网关 web 搜索后端（native 或 exa）\n  MINIMAX_API_KEY            - MiniMax 模型\n  OPENCODE_API_KEY           - OpenCode Zen/OpenCode Go 模型\n  CURSOR_ACCESS_TOKEN        - Cursor AI 模型\n  CLINE_API_KEY              - ClinePass 订阅模型\n  COMMAND_CODE_API_KEY       - Command Code Provider API 模型\n  CHARM_HYPER_API_KEY        - Charm Hyper 推理网关模型\n  AI_GATEWAY_API_KEY         - Vercel AI Gateway\n  STEPFUN_API_KEY            - StepFun Step 模型\n  HELMCODE_API_KEY           - Helmcode 欧盟私有推理\n  WAFER_SERVERLESS_API_KEY   - Wafer Serverless（按量付费）\n  YOLO_AUTO_API_KEY          - Yolo-Auto 包月 Qwen 模型\n  SINGULARITYAPI_DEV_API_KEY - SingularityAPI 通用网关（300+ 模型）\n  SINGULARITYAPI_TECH_API_KEY - SingularityAPI 预留 DeepSeek 通道\n  SCW_SECRET_KEY             - Scaleway Generative APIs 模型\n  OTARI_API_KEY              - Otari AI 网关（工作区模型）\n  OTARI_BASE_URL             - Otari 自托管 API 根地址（如 https://host/api/v1）\n\n  ${}\n  AWS_PROFILE                - AWS Bedrock（或 AWS_ACCESS_KEY_ID + AWS_SECRET_ACCESS_KEY）\n  GOOGLE_CLOUD_PROJECT       - Google Vertex AI（需要 GOOGLE_CLOUD_LOCATION）\n  GOOGLE_APPLICATION_CREDENTIALS - Vertex AI 服务账号\n\n  ${}\n  EXA_API_KEY                - Exa web 搜索\n  BRAVE_API_KEY              - Brave web 搜索\n  PERPLEXITY_API_KEY         - Perplexity web 搜索 API key（可选；有匿名回退）\n  PERPLEXITY_COOKIES         - Perplexity web 搜索（会话 cookie）\n  TAVILY_API_KEY             - Tavily web 搜索\n  TINYFISH_API_KEY           - TinyFish web 搜索\n  KEENABLE_API_KEY           - Keenable web 搜索（可选；可无 key 公共回退）\n  SOFYA_API_KEY              - Sofya web 搜索\n  FIRECRAWL_API_KEY          - Firecrawl web 搜索 + fetch 阅读后端\n  ANTHROPIC_SEARCH_API_KEY   - Anthropic web 搜索（覆盖；把搜索与主 ANTHROPIC_API_KEY 隔离）\n  ANTHROPIC_SEARCH_BASE_URL  - Anthropic web 搜索 base URL（覆盖；与 ANTHROPIC_SEARCH_API_KEY 搭配）\n  TYPESAFE_API_KEY           - TypeSafe System One 评判（auto thinking、unexpected-stop、AI staging、eval judge()）\n\n  ${}\n  OMP_PROFILE                 - 隔离 agent 状态的具名配置（同 --profile）\n  用 `omp --profile <name> --alias <command>` 为配置创建 shell 快捷方式\n  PI_CODING_AGENT_DIR        - 会话存储目录（默认：~/${}/agent）\n  PI_PACKAGE_DIR             - 覆盖包目录（用于 Nix/Guix store 路径）\n  PI_SMOL_MODEL              - 覆盖 smol/快速模型（见 --smol）\n  PI_SLOW_MODEL              - 覆盖 slow/推理模型（见 --slow）\n  PI_PLAN_MODEL              - 覆盖规划模型（见 --plan）\n  PI_NO_PTY                  - 禁用基于 PTY 的交互式 bash 执行\n  完整环境变量参考见：\n  ${}\n${}\n  ${}\n${}\n\n  ${}\n${}\n\n  Browser 与 computer use 在 eval 内运行：用 browser.enabled（默认开）和 computer.enabled（默认关）设置切换。\n\n${}\n  --plugin-dir <path>        从目录加载插件（可重复）\n\n${}\n  omp agents unpack           - 将内置子代理导出到 ~/.omp/agent/agents（默认）\n  omp agents unpack --project - 将内置子代理导出到 ./.omp/agents"
   }
  ],
  "packages/coding-agent/src/cli/images-cli.ts": [
@@ -18229,10 +18273,6 @@
    "zh": "  ${} ${}  ${}${}"
   },
   {
-   "en": "diff --git a/${} b/${}\n(whole-file change committed as in the worktree)\n",
-   "zh": "diff --git a/${} b/${}\n（整文件改动已按工作区内容提交）\n"
-  },
-  {
    "en": "No change journal: this session keeps no artifacts, so nothing is attributed; select with take().",
    "zh": "没有变更日志：本会话不保存 artifacts，因此无归属记录；请用 take() 显式选择。"
   },
@@ -18243,6 +18283,18 @@
   {
    "en": "select explicitly to update the submodule pointer",
    "zh": "请显式 select 以更新子模块指针"
+  },
+  {
+   "en": "Could not resolve ${} at draft HEAD ${}.",
+   "zh": "无法在草稿 HEAD ${} 处解析 ${}。"
+  },
+  {
+   "en": "Could not capture ${} for the draft.",
+   "zh": "无法为草稿捕获 ${}。"
+  },
+  {
+   "en": "diff --git a/${} b/${}\n(whole-file change; content captured at draft time)\n",
+   "zh": "diff --git a/${} b/${}\n（整文件变更；内容在草稿时捕获）\n"
   }
  ],
  "packages/coding-agent/src/commit/selective/journal.ts": [
@@ -20297,8 +20349,8 @@
    "zh": "移动：${} → ${}"
   },
   {
-   "en": "The file changed after the numbered snapshot was read; re-read and retry.",
-   "zh": "编号快照被读取后文件发生了变化；请重读并重试。"
+   "en": "The file changed while the edit was being prepared; re-read and retry.",
+   "zh": "文件在编辑准备期间发生了变化；请重新读取并重试。"
   }
  ],
  "packages/coding-agent/src/edit/settings.ts": [
@@ -22543,6 +22595,22 @@
   {
    "en": "registerTranscriptPresenter expects a function, got ${} (extension ${})",
    "zh": "registerTranscriptPresenter 需要函数，得到 ${}（扩展 ${}）"
+  },
+  {
+   "en": "Todo backend id must be letters, digits, \".\", \"_\" or \"-\", starting with a letter or digit",
+   "zh": "Todo backend id 只能由字母、数字、\".\"、\"_\" 或 \"-\" 组成，且必须以字母或数字开头"
+  },
+  {
+   "en": "Todo backend id \"${}\" is reserved for omp's own todo list",
+   "zh": "Todo backend id \"${}\" 为 omp 自带待办列表保留"
+  },
+  {
+   "en": "Todo backend \"${}\" ${} must be text that is not blank once control sequences are removed",
+   "zh": "Todo backend \"${}\" 的 ${} 必须是去掉控制序列后非空的文本"
+  },
+  {
+   "en": "Todo backend \"${}\" must have a replace function",
+   "zh": "Todo backend \"${}\" 必须提供 replace 函数"
   }
  ],
  "packages/coding-agent/src/extensibility/extensions/runner.ts": [
@@ -22593,6 +22661,18 @@
   {
    "en": "content replacement may only change text in existing blocks; block positions, non-text blocks, and other metadata must remain unchanged",
    "zh": "内容替换只能改动现有块中的文本；块位置、非文本块与其他元数据必须保持不变"
+  },
+  {
+   "en": "Todo backend call failed",
+   "zh": "Todo backend 调用失败"
+  },
+  {
+   "en": "No enabled extension registers the todo backend \"${}\"; the todo list is not mirrored.",
+   "zh": "没有已启用的扩展注册 todo backend \"${}\"；待办列表不会镜像。"
+  },
+  {
+   "en": "This extension's todo backend \"${}\" is ignored: an extension loaded earlier registers the same id.",
+   "zh": "此扩展的 todo backend \"${}\" 被忽略：先前加载的扩展注册了相同 id。"
   }
  ],
  "packages/coding-agent/src/extensibility/extensions/wrapper.ts": [
@@ -28393,6 +28473,10 @@
   {
    "en": "Compaction complete",
    "zh": "压缩完成"
+  },
+  {
+   "en": "Running post-checkout hook…",
+   "zh": "正在运行 post-checkout 钩子……"
   }
  ],
  "packages/coding-agent/src/modes/controllers/event-controller.ts": [
@@ -29393,6 +29477,10 @@
   {
    "en": "Attempt ${}/${} · ${}",
    "zh": "第 ${}/${} 次 · ${}"
+  },
+  {
+   "en": "Saved TTSR rule to ${}",
+   "zh": "已将 TTSR 规则保存到 ${}"
   }
  ],
  "packages/coding-agent/src/modes/controllers/omfg-rule.ts": [
@@ -29841,6 +29929,10 @@
   {
    "en": "Usage activity history unavailable",
    "zh": "用量活动历史不可用"
+  },
+  {
+   "en": "Keep the todo list in the session only",
+   "zh": "待办列表只保留在会话内"
   }
  ],
  "packages/coding-agent/src/modes/controllers/session-focus-controller.ts": [
@@ -30851,6 +30943,10 @@
   {
    "en": "↑ answer the questions above, or type here to skip them",
    "zh": "↑ 回答上面的问题，或在此处输入以跳过"
+  },
+  {
+   "en": "Kept worktree ${}: its post-checkout hook is still running.",
+   "zh": "已保留 worktree ${}：其 post-checkout 钩子仍在运行。"
   }
  ],
  "packages/coding-agent/src/modes/local-file-editor.ts": [
@@ -35517,6 +35613,10 @@
   {
    "en": "agent_pause session event emission failed",
    "zh": "agent_pause 会话事件发送失败"
+  },
+  {
+   "en": "Failed to close the todo backend",
+   "zh": "关闭 todo backend 失败"
   }
  ],
  "packages/coding-agent/src/session/agent-storage.ts": [
@@ -36577,6 +36677,10 @@
   {
    "en": "path `${}`",
    "zh": "路径 `${}`"
+  },
+  {
+   "en": "Previous OMP process exited before background job ${} delivered its final result; its outcome is unknown. Its subprocess may still be running or may have partially completed — verify before rerunning.",
+   "zh": "上一个 OMP 进程在后台任务 ${} 交付最终结果前退出；其结果未知。其子进程可能仍在运行或已部分完成 —— 重跑前请先核实。"
   }
  ],
  "packages/coding-agent/src/session/foreign-session-import.ts": [
@@ -36731,10 +36835,6 @@
    "zh": "Prewalk：已注入深度计划提醒。"
   },
   {
-   "en": "Prewalk: already armed for ${}/${}, waiting for the first edit/write.",
-   "zh": "Prewalk：已为 ${}/${} 就绪，等待首次 edit/write。"
-  },
-  {
    "en": "Prewalk: armed for ${}/${} — will switch at the first edit/write once the todo list exists.",
    "zh": "Prewalk：已为 ${}/${} 就绪——待办列表出现后将在首次 edit/write 时切换。"
   },
@@ -36781,6 +36881,10 @@
   {
    "en": "Prewalk: switched to ${}/${} after first ${} call.",
    "zh": "Prewalk：切换到 ${}/${}（首次 ${} 调用后）。"
+  },
+  {
+   "en": "Prewalk: already armed for ${}, waiting for the first edit/write.",
+   "zh": "Prewalk：已为 ${} 布防，等待首次 edit/write。"
   }
  ],
  "packages/coding-agent/src/session/provider-image-budget.ts": [
@@ -37045,10 +37149,6 @@
    "zh": "[…已省略内容以适配 advisor 上下文…]"
   },
   {
-   "en": "Tool result:\n${}",
-   "zh": "工具结果：\n${}"
-  },
-  {
    "en": "error · exit ${}",
    "zh": "错误 · 退出码 ${}"
   },
@@ -37075,6 +37175,22 @@
   {
    "en": "${} ⇒ ok · ${}",
    "zh": "${} ⇒ 正常 · ${}"
+  },
+  {
+   "en": "Tool result (shortened here for advisor view only; the tool itself truncated its output):",
+   "zh": "工具结果（仅为顾问视角在此截断；工具本身已截断其输出）："
+  },
+  {
+   "en": "Tool result (the tool itself truncated its output):",
+   "zh": "工具结果（工具本身已截断其输出）："
+  },
+  {
+   "en": "Tool result (shortened here for advisor view only; the omitted lines were part of the result the main thread received):",
+   "zh": "工具结果（仅为顾问视角在此截断；省略的行是主线程收到的结果的一部分）："
+  },
+  {
+   "en": "Tool result:",
+   "zh": "工具结果："
   }
  ],
  "packages/coding-agent/src/session/session-listing.ts": [
@@ -37411,6 +37527,14 @@
   {
    "en": "Conversation changed while compacting; discarded the summary",
    "zh": "压缩期间对话发生了变化；丢弃了摘要"
+  },
+  {
+   "en": "The requested context rollover was skipped because the session branch changed while it was prepared; run /compact or ask again for a fresh window.",
+   "zh": "请求的上下文滚动已跳过，因为会话分支在准备期间发生了变化；请运行 /compact 或再次请求新窗口。"
+  },
+  {
+   "en": "Skipping remote compaction after a failed speculative attempt",
+   "zh": "推测尝试失败后跳过远程 compaction"
   }
  ],
  "packages/coding-agent/src/session/session-manager.ts": [
@@ -37755,6 +37879,22 @@
   {
    "en": "Remove worktree?",
    "zh": "删除 worktree？"
+  },
+  {
+   "en": "post-checkout hook exited with ${}${}",
+   "zh": "post-checkout 钩子以 ${}${} 退出"
+  },
+  {
+   "en": "post-checkout hook could not run: ${}",
+   "zh": "post-checkout 钩子无法运行：${}"
+  },
+  {
+   "en": "skill and command rescan failed: ${}",
+   "zh": "skill 与命令重扫失败：${}"
+  },
+  {
+   "en": "Worktree created, but ${}",
+   "zh": "已创建 worktree，但 ${}"
   }
  ],
  "packages/coding-agent/src/session/settings.ts": [
@@ -39251,6 +39391,10 @@
   {
    "en": "Classifier refused a turn mid-stream; resampling it on the same model",
    "zh": "分类器在流式中途拒绝了一轮；在同一模型上重新采样"
+  },
+  {
+   "en": "Empty-stop retry scheduled",
+   "zh": "已安排空停止重试"
   }
  ],
  "packages/coding-agent/src/session/yield-queue.ts": [
@@ -40583,6 +40727,10 @@
   {
    "en": "Compact in the background with a handoff summary (alias for /compact handoff)",
    "zh": "在后台用 handoff 摘要压缩（/compact handoff 的别名）"
+  },
+  {
+   "en": "Warning: ${}",
+   "zh": "警告：${}"
   }
  ],
  "packages/coding-agent/src/slash-commands/builtin-marketplace.ts": [
@@ -41467,6 +41615,10 @@
   {
    "en": "Model: ${}/${}",
    "zh": "模型：${}/${}"
+  },
+  {
+   "en": "configured: display=${}, maxWidth=${}, maxHeight=${}, takeover=${}",
+   "zh": "已配置：display=${}，maxWidth=${}，maxHeight=${}，takeover=${}"
   }
  ],
  "packages/coding-agent/src/slash-commands/builtin-session.ts": [
@@ -49097,10 +49249,6 @@
    "zh": "其选项只能经该菜单选择：若窗口菜单栏有相同命令则用 win.menu.select(...)，否则告知用户该步骤需要其屏幕。"
   },
   {
-   "en": "${}; the user's computer.backgroundFallback setting is \"refuse\", which keeps the agent in the background, so no takeover happened",
-   "zh": "${}；用户的 computer.backgroundFallback 设置为 \"refuse\"，代理保持在后台，因此未发生接管"
-  },
-  {
    "en": "Tool call aborted",
    "zh": "工具调用已中止"
   },
@@ -49271,6 +49419,18 @@
   {
    "en": "Expected a window id",
    "zh": "需要一个窗口 id"
+  },
+  {
+   "en": "${}${} would ${}, and the user's computer.takeover setting is \"refuse\", which keeps the agent in the background; nothing was sent${}. ${}",
+   "zh": "${}${} 会${}，而用户的 computer.takeover 设置为 \"refuse\"，代理只能留在后台；没有发送任何内容${}。${}"
+  },
+  {
+   "en": "${} with takeover: ${}: the user's computer.takeover setting is \"${}\", under which omp decides when input takes over; nothing was sent. Call it without takeover.",
+   "zh": "${} with takeover: ${}：用户的 computer.takeover 设置为 \"${}\"，由 omp 决定何时接管输入；没有发送任何内容。请不带 takeover 调用它。"
+  },
+  {
+   "en": "${}; the user's computer.takeover setting is \"refuse\", which keeps the agent in the background, so no takeover happened",
+   "zh": "${}；用户的 computer.takeover 设置为 \"refuse\"，代理保持在后台，因此未发生接管"
   }
  ],
  "packages/coding-agent/src/tools/conflict-detect.ts": [
@@ -51791,14 +51951,6 @@
    "zh": "用于 find 段落验证优先尝试的模型选择器（如 openrouter/liquid/d1-ultra），先于 judge 角色；文件名与草图排序仍归 judge 角色。不设置时由 judge 角色一并验证。"
   },
   {
-   "en": "What window input does when its background route is unavailable: rerun it in takeover and return focus to your app (macOS; elsewhere plain takeover), or refuse, which also keeps the agent from taking the foreground or opening macOS menus itself",
-   "zh": "窗口输入的后台通道不可用时的处理：以接管方式重跑并把焦点还给应用（macOS；其他平台为普通接管），或拒绝——同时阻止智能体自身抢占前台或打开 macOS 菜单"
-  },
-  {
-   "en": "Fail the call; nothing takes over, and the agent's own takeover, raise, activating open, desktop input and macOS menus (context menus, popup and menu buttons; they take your keyboard while open) are refused too",
-   "zh": "调用直接失败；不做接管，智能体自身的接管、前置、激活打开、桌面输入与 macOS 菜单（上下文菜单、弹出与菜单按钮——打开时会抢占键盘）也一并被拒绝"
-  },
-  {
    "en": "Per-request timeout for the vision-model call behind read's ?q= image questions, in milliseconds. A stalled provider fails fast with a timeout error instead of blocking until manual abort. Set to 0 to disable the timeout.",
    "zh": "read 的 ?q= 图像提问背后视觉模型调用的单请求超时（毫秒）。服务商卡住时以超时错误快速失败，而不是阻塞到手动中止。设为 0 禁用超时。"
   },
@@ -52207,18 +52359,6 @@
    "zh": "截图最大高度（像素）"
   },
   {
-   "en": "Computer Background Fallback",
-   "zh": "Computer Background Fallback（后台回退）"
-  },
-  {
-   "en": "Takeover",
-   "zh": "Takeover（接管）"
-  },
-  {
-   "en": "Briefly bring the target forward for that one call, then return focus to your app (on macOS even if you kept typing)",
-   "zh": "为该次调用短暂前置目标窗口，随后把焦点还给应用（macOS 上即使你一直在打字也如此）"
-  },
-  {
    "en": "Refuse",
    "zh": "Refuse（拒绝）"
   },
@@ -52437,6 +52577,46 @@
   {
    "en": "All Commands",
    "zh": "全部命令"
+  },
+  {
+   "en": "Todo Backend",
+   "zh": "Todo Backend（待办后端）"
+  },
+  {
+   "en": "Extension that the todo list is mirrored to; Native keeps it in the session only",
+   "zh": "待办列表镜像到哪个扩展；Native 表示只保留在会话内"
+  },
+  {
+   "en": "Computer Takeover",
+   "zh": "Computer Takeover（接管）"
+  },
+  {
+   "en": "Fallback",
+   "zh": "Fallback（回退）"
+  },
+  {
+   "en": "Foreground",
+   "zh": "Foreground（前台）"
+  },
+  {
+   "en": "When window input takes over (the real pointer and keyboard; your Escape stops it) instead of running in the background",
+   "zh": "窗口输入何时接管（真实指针与键盘；按 Escape 可停止）而不是在后台运行"
+  },
+  {
+   "en": "Background first; a call whose background route is unavailable briefly brings the target forward, then returns focus to your app (on macOS even if you kept typing). The agent may also ask for takeover on a call",
+   "zh": "后台优先；后台路由不可用的调用会短暂把目标提到前面，随后把焦点还给你的应用（在 macOS 上即使你仍在打字）。代理也可以对单个调用请求接管"
+  },
+  {
+   "en": "omp, never the agent, decides: take over input to a window already in front of you, and a call whose background route is unavailable; stay in the background otherwise",
+   "zh": "由 omp 决定（代理永不自行决定）：对已经在你面前的窗口接管输入，以及后台路由不可用的调用；其余情况保持后台运行"
+  },
+  {
+   "en": "omp, never the agent, decides: take over every window and element input call, bringing the target forward for that call and then returning focus to your app",
+   "zh": "由 omp 决定（代理永不自行决定）：接管每个窗口与元素输入调用，调用时把目标提到前面，随后把焦点还给你的应用"
+  },
+  {
+   "en": "Never take over: a call whose background route is unavailable fails, and the agent's own takeover, raise, activating open, desktop input and macOS menus (context menus, popup and menu buttons; they take your keyboard while open) are refused too",
+   "zh": "永不接管：后台路由不可用的调用直接失败；代理自己的 takeover、raise、激活 open、桌面输入和 macOS 菜单（上下文菜单、弹出框与菜单按钮；它们打开时会占用你的键盘）也一律拒绝"
   }
  ],
  "packages/coding-agent/src/tools/sqlite-reader.ts": [
@@ -60735,10 +60915,6 @@
    "zh": "按后续请求缓存费率计价的 avoided context，减去超出留出基线的回取量（同口径计价）和 Spotlight 自身开销"
   },
   {
-   "en": "Fetch-back tokens beyond what held-out results (shown whole) fetch anyway, per tool (reads split by whether the agent was likely to edit them); 90% interval below",
-   "zh": "按工具统计、超出留出结果（完整展示）原有回取量的回取词元（读取按代理是否可能编辑拆分）；下方为 90% 区间"
-  },
-  {
    "en": "${} tokens",
    "zh": "${} 词元"
   },
@@ -60801,6 +60977,10 @@
   {
    "en": "${} ${} wider than plain would have shown: cuts shown that way count as losses, results pi capped at plain's text save nothing. ",
    "zh": "${} ${} 比平铺展示更宽：这样展示的裁剪计为损失，pi 截断到平铺文本的结果不省任何东西。"
+  },
+  {
+   "en": "Fetch-back tokens beyond what held-out results (shown whole) fetch anyway, per tool and whether plain capped the result; 90% interval below",
+   "zh": "超出保底结果（完整显示）无论如何都会取回量的回取词元，按工具与 plain 是否截断该结果分；90% 区间见下"
   }
  ],
  "packages/stats/src/client/spotlight/Overhead.tsx": [
@@ -61223,10 +61403,6 @@
    "zh": "尚无留底基线"
   },
   {
-   "en": "${} held-out results get ${} each fetched back anyway",
-   "zh": "${} 个留底结果每个仍会回取 ${}"
-  },
-  {
    "en": "Beyond the baseline: ${} (90%)",
    "zh": "超出基线：${}（90%）"
   },
@@ -61239,10 +61415,6 @@
    "zh": "每${}的累计毛值与净值；取回拿走部分挂在零以下"
   },
   {
-   "en": "Fetch-backs held-out results (shown whole) show the agent makes regardless, per tool: not the cut's cost",
-   "zh": "逐工具看，留底结果（完整展示）显示代理无论如何都会回取：而非裁剪的代价"
-  },
-  {
    "en": "anyway",
    "zh": "仍返回\n\t\t\t\t\t"
   },
@@ -61251,12 +61423,20 @@
    "zh": "turns"
   },
   {
-   "en": "Recovered tokens are the full results of the recovery calls (estimated as chars ÷ 4 where no exact count exists). What comes back anyway is, per tool, the tokens a held-out result gets fetched back times the tool's cuts.",
-   "zh": "恢复的词元是恢复调用的完整结果（无确切值时按字符数÷4 估算）。逐工具看，无论如何都会回来的是留底结果被取回次数乘以该工具裁剪数。"
+   "en": "Fetch-backs that are not the cuts' cost: what held-out results (shown whole) show the agent makes regardless, per tool and whether plain capped the result, plus fetch-backs of results shaping left whole",
+   "zh": "不属于剪切成本的回取：保底结果（完整显示）显示代理无论如何都会产生的回取，按工具与 plain 是否截断该结果分，再加上整体保留结果的回取"
   },
   {
-   "en": "Recoveries are priced as carried context; extra turns are requests that only recovered; Spotlight cost is its own scoring bill. What comes back anyway is the recovery $ in proportion to the tokens held-out results fetch regardless.",
-   "zh": "恢复按携带上下文计价；额外轮次是仅做恢复的请求；Spotlight 成本是其自身的打分账单。无论如何都会回来的是按 token 比例计的恢复 $，对应留底结果总归会被取回的部分。"
+   "en": "Recoveries are priced as carried context; extra turns are requests that only recovered; Spotlight cost is its own scoring bill. What comes back anyway is the cuts' recovery $ in proportion to the tokens held-out results fetch regardless, plus the recovery $ of results shaping left whole.",
+   "zh": "恢复量按携带上下文计价；额外轮次是只做了恢复的请求；Spotlight 成本是独立的计分账单。无论如何都会回来的，是按保底结果总会取回的词元占比计出的剪切恢复 $，加上整体保留结果的恢复 $。"
+  },
+  {
+   "en": "Recovered tokens are the full results of the recovery calls (estimated as chars ÷ 4 where no exact count exists). What comes back anyway is, per tool, the tokens a held-out result gets fetched back times the cuts, apart for results plain capped and shown whole, plus the recovered tokens of results shaping left whole; while a side with cuts has under ${} held-out results, all the tool's cuts take its pooled rate.",
+   "zh": "恢复的词元是恢复调用的完整结果（无精确计数时按字符数 ÷ 4 估算）。无论如何都会回来的，按工具计，是单个保底结果被回取的词元乘以剪切数，不计 plain 截断且完整显示的结果，再加上整体保留结果的恢复词元；当一侧剪切数不足 ${} 个保底结果时，该工具的所有剪切按其合并比率计。"
+  },
+  {
+   "en": "${} held-out results get ${} each fetched back anyway, pooled (cuts are priced apart by whether plain capped them once each side with cuts has enough held out)",
+   "zh": "${} 个保底结果无论如何都各被回取 ${}，合并计（一旦每侧剪切都有了足够保底，剪切按 plain 是否截断分开计价）"
   }
  ],
  "packages/stats/src/client/spotlight/ShareTrend.tsx": [
@@ -61311,12 +61491,12 @@
    "zh": "每种裁剪在超出 holdout 基线的取回之后仍省下的比例，按大小"
   },
   {
-   "en": "Scored and score-free cuts. Kept = (saved − fetch-back beyond the tool's holdout baseline) ÷ saved; fetched back is the share of cuts the agent came back for within 12 calls. Sizes are the tokens a cut saved against plain; step combinations under 10 cuts fold into \"other\". Cells under ${} cuts are dimmed.",
-   "zh": "带评分与无评分裁剪。保留 =（节省 − 超出工具 holdout 基线的取回）÷ 节省；取回是代理在 12 次调用内回来取的裁剪占比。大小是裁剪相对 plain 省下的词元；不足 10 次的步骤组合并入 \"其他\"。不足 ${} 次裁剪的格子变淡。"
-  },
-  {
    "en": "${} · ${}: ${} cuts saved ${}, ${} fetched back beyond the baseline",
    "zh": "${} · ${}：${} 次裁剪省下 ${}，${} 次超出基线取回"
+  },
+  {
+   "en": "Scored and score-free cuts. Kept = (saved − fetch-back beyond the tool's holdout baseline, apart for results plain capped and shown whole) ÷ saved; fetched back is the share of cuts the agent came back for within 12 calls. Sizes are the tokens a cut saved against plain; step combinations under 10 cuts fold into \"other\". Cells under ${} cuts are dimmed.",
+   "zh": "计分与不计分的剪切。保留率 =（节省量 − 超出该工具保底基线的回取，不计 plain 截断且完整显示的结果）÷ 节省量；回取是代理在 12 次调用内回来再取的剪切占比。大小是该剪切相对 plain 节省的词元数；不足 10 次剪切的步骤组合并入 \"other\"。低于 ${} 次剪切的格子变暗。"
   }
  ],
  "packages/stats/src/client/spotlight/TimeCost.tsx": [
@@ -64190,7 +64370,7 @@
   },
   {
    "en": "en-US",
-   "zh": "'zh-CN'"
+   "zh": "zh-CN"
   }
  ],
  "packages/tui/src/charts/chart-svg.ts": [
@@ -65584,7 +65764,7 @@
   },
   {
    "en": "${} question",
-   "zh": "问题"
+   "zh": "${} 问题"
   },
   {
    "en": "${} toggle · ${} ${}",
@@ -70933,10 +71113,6 @@
    "zh": "${} 正在等待候选规则……"
   },
   {
-   "en": "${} Registered live",
-   "zh": "${} 已实时注册"
-  },
-  {
    "en": "${} cancel /omfg",
    "zh": "${} 取消 /omfg"
   },
@@ -70957,16 +71133,8 @@
    "zh": "${} 已取消"
   },
   {
-   "en": "${} Registered live · ${} · ${} dismiss",
-   "zh": "${} 已实时注册 · ${} · ${} 忽略"
-  },
-  {
    "en": "${} Error · ${} dismiss",
    "zh": "${} 错误 · ${} 忽略"
-  },
-  {
-   "en": "Saved ${}",
-   "zh": "已保存 ${}"
   },
   {
    "en": "${} Error",
@@ -74229,6 +74397,30 @@
   {
    "en": "${}d ${}h",
    "zh": "${} 天 ${} 小时"
+  },
+  {
+   "en": "turn",
+   "zh": "轮"
+  },
+  {
+   "en": "turns",
+   "zh": "轮"
+  },
+  {
+   "en": "${} ahead",
+   "zh": "领先 ${}"
+  },
+  {
+   "en": "branch ${} of ${}",
+   "zh": "分支 ${}/${}"
+  },
+  {
+   "en": "${} ${} ahead",
+   "zh": "领先 ${} ${}"
+  },
+  {
+   "en": "Session tree: ${}\nOpen /tree to move between branches",
+   "zh": "会话树：${}\n打开 /tree 在分支间移动"
   }
  ],
  "packages/tui/src/terminal.ts": [
@@ -80933,6 +81125,10 @@
   {
    "en": "Failed to persist daemon unit",
    "zh": "持久化守护进程单元失败"
+  },
+  {
+   "en": "module unit exit timed out",
+   "zh": "module 单元退出超时"
   }
  ],
  "packages/coding-agent/test/sdk-restricted-extension-provider.test.ts": [
@@ -81159,6 +81355,10 @@
   {
    "en": "MCP host message dropped",
    "zh": "MCP 宿主消息已丢弃"
+  },
+  {
+   "en": "MCP era recovery failed",
+   "zh": "MCP era 恢复失败"
   }
  ],
  "packages/coding-agent/test/mcp-host/upstream-legacy-server.ts": [
@@ -84255,6 +84455,10 @@
   {
    "en": "MCP revalidation failed",
    "zh": "MCP 重新校验失败"
+  },
+  {
+   "en": "MCP era invalidation failed",
+   "zh": "MCP era 失效处理失败"
   }
  ],
  "packages/coding-agent/src/mcp/host/peers.ts": [
@@ -84369,76 +84573,6 @@
    "zh": "完整补丁。整块替换用 `*** Replace Block: opener` 加新代码。对 `*** Find`，在发送前把动作（Replace、Insert、Cut 或 Paste）写进这同一个字符串里。"
   }
  ],
- "packages/coding-agent/src/edit/magic-lines.ts": [
-  {
-   "en": "a range includes lines not shown.",
-   "zh": "某个范围包含未显示的行。"
-  },
-  {
-   "en": "The operations produce no changes.",
-   "zh": "这些操作没有产生任何变更。"
-  },
-  {
-   "en": "Two operations touch the same lines or insert at the same place. Give each line at most one operation, numbered against the original file.",
-   "zh": "两个操作触及同一行或在同一处插入。每行至多一个操作，按原文件编号。"
-  },
-  {
-   "en": "Indentation ranges overlap.",
-   "zh": "缩进范围重叠。"
-  },
-  {
-   "en": "the range holds only blank lines.",
-   "zh": "该范围只含空行。"
-  },
-  {
-   "en": "range includes lines not shown.",
-   "zh": "范围包含未显示的行。"
-  },
-  {
-   "en": "range or destination is not shown.",
-   "zh": "范围或目标未显示。"
-  },
-  {
-   "en": "Cannot anchor an edit in an empty file; use write instead.",
-   "zh": "无法在空文件中锚定编辑；请用 write。"
-  },
-  {
-   "en": "Output only JSON operation arrays, one per line, and nothing else.",
-   "zh": "只输出 JSON 操作数组，每行一个，不要输出别的。"
-  },
-  {
-   "en": "the destination is inside the moved lines.",
-   "zh": "目标在被移动的行内部。"
-  },
-  {
-   "en": "anchor line is not shown.",
-   "zh": "锚定行未显示。"
-  },
-  {
-   "en": "a range holds only blank lines.",
-   "zh": "某个范围只含空行。"
-  },
-  {
-   "en": "the two ranges overlap.",
-   "zh": "两个范围重叠。"
-  },
-  {
-   "en": "line is not shown.",
-   "zh": "行未显示。"
-  },
-  {
-   "en": "expected an operation array.",
-   "zh": "应为操作数组。"
-  },
-  {
-   "en": "Indentation ranges must not overlap lines that move or swap.",
-   "zh": "缩进范围不得与移动或交换的行重叠。"
-  },
-  {
-   "en": "sub changes text within one line.",
-   "zh": "sub 在一行内替换文本。"
-  }
- ],
  "packages/coding-agent/src/edit/magic.ts": [
   {
    "en": "Give one `# path` line followed by its changes per file.",
@@ -84455,6 +84589,38 @@
   {
    "en": "Every change belongs to a file: put it under that file's `# path` line.",
    "zh": "每个修改都属于某个文件：请把它放在该文件的 `# path` 行下。"
+  },
+  {
+   "en": "${} is empty; use write instead.",
+   "zh": "${} 为空；请改用 write。"
+  },
+  {
+   "en": "This exact replace was already applied. Do not repeat it.",
+   "zh": "这个完全相同的替换已经应用过。不要重复执行。"
+  },
+  {
+   "en": "This exact replace already failed: ${}",
+   "zh": "这个完全相同的替换已经失败过：${}"
+  },
+  {
+   "en": "Available tools: replace, read, search.",
+   "zh": "可用工具：replace、read、search。"
+  },
+  {
+   "en": "The change to ${} could not be applied: ${}",
+   "zh": "对 ${} 的改动无法应用：${}"
+  },
+  {
+   "en": "The change to ${} did not finish; the file is unchanged. ${}",
+   "zh": "对 ${} 的改动未完成；文件未变。${}"
+  },
+  {
+   "en": "The change to ${} did not finish within ${} turns; the file is unchanged.",
+   "zh": "对 ${} 的改动在 ${} 轮内未完成；文件未变。"
+  },
+  {
+   "en": "The change to ${} could not be applied; the file is unchanged.",
+   "zh": "对 ${} 的改动无法应用；文件未变。"
   }
  ],
  "packages/coding-agent/src/binja/install.ts": [
@@ -85539,6 +85705,140 @@
   {
    "en": "Auth broker does not serve this provider's logins; keeping them in the local agent.db",
    "zh": "Auth broker 不托管此服务商的登录；保留在本地 agent.db"
+  }
+ ],
+ "packages/catalog/src/discovery/pi-native.ts": [
+  {
+   "en": "auth-gateway answered ${} for ${}",
+   "zh": "auth-gateway 对 ${} 回答了 ${}"
+  },
+  {
+   "en": "auth-gateway sent no model list from ${}",
+   "zh": "auth-gateway 没有从 ${} 返回模型列表"
+  }
+ ],
+ "packages/coding-agent/scripts/embed-relay-extension.ts": [
+  {
+   "en": "The generated omp extension has no build id",
+   "zh": "生成的 omp 扩展没有 build id"
+  }
+ ],
+ "packages/coding-agent/src/edit/magic-calls.ts": [
+  {
+   "en": "Invalid JSON.",
+   "zh": "无效的 JSON。"
+  },
+  {
+   "en": "Malformed ${} arguments: ${}\nSend one JSON object per call.",
+   "zh": "${} 参数格式错误：${}\n每次调用发送一个 JSON 对象。"
+  }
+ ],
+ "packages/coding-agent/src/edit/magic-tools.ts": [
+  {
+   "en": "${}\n⋮ Use read for more draft lines.",
+   "zh": "${}\n⋮ 用 read 查看更多草稿行。"
+  },
+  {
+   "en": "old_string not found. The line-number gutter was copied. Remove it from both strings and copy only the text after │:\n${}",
+   "zh": "old_string 未找到。复制时带上了行号栏。请从两个字符串中都删掉它，只复制 │ 之后的文本：\n${}"
+  },
+  {
+   "en": "old_string not found. Whitespace differs. Copy the exact text after │:\n${}",
+   "zh": "old_string 未找到。空白字符不一致。请复制 │ 之后的原始文本：\n${}"
+  },
+  {
+   "en": "old_string not found. new_string is already present on line ${}. Check if this change was already applied.",
+   "zh": "old_string 未找到。new_string 已出现在第 ${} 行。检查该改动是否已应用。"
+  },
+  {
+   "en": "old_string not found. Search for a short fragment, then read and copy the exact text.",
+   "zh": "old_string 未找到。先搜索一个短片段，再读取并复制原始文本。"
+  },
+  {
+   "en": "Replaced ${} ${} (original ${} ${}${}).",
+   "zh": "已替换 ${} ${}（原 ${} ${}${}）。"
+  },
+  {
+   "en": "The draft is empty.",
+   "zh": "草稿为空。"
+  },
+  {
+   "en": "new_string is required; pass \"\" to delete.",
+   "zh": "new_string 必填；传 \"\" 表示删除。"
+  },
+  {
+   "en": "NUL bytes are not allowed in text edits.",
+   "zh": "文本编辑中不允许 NUL 字节。"
+  },
+  {
+   "en": "replace_all cannot be used on whitespace-only old_string.",
+   "zh": "old_string 全是空白时不能用 replace_all。"
+  },
+  {
+   "en": "old_string and new_string are identical.",
+   "zh": "old_string 与 new_string 相同。"
+  },
+  {
+   "en": "old_string matches more than once (first on line ${}). Include more context or pass replace_all: true.",
+   "zh": "old_string 匹配了多处（首次在第 ${} 行）。请带上更多上下文，或传 replace_all: true。"
+  },
+  {
+   "en": "Replaced text on line ${}.",
+   "zh": "已替换第 ${} 行的文本。"
+  },
+  {
+   "en": "${}\nDraft near the ${}edit:\n${}",
+   "zh": "${}\n${} 编辑附近的草稿：\n${}"
+  },
+  {
+   "en": "Invalid range for ${} lines.",
+   "zh": "${} 行的范围无效。"
+  },
+  {
+   "en": "Lines ${}-${} of ${}:\n${}${}",
+   "zh": "${} 的第 ${}-${} 行：\n${}${}"
+  },
+  {
+   "en": "\n⋮ Read again starting at line ${}.",
+   "zh": "\n⋮ 从第 ${} 行起重新读取。"
+  },
+  {
+   "en": "${} matches:\n${}",
+   "zh": "${} 个匹配：\n${}"
+  },
+  {
+   "en": "No matches.",
+   "zh": "无匹配。"
+  },
+  {
+   "en": "The draft first stopped parsing after replace #${} (then at line ${}). Current lines near that location:\n${}",
+   "zh": "草稿在第 ${} 处替换后首次解析失败（随后在第 ${} 行）。该位置附近的当前行：\n${}"
+  }
+ ],
+ "packages/coding-agent/src/edit/magic-view.ts": [
+  {
+   "en": "⋮ Open more of the file with read or search.",
+   "zh": "⋮ 用 read 或 search 查看更多文件内容。"
+  }
+ ],
+ "packages/coding-agent/src/lsp/watched-files.ts": [
+  {
+   "en": "LSP watched-files hit the user's inotify watch limit; released watches",
+   "zh": "LSP watched-files 触达用户的 inotify watch 上限；已释放 watch"
+  },
+  {
+   "en": "the process's budget of ${} inotify watches is spent",
+   "zh": "进程的 ${} 个 inotify watch 配额已用尽"
+  }
+ ],
+ "packages/coding-agent/src/tools/browser/tab-arguments.ts": [
+  {
+   "en": " Did you mean ${}(${}, ${})?",
+   "zh": " 是不是想用 ${}(${}, ${})？"
+  },
+  {
+   "en": "${} takes pixel deltas as numbers: (dx, dy) or ({x, y}); got ${}.${}",
+   "zh": "${} 的像素增量参数是数字形式 (dx, dy) 或 ({x, y})；收到 ${}.${}"
   }
  ]
 }
