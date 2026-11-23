@@ -7,6 +7,7 @@ Tern build. This turns it into addresses for mkplan.py (addr.json) and patch.py
   context  [en, zh, [neighbours]]   one copy of a bare word: the resolved string equal to
                                     `en` whose neighbours in the string pool include most
                                     of the listed ones. Translated wherever it is referenced.
+                                    A null `zh` preserves this exact copy in English.
                                     When no copy stands apart it is looked up as `data`.
   data     [en, zh, [neighbours]]   a (pointer, length) pair in a data section that points
                                     at `en`, next to pairs pointing at the listed strings

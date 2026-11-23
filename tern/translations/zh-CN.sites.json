@@ -1,5 +1,5 @@
 {
- "_": "Sites the automatic scan cannot classify, named by what they are rather than by address (see tools/resolve.py). context: [word, translation, strings stored next to that copy of the word]. data: [word, translation, strings the neighbouring table rows point at]. ptr: [text, translation] - pointer-only references, the translation is padded to the original byte length; an optional third element 'packed' allows a literal fused end to end with its neighbours (no NUL; only when the reference carries an explicit length). imm: [text, translation] - strings built from immediate operands.",
+ "_": "Sites the automatic scan cannot classify, named by what they are rather than by address (see tools/resolve.py). context: [word, translation, strings stored next to that copy of the word]; a null translation preserves that exact copy in English. data: [word, translation, strings the neighbouring table rows point at]. ptr: [text, translation] - pointer-only references, the translation is padded to the original byte length; an optional third element 'packed' allows a literal fused end to end with its neighbours (no NUL; only when the reference carries an explicit length). imm: [text, translation] - strings built from immediate operands.",
  "context": [
   ["Status", "状态（Status）", [" (active)", "git.status", "git status", "Diffs"]],
   ["Remotes", "远程（Remotes）", ["git tag", "git.remote", "git remote -v", "git.transfer"]],
@@ -12,6 +12,7 @@
   ["Tables", "表格（Tables）", ["sqlite3, psql, mysql, duckdb", "view.table", "column -t, csvlook", "search.grep"]],
   ["Matches", "匹配（Matches）", ["column -t, csvlook", "search.grep", "rg, grep, ag, ack, git grep", "Builds"]],
   ["Tests", "测试（Tests）", ["eslint, oxlint, biome, prettier --check", "js.test", "js.install"]],
+  ["Auto", null, ["kitty", "Right", "PID", "% CPU"]],
   ["Disks", "磁盘（Disks）", ["ps, pgrep -l", "sys.df", "df", "sys.env"]],
   ["Environment", "环境（Environment）", ["df", "sys.env", "env, printenv, export -p", "sys.sockets"]],
   ["Sockets", "套接字（Sockets）", ["env, printenv, export -p", "sys.sockets", "lsof -i, netstat, ss", "Load and memory"]],

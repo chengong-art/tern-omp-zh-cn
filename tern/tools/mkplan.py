@@ -31,6 +31,7 @@ import numpy as np
 
 sys.path.insert(0, __file__.rsplit("/", 1)[0])
 from macho import MachO  # noqa: E402
+from site_overrides import skip_translation  # noqa: E402
 
 NEAR, SINK_MIN = 40, 3
 
@@ -43,9 +44,7 @@ ins = np.frombuffer(data, dtype="<u4", count=text.size // 4, offset=text.offset)
 S = pickle.load(open(strings, "rb"))["strings"]
 tr = json.load(open(trs))
 # per-copy overrides (addr.json, written by resolve.py next to the plan): pin a
-# translation to specific UI copies of a string, so a bare word can be translated
-# at its settings-row address without touching the same bytes where they are a
-# serde variant or protocol token.
+# translation to a specific copy, or preserve that copy in English with null.
 try:
     addr_zh = {(int(k.split(":")[0], 16), int(k.split(":")[1])): v
                for k, v in json.load(open(os.path.join(os.path.dirname(out), "addr.json"))).items()}
@@ -93,6 +92,8 @@ def callee(i):
 items = []  # (text, zh, refs, address)
 _rows = json.load(open(rows))
 for t, ln, s, n, nc in _rows:
+    if skip_translation(addr_zh, t, ln):
+        continue
     zh = tr.get(s)
     if zh and zh != s:
         items.append((s, zh, [list(r) for r in S[t][ln]], t))
@@ -245,6 +246,8 @@ if len(sys.argv) > 9:
             plan.append([zh, refs])
             stats["kept template"] += len(refs)
 for t, ln, s, n, nc in json.load(open(rows)):
+    if skip_translation(addr_zh, t, ln):
+        continue
     if (t, ln) in addr_zh:
         refs = [list(r) for r in S[t][ln]]
         if no_data_ptr(s):
