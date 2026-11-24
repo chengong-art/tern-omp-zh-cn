@@ -45,12 +45,15 @@
   ["Show Files", "显文件"],
   ["Hide Files", "隐文件"],
   ["Close tab", "关标签"],
-  ["Open Database…", "开数据库…"]
+  ["Open Database…", "开数据库…"],
+  ["Quit Tern", "退出", "packed"],
+  ["Hide Widget Bar", "隐藏组件栏"],
+  ["Connect from Mobile", "从手机连接", "packed"],
+  ["Share Sessions", "共享会话"]
  ],
  "imm": [
   ["&Edit", "编辑"],
   ["&Window", "窗口"],
-  ["&Help", "帮助"],
-  ["New Note", "新 Note"]
+  ["&Help", "帮助"]
  ]
 }
