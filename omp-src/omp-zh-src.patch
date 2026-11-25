@@ -112047,9 +112047,18 @@ index 1e6af4f..dabc7fe 100644
  	} finally {
  		db.close();
 diff --git a/packages/coding-agent/src/cli/help-extra.ts b/packages/coding-agent/src/cli/help-extra.ts
-index fb956ff..f41deb9 100644
+index fb956ff..a12bee6 100644
 --- a/packages/coding-agent/src/cli/help-extra.ts
 +++ b/packages/coding-agent/src/cli/help-extra.ts
+@@ -4,7 +4,7 @@ import { CONFIG_DIR_NAME } from "@oh-my-pi/pi-utils/dirs";
+ import { BUILTIN_TOOL_HELP, type BuiltinToolHelp } from "../tools/builtin-names";
+ 
+ function renderBuiltinToolSummary(help: BuiltinToolHelp): string {
+-	return help.defaultState === "detected" ? `${help.summary} (when ${help.detectedWhen})` : help.summary;
++	return help.defaultState === "detected" ? `${help.summary}（当 ${help.detectedWhen}）` : help.summary;
+ }
+ 
+ /** Lists tools in `BUILTIN_TOOL_HELP` entry order, which ranks them by how often they are used. */
 @@ -16,96 +16,95 @@ function renderBuiltinTools(group: "default" | "optional"): string {
  }
  
@@ -166446,7 +166455,7 @@ index a798abf..c8f3e8f 100644
  			compact: instructionsOrOptions => runExtensionCompact(session, instructionsOrOptions),
  		},
 diff --git a/packages/coding-agent/src/modes/settings.ts b/packages/coding-agent/src/modes/settings.ts
-index 45365da..1857b57 100644
+index 45365da..0bcf30c 100644
 --- a/packages/coding-agent/src/modes/settings.ts
 +++ b/packages/coding-agent/src/modes/settings.ts
 @@ -37,10 +37,10 @@ export const cfgAutoResume = register({
@@ -166474,34 +166483,40 @@ index 45365da..1857b57 100644
  	},
  });
  
-@@ -68,8 +68,8 @@ export const cfgThemeDark = register({
+@@ -67,9 +67,9 @@ export const cfgThemeDark = register({
+ 	default: "titanium",
  	ui: {
  		tab: "appearance",
- 		group: "Theme",
+-		group: "Theme",
 -		label: "Dark Theme",
 -		description: "Theme used when the terminal has a dark background",
++		group: "主题",
 +		label: "深色主题",
 +		description: "终端为深色背景时使用的主题",
  		options: "runtime",
  	},
  });
-@@ -82,8 +82,8 @@ export const cfgThemeLight = register({
+@@ -81,9 +81,9 @@ export const cfgThemeLight = register({
+ 	default: "light",
  	ui: {
  		tab: "appearance",
- 		group: "Theme",
+-		group: "Theme",
 -		label: "Light Theme",
 -		description: "Theme used when the terminal has a light background",
++		group: "主题",
 +		label: "浅色主题",
 +		description: "终端为浅色背景时使用的主题",
  		options: "runtime",
  	},
  });
-@@ -97,16 +97,16 @@ export const cfgSymbolPreset = register({
+@@ -96,17 +96,17 @@ export const cfgSymbolPreset = register({
+ 	default: "unicode",
  	ui: {
  		tab: "appearance",
- 		group: "Theme",
+-		group: "Theme",
 -		label: "Symbol Preset",
 -		description: "Glyph set for icons and symbols (Unicode, Nerd Font, or ASCII)",
++		group: "主题",
 +		label: "符号预设",
 +		description: "图标与符号的字形集（Unicode、Nerd Font 或 ASCII）",
  		options: [
@@ -166518,33 +166533,39 @@ index 45365da..1857b57 100644
  		],
  	},
  });
-@@ -119,8 +119,8 @@ export const cfgColorBlindMode = register({
+@@ -118,9 +118,9 @@ export const cfgColorBlindMode = register({
+ 	default: false,
  	ui: {
  		tab: "appearance",
- 		group: "Theme",
+-		group: "Theme",
 -		label: "Color-Blind Mode",
 -		description: "Use blue instead of green for diff additions",
++		group: "主题",
 +		label: "色盲模式",
 +		description: "diff 新增行用蓝色而非绿色",
  	},
  });
  effect(cfgColorBlindMode, setColorBlindMode);
-@@ -133,8 +133,8 @@ export const cfgComposerShape = register({
+@@ -132,9 +132,9 @@ export const cfgComposerShape = register({
+ 	default: "band",
  	ui: {
  		tab: "appearance",
- 		group: "Composer",
+-		group: "Composer",
 -		label: "Composer Shape",
 -		description: "Visual layout of the input editor and status line",
++		group: "输入框",
 +		label: "Composer 形状",
 +		description: "输入编辑器与状态栏的视觉布局",
  		options: "runtime",
  	},
  });
-@@ -147,9 +147,9 @@ export const cfgComposerTokenRate = register({
+@@ -146,10 +146,10 @@ export const cfgComposerTokenRate = register({
+ 	default: false,
  	ui: {
  		tab: "appearance",
- 		group: "Composer",
+-		group: "Composer",
 -		label: "Generation Rate",
++		group: "输入框",
 +		label: "生成速率",
  		description:
 -			"Show a live generation tok/s readout: on the working row next to the session title, or in the native composer bar right after the thinking level, where the last reading stays between turns. Estimated from streamed deltas and corrected by the provider's billed output count as each message completes.",
@@ -166715,34 +166736,40 @@ index 45365da..1857b57 100644
  });
  
  export const cfgStatusLineSegmentOptions = register({
-@@ -307,8 +307,8 @@ export const cfgTerminalShowImages = register({
+@@ -306,9 +306,9 @@ export const cfgTerminalShowImages = register({
+ 	default: true,
  	ui: {
  		tab: "appearance",
- 		group: "Images",
+-		group: "Images",
 -		label: "Show Inline Images",
 -		description: "Render images inline in the terminal",
++		group: "图片",
 +		label: "显示行内图片",
 +		description: "在终端中行内渲染图片",
  		condition: "hasImageProtocol",
  	},
  });
-@@ -320,8 +320,8 @@ export const cfgImagesAutoResize = register({
+@@ -319,9 +319,9 @@ export const cfgImagesAutoResize = register({
+ 	default: true,
  	ui: {
  		tab: "appearance",
- 		group: "Images",
+-		group: "Images",
 -		label: "Auto-Resize Images",
 -		description: "Resize large images to 2000x2000 max for better model compatibility",
++		group: "图片",
 +		label: "自动缩放图片",
 +		description: "把大图缩到最大 2000x2000 以提高模型兼容性",
  	},
  });
  
-@@ -332,8 +332,8 @@ export const cfgImagesBlockImages = register({
+@@ -331,9 +331,9 @@ export const cfgImagesBlockImages = register({
+ 	default: false,
  	ui: {
  		tab: "appearance",
- 		group: "Images",
+-		group: "Images",
 -		label: "Block Images",
 -		description: "Prevent images from being sent to LLM providers",
++		group: "图片",
 +		label: "阻止图片",
 +		description: "阻止图片发送给 LLM 服务商",
  	},
@@ -166777,12 +166804,14 @@ index 45365da..1857b57 100644
  });
  
  export const cfgTuiResizeScrollback = register({
-@@ -371,23 +369,23 @@ export const cfgTuiResizeScrollback = register({
+@@ -370,24 +368,24 @@ export const cfgTuiResizeScrollback = register({
+ 	default: "rebuild",
  	ui: {
  		tab: "appearance",
- 		group: "Display",
+-		group: "Display",
 -		label: "Resize Scrollback",
 -		description: "How a settled terminal resize refreshes transcript rows retained in terminal scrollback",
++		group: "显示",
 +		label: "缩放回滚区",
 +		description: "终端缩放稳定后如何刷新回滚区中保留的记录行",
  		options: [
@@ -166809,35 +166838,41 @@ index 45365da..1857b57 100644
  			},
  		],
  	},
-@@ -400,9 +398,8 @@ export const cfgTerminalShowProgress = register({
+@@ -399,10 +397,9 @@ export const cfgTerminalShowProgress = register({
+ 	default: false,
  	ui: {
  		tab: "appearance",
- 		group: "Display",
+-		group: "Display",
 -		label: "Native Terminal Progress",
 -		description:
 -			"Emit OSC 9;4 indeterminate progress while the agent or context maintenance is running (always on in Tern)",
++		group: "显示",
 +		label: "原生终端进度",
 +		description: "代理或上下文维护运行时发出 OSC 9;4 不确定进度（Tern 中始终开启）",
  	},
  });
  
-@@ -413,9 +410,8 @@ export const cfgTerminalProgramStatus = register({
+@@ -412,10 +409,9 @@ export const cfgTerminalProgramStatus = register({
+ 	default: true,
  	ui: {
  		tab: "appearance",
- 		group: "Display",
+-		group: "Display",
 -		label: "Program Status (OSC 7501)",
 -		description:
 -			"Report whether the agent is working, waiting on you, done, or failed over OSC 7501, for terminal tab indicators and agent inboxes",
++		group: "显示",
 +		label: "程序状态（OSC 7501）",
 +		description: "通过 OSC 7501 报告代理在工作、等你、完成或失败，供终端标签指示与代理收件箱使用",
  	},
  });
  
-@@ -426,9 +422,9 @@ export const cfgTuiTextSizing = register({
+@@ -425,10 +421,10 @@ export const cfgTuiTextSizing = register({
+ 	default: false,
  	ui: {
  		tab: "appearance",
- 		group: "Display",
+-		group: "Display",
 -		label: "Large Headings (Kitty)",
++		group: "显示",
 +		label: "大标题（Kitty）",
  		description:
 -			"Render Markdown H1 headings at 2x scale using Kitty's OSC 66 text-sizing protocol. Only takes effect on Kitty terminals; ignored everywhere else. Off by default.",
@@ -166845,57 +166880,67 @@ index 45365da..1857b57 100644
  	},
  });
  
-@@ -439,9 +435,8 @@ export const cfgTuiColorfulMarkdown = register({
+@@ -438,10 +434,9 @@ export const cfgTuiColorfulMarkdown = register({
+ 	default: true,
  	ui: {
  		tab: "appearance",
- 		group: "Display",
+-		group: "Display",
 -		label: "Colorful Markdown",
 -		description:
 -			"Color headings by level, bold and italic text, inline code, and table headers from the theme's ANSI palette. Off uses one heading color and plain bold/italic.",
++		group: "显示",
 +		label: "彩色 Markdown",
 +		description: "用主题 ANSI 调色板为标题按级别着色、加粗斜体、行内代码与表头上色。关闭时标题单色、粗斜体无样式。",
  	},
  });
  
-@@ -452,8 +447,8 @@ export const cfgTuiRenderMermaid = register({
+@@ -451,9 +446,9 @@ export const cfgTuiRenderMermaid = register({
+ 	default: true,
  	ui: {
  		tab: "appearance",
- 		group: "Display",
+-		group: "Display",
 -		label: "Render Mermaid Diagrams",
 -		description: "Render Mermaid fenced code blocks as ASCII diagrams",
++		group: "显示",
 +		label: "渲染 Mermaid 图",
 +		description: "把 Mermaid 围栏代码块渲染为 ASCII 图",
  	},
  });
  
-@@ -464,9 +459,8 @@ export const cfgTuiRenderSvg = register({
+@@ -463,10 +458,9 @@ export const cfgTuiRenderSvg = register({
+ 	default: true,
  	ui: {
  		tab: "appearance",
- 		group: "Display",
+-		group: "Display",
 -		label: "Render SVG Figures",
 -		description:
 -			"Invite the agent to draw diagrams and charts as SVG, rendered inline as images on terminals that show graphics",
++		group: "显示",
 +		label: "渲染 SVG 图",
 +		description: "允许代理把图和图表画成 SVG，在支持图形的终端上行内渲染为图片",
  	},
  });
  
-@@ -477,7 +471,7 @@ export const cfgTuiRenderEmbeds = register({
+@@ -476,8 +470,8 @@ export const cfgTuiRenderEmbeds = register({
+ 	default: true,
  	ui: {
  		tab: "appearance",
- 		group: "Display",
+-		group: "Display",
 -		label: "Render Embedded Images and Pages",
++		group: "显示",
 +		label: "渲染内嵌图片与页面",
  		description:
  			"Invite the agent to show pictures with <img> and web pages with <iframe>, loading them (remote addresses included) to draw inline on terminals that show graphics",
  	},
-@@ -491,27 +485,25 @@ export const cfgTuiAutoGraph = register({
+@@ -490,28 +484,26 @@ export const cfgTuiAutoGraph = register({
+ 	default: "auto",
  	ui: {
  		tab: "appearance",
- 		group: "Display",
+-		group: "Display",
 -		label: "Auto-Graph Tables",
 -		description:
 -			"Draw a chart under numeric tables in the agent's answers, in your theme's colors, on terminals that show graphics",
++		group: "显示",
 +		label: "自动绘制表格图",
 +		description: "在代理回答中的数值表格下方画图表，用你的主题色，在支持图形的终端上",
  		options: [
@@ -166926,22 +166971,26 @@ index 45365da..1857b57 100644
  		],
  	},
  });
-@@ -523,8 +515,8 @@ export const cfgTuiReactions = register({
+@@ -522,9 +514,9 @@ export const cfgTuiReactions = register({
+ 	default: true,
  	ui: {
  		tab: "appearance",
- 		group: "Display",
+-		group: "Display",
 -		label: "Agent Reactions",
 -		description: "Invite the agent to react to your message with an emoji badge on its bubble",
++		group: "显示",
 +		label: "代理回应表情",
 +		description: "允许代理在你的消息气泡上用 emoji 徽章回应",
  	},
  });
  
-@@ -535,9 +527,9 @@ export const cfgTuiCodexResetFireworks = register({
+@@ -534,10 +526,10 @@ export const cfgTuiCodexResetFireworks = register({
+ 	default: false,
  	ui: {
  		tab: "appearance",
- 		group: "Display",
+-		group: "Display",
 -		label: "Codex Reset Fireworks",
++		group: "显示",
 +		label: "Codex 重置烟花",
  		get description() {
 -			return `Celebrate unscheduled Codex weekly usage resets and newly banked saved resets with a top-third fireworks overlay that remains until ${formatKeyHint("escape")}`;
@@ -166949,11 +166998,13 @@ index 45365da..1857b57 100644
  		},
  	},
  });
-@@ -549,9 +541,9 @@ export const cfgTuiTitleState = register({
+@@ -548,10 +540,10 @@ export const cfgTuiTitleState = register({
+ 	default: true,
  	ui: {
  		tab: "appearance",
- 		group: "Display",
+-		group: "Display",
 -		label: "Terminal Title Run State",
++		group: "显示",
 +		label: "终端标题运行状态",
  		description:
 -			"Show the agent run state in the terminal title's separator — an animated spinner while working (a static ':' under WSL), '>' when it's your turn, '!' when the agent is waiting on you",
@@ -166961,13 +167012,15 @@ index 45365da..1857b57 100644
  	},
  });
  
-@@ -563,14 +555,13 @@ export const cfgTuiTitleSpinner = register({
+@@ -562,15 +554,14 @@ export const cfgTuiTitleSpinner = register({
+ 	default: "braille",
  	ui: {
  		tab: "appearance",
- 		group: "Display",
+-		group: "Display",
 -		label: "Terminal Title Spinner",
 -		description:
 -			"Glyph set for the working-state spinner in the terminal title — braille sweep, filling moon, single-dot cycle, or ASCII-safe line",
++		group: "显示",
 +		label: "终端标题旋转符",
 +		description: "终端标题工作态旋转符的字形集——盲文扫过、月相填充、单点循环或 ASCII 安全线",
  		options: [
@@ -166982,13 +167035,15 @@ index 45365da..1857b57 100644
  		],
  	},
  });
-@@ -588,14 +579,13 @@ export const cfgTuiSpinnerInterval = register({
+@@ -587,15 +578,14 @@ export const cfgTuiSpinnerInterval = register({
+ 	normalize: parseSpinnerInterval,
  	ui: {
  		tab: "appearance",
- 		group: "Display",
+-		group: "Display",
 -		label: "Spinner Interval (ms)",
 -		description:
 -			"Milliseconds between frames of every spinner, the terminal title included; 0 shows static glyphs. Unset follows Motion",
++		group: "显示",
 +		label: "旋转间隔（ms）",
 +		description: "所有旋转符（含终端标题）每帧间隔毫秒数；0 显示静态字形。未设跟随 Motion",
  		options: [
@@ -167003,13 +167058,15 @@ index 45365da..1857b57 100644
  		],
  	},
  });
-@@ -612,14 +602,13 @@ export const cfgTuiMaxFps = register({
+@@ -611,15 +601,14 @@ export const cfgTuiMaxFps = register({
+ 	normalize: parseMaxFps,
  	ui: {
  		tab: "appearance",
- 		group: "Display",
+-		group: "Display",
 -		label: "Max Frames Per Second",
 -		description:
 -			"Ceiling on how often the TUI repaints, streaming text included. Keystroke echo keeps 30 fps, so the pane you type in stays responsive",
++		group: "显示",
 +		label: "最大帧率",
 +		description: "TUI 重绘频率上限（含流式文本）。按键回显保持 30 fps，所以输入面板保持响应",
  		options: [
@@ -167023,23 +167080,27 @@ index 45365da..1857b57 100644
  		],
  	},
  });
-@@ -633,9 +622,8 @@ export const cfgTuiHyperlinks = register({
+@@ -632,10 +621,9 @@ export const cfgTuiHyperlinks = register({
+ 	default: "auto",
  	ui: {
  		tab: "appearance",
- 		group: "Display",
+-		group: "Display",
 -		label: "Terminal Hyperlinks",
 -		description:
 -			"Wrap paths and URLs in OSC 8 hyperlinks for terminal-native click-to-open (auto: detect support; off: never; always: unconditional)",
++		group: "显示",
 +		label: "终端超链接",
 +		description: "把路径与 URL 包成 OSC 8 超链接，终端原生点击打开（auto：检测支持；off：从不；always：无条件）",
  	},
  });
  // Also re-applied when a project-scoped reload (`/move`, cross-project resume, rollback) changes the
-@@ -649,10 +637,10 @@ export const cfgTuiMouse = register({
+@@ -648,11 +636,11 @@ export const cfgTuiMouse = register({
+ 	default: false,
  	ui: {
  		tab: "appearance",
- 		group: "Display",
+-		group: "Display",
 -		label: "Mouse Click-to-Focus",
++		group: "显示",
 +		label: "鼠标点击聚焦",
  		get description() {
  			const shift = formatKeyHint("shift");
@@ -167048,23 +167109,27 @@ index 45365da..1857b57 100644
  		},
  	},
  });
-@@ -664,8 +652,8 @@ export const cfgTuiTight = register({
+@@ -663,9 +651,9 @@ export const cfgTuiTight = register({
+ 	default: false,
  	ui: {
  		tab: "appearance",
- 		group: "Display",
+-		group: "Display",
 -		label: "Tight Layout",
 -		description: "Remove the 1-character horizontal padding from the left and right of the terminal output",
++		group: "显示",
 +		label: "紧凑布局",
 +		description: "移除终端输出左右两侧各 1 个字符的水平内边距",
  	},
  });
  
-@@ -677,12 +665,12 @@ export const cfgDisplayShimmer = register({
+@@ -676,13 +664,13 @@ export const cfgDisplayShimmer = register({
+ 	default: "classic",
  	ui: {
  		tab: "appearance",
- 		group: "Display",
+-		group: "Display",
 -		label: "Shimmer",
 -		description: "Animation style for working/loading messages; off under reduced or no Motion",
++		group: "显示",
 +		label: "微光动效",
 +		description: "工作/加载消息的动画样式；动效为减弱或无时关闭",
  		options: [
@@ -167077,11 +167142,13 @@ index 45365da..1857b57 100644
  		],
  	},
  });
-@@ -696,13 +684,13 @@ export const cfgTuiMotion = register({
+@@ -695,14 +683,14 @@ export const cfgTuiMotion = register({
+ 	env: "PI_MOTION",
  	ui: {
  		tab: "appearance",
- 		group: "Display",
+-		group: "Display",
 -		label: "Motion",
++		group: "显示",
 +		label: "动效",
  		description:
 -			"One switch over spinners, shimmer, and decorative blink/fade. Streaming text is unaffected (see Max Frames Per Second). A spinner interval you set still wins",
@@ -167096,13 +167163,15 @@ index 45365da..1857b57 100644
  		],
  	},
  });
-@@ -733,13 +721,12 @@ export const cfgDisplayPinnedAgents = register({
+@@ -732,14 +720,13 @@ export const cfgDisplayPinnedAgents = register({
+ 	default: "collapsed",
  	ui: {
  		tab: "appearance",
- 		group: "Display",
+-		group: "Display",
 -		label: "Pinned Agents",
 -		description:
 -			"Pinned live-agent jump list above the editor (off hides it; collapsed shows a few rows with an expander; full lists all)",
++		group: "显示",
 +		label: "置顶智能体",
 +		description: "编辑器上方的置顶活跃智能体跳转列表（关闭则隐藏；折叠则显示几行并带展开器；完整则列出全部）",
  		options: [
@@ -167115,91 +167184,107 @@ index 45365da..1857b57 100644
  		],
  	},
  });
-@@ -751,8 +738,8 @@ export const cfgDisplaySubagentLivePreview = register({
+@@ -750,9 +737,9 @@ export const cfgDisplaySubagentLivePreview = register({
+ 	default: false,
  	ui: {
  		tab: "appearance",
- 		group: "Display",
+-		group: "Display",
 -		label: "Subagent Live Preview",
 -		description: "Show each pinned subagent's current (or most recent) tool call beneath its row",
++		group: "显示",
 +		label: "子代理实时预览",
 +		description: "在每个钉住的子代理行下方显示其当前（或最近）的工具调用",
  	},
  });
  
-@@ -763,9 +750,8 @@ export const cfgDisplaySmoothStreaming = register({
+@@ -762,10 +749,9 @@ export const cfgDisplaySmoothStreaming = register({
+ 	default: true,
  	ui: {
  		tab: "appearance",
- 		group: "Display",
+-		group: "Display",
 -		label: "Smooth Streaming",
 -		description:
 -			"Reveal assistant text and streamed tool input smoothly while chunks arrive (Tern types assistant text out itself)",
++		group: "显示",
 +		label: "平滑流式",
 +		description: "分块到达时平滑显现助手文本与流式工具输入（Tern 会自行打出助手文本）",
  	},
  });
  
-@@ -776,8 +762,8 @@ export const cfgDisplayHideToolActivity = register({
+@@ -775,9 +761,9 @@ export const cfgDisplayHideToolActivity = register({
+ 	default: false,
  	ui: {
  		tab: "appearance",
- 		group: "Display",
+-		group: "Display",
 -		label: "Hide Tool Activity",
 -		description: "Hide model-initiated tool calls and results from the transcript",
++		group: "显示",
 +		label: "隐藏工具活动",
 +		description: "在记录中隐藏模型发起的工具调用与结果",
  	},
  });
  
-@@ -788,8 +774,8 @@ export const cfgDisplayShowTokenUsage = register({
+@@ -787,9 +773,9 @@ export const cfgDisplayShowTokenUsage = register({
+ 	default: false,
  	ui: {
  		tab: "appearance",
- 		group: "Display",
+-		group: "Display",
 -		label: "Show Token Usage",
 -		description: "Show per-turn token usage on assistant messages",
++		group: "显示",
 +		label: "显示词元用量",
 +		description: "在助手消息上显示每轮词元用量",
  	},
  });
  
-@@ -800,8 +786,8 @@ export const cfgDisplayShowTurnTime = register({
+@@ -799,9 +785,9 @@ export const cfgDisplayShowTurnTime = register({
+ 	default: false,
  	ui: {
  		tab: "appearance",
- 		group: "Display",
+-		group: "Display",
 -		label: "Show Turn Time",
 -		description: "Show the total prompt-to-yield time (including tool calls) on assistant message usage rows",
++		group: "显示",
 +		label: "显示轮次耗时",
 +		description: "在助手消息用量行显示总的从提示到让出时间（含工具调用）",
  	},
  });
  
-@@ -812,8 +798,8 @@ export const cfgDisplayCacheMissMarker = register({
+@@ -811,9 +797,9 @@ export const cfgDisplayCacheMissMarker = register({
+ 	default: false,
  	ui: {
  		tab: "appearance",
- 		group: "Display",
+-		group: "Display",
 -		label: "Cache Miss Marker",
 -		description: "Show a divider after an assistant turn whose request lost (missed) the prompt cache",
++		group: "显示",
 +		label: "缓存未命中标记",
 +		description: "在提示词缓存未命中的助手轮次后显示分隔线",
  	},
  });
  
-@@ -824,8 +810,8 @@ export const cfgDisplayShellVisualization = register({
+@@ -823,9 +809,9 @@ export const cfgDisplayShellVisualization = register({
+ 	default: true,
  	ui: {
  		tab: "appearance",
- 		group: "Display",
+-		group: "Display",
 -		label: "Shell Visualization",
 -		description: "Show bash commands as an interactive execution visualization instead of plain shell commands",
++		group: "显示",
 +		label: "Shell 可视化",
 +		description: "把 bash 命令显示为可交互的执行可视化，而非纯 shell 命令",
  	},
  });
  
-@@ -836,15 +822,14 @@ export const cfgDisplayAdvisorCollapsedLines = register({
+@@ -835,16 +821,15 @@ export const cfgDisplayAdvisorCollapsedLines = register({
+ 	default: 0,
  	ui: {
  		tab: "appearance",
- 		group: "Display",
+-		group: "Display",
 -		label: "Advisor Collapsed Lines",
 -		description:
 -			"Maximum note lines a collapsed advisor card shows below its header (0 keeps the full preview; expand with the tool-output toggle)",
++		group: "显示",
 +		label: "Advisor 折叠行数",
 +		description: "折叠的 advisor 卡片在标题下最多显示的备注行数（0 保留完整预览；用工具输出开关展开）",
  		options: [
@@ -167216,35 +167301,41 @@ index 45365da..1857b57 100644
  		],
  	},
  });
-@@ -869,9 +854,8 @@ export const cfgDisplayCollapseCompacted = register({
+@@ -868,10 +853,9 @@ export const cfgDisplayCollapseCompacted = register({
+ 	default: true,
  	ui: {
  		tab: "appearance",
- 		group: "Display",
+-		group: "Display",
 -		label: "Collapse Compacted History",
 -		description:
 -			"Collapse pre-compaction history behind the summary divider on the live transcript; disable to keep the full transcript inline with dividers at each compaction point",
++		group: "显示",
 +		label: "折叠已压缩历史",
 +		description: "在实时记录中把压缩前的历史折叠到摘要分隔线之后；关闭则保留完整记录并在每个压缩点放分隔线",
  	},
  });
  
-@@ -882,8 +866,8 @@ export const cfgShowHardwareCursor = register({
+@@ -881,9 +865,9 @@ export const cfgShowHardwareCursor = register({
+ 	default: true, // will be computed based on platform if undefined
  	ui: {
  		tab: "appearance",
- 		group: "Display",
+-		group: "Display",
 -		label: "Show Hardware Cursor",
 -		description: "Show terminal cursor for IME support",
++		group: "显示",
 +		label: "显示硬件光标",
 +		description: "为 IME 支持显示终端光标",
  	},
  });
  
-@@ -894,8 +878,8 @@ export const cfgTuiImeSafeCursor = register({
+@@ -893,9 +877,9 @@ export const cfgTuiImeSafeCursor = register({
+ 	default: false,
  	ui: {
  		tab: "appearance",
- 		group: "Display",
+-		group: "Display",
 -		label: "IME-Safe Prompt Layout",
 -		description: "Move the prompt's bottom border to a separate row so macOS IME preedit cannot displace it",
++		group: "显示",
 +		label: "输入法安全的提示布局",
 +		description: "把提示框底边移到单独一行，避免 macOS IME 预编辑挤占它",
  	},
@@ -167846,7 +167937,7 @@ index 2c46d33..e5c6b59 100644
  	const { Composer, COMPOSER_DEFAULTS }: typeof ComposerRuntime = require("@oh-my-pi/pi-tui/prompt/composer.js");
  	const cwd = options.cwd ?? process.cwd();
 diff --git a/packages/coding-agent/src/modes/utils/ui-helpers.ts b/packages/coding-agent/src/modes/utils/ui-helpers.ts
-index 5bde99e..f3b798c 100644
+index 5bde99e..a5a8d20 100644
 --- a/packages/coding-agent/src/modes/utils/ui-helpers.ts
 +++ b/packages/coding-agent/src/modes/utils/ui-helpers.ts
 @@ -1315,7 +1315,7 @@ export class UiHelpers {
@@ -167858,7 +167949,7 @@ index 5bde99e..f3b798c 100644
  				this.ctx.showStatus(`Session compacted ${times}`);
  			}
  			// Rows of the previous transcript already in native scrollback were drawn with the old
-@@ -1360,8 +1360,8 @@ export class UiHelpers {
+@@ -1360,14 +1360,14 @@ export class UiHelpers {
  	}
  
  	showNewVersionNotification(newVersion: string): void {
@@ -167869,6 +167960,14 @@ index 5bde99e..f3b798c 100644
  		const command = "omp update";
  		const native = noticeRow(
  			"info",
+ 			[
+-				span("Update available", "strong"),
+-				span(` · New version ${newVersion} is available. Run `),
++				span("有可用更新", "strong"),
++				span(` · 新版本 ${newVersion} 可用，运行 `),
+ 				span(command, "code"),
+ 			],
+ 			{ icon: "download" },
 @@ -1399,8 +1399,8 @@ export class UiHelpers {
  		}
  
@@ -275891,7 +275990,7 @@ index 5fe75ad..b4112e1 100644
  	return `${APC}${GLYPH_PROTOCOL_ID};r;cp=${cp.toString(16)};reply=0;upm=${metrics.upm};aw=${metrics.aw};lh=${metrics.lh};size=${size};${entry.glyf}${ST}`;
  }
 diff --git a/packages/tui/src/hotkeys-markdown.ts b/packages/tui/src/hotkeys-markdown.ts
-index 4457764..b4afa87 100644
+index 4457764..ce9d443 100644
 --- a/packages/tui/src/hotkeys-markdown.ts
 +++ b/packages/tui/src/hotkeys-markdown.ts
 @@ -49,7 +49,7 @@ function hints(keys: readonly KeyName[]): HotkeyPart {
@@ -275949,13 +276048,16 @@ index 4457764..b4afa87 100644
  			rows: [
 -				{ keys: [hints(["enter"])], action: "Send message" },
 -				{ keys: [hints(["shift+enter", "alt+enter"])], action: "New line" },
-+				{ keys: [hints(["enter"])], action: "发送消息" },
-+				{ keys: [hints(["shift+enter", "alt+enter"])], action: "换行" },
- 				{ keys: [hints(["ctrl+w", "alt+backspace"])], action: "Delete word backwards" },
- 				{ keys: [hints(["ctrl+u"])], action: "Delete to start of line" },
- 				{ keys: [hints(["ctrl+k"])], action: "Delete to end of line" },
+-				{ keys: [hints(["ctrl+w", "alt+backspace"])], action: "Delete word backwards" },
+-				{ keys: [hints(["ctrl+u"])], action: "Delete to start of line" },
+-				{ keys: [hints(["ctrl+k"])], action: "Delete to end of line" },
 -				{ keys: [act("app.clipboard.copyLine")], action: "Copy current line" },
 -				{ keys: [act("app.clipboard.copyPrompt")], action: "Copy whole prompt" },
++				{ keys: [hints(["enter"])], action: "发送消息" },
++				{ keys: [hints(["shift+enter", "alt+enter"])], action: "换行" },
++				{ keys: [hints(["ctrl+w", "alt+backspace"])], action: "删除前一个词" },
++				{ keys: [hints(["ctrl+u"])], action: "删除到行首" },
++				{ keys: [hints(["ctrl+k"])], action: "删除到行尾" },
 +				{ keys: [act("app.clipboard.copyLine")], action: "复制当前行" },
 +				{ keys: [act("app.clipboard.copyPrompt")], action: "复制整个提示词" },
  			],
@@ -275976,17 +276078,19 @@ index 4457764..b4afa87 100644
 -				{ keys: [act("app.thinking.cycle")], action: "Cycle thinking level" },
 -				{ keys: [act("app.model.cycleForward")], action: "Cycle role models (slow/default/smol)" },
 -				{ keys: [act("app.model.cycleBackward")], action: "Cycle role models (backward)" },
+-				{ keys: [act("app.model.selectTemporary")], action: "Select model (temporary)" },
+-				{ keys: [act("app.model.select")], action: "Select model (set roles)" },
+-				{ keys: [act("app.plan.toggle")], action: "Toggle plan mode" },
+-				{ keys: [act("app.history.search")], action: "Search prompt history" },
+-				{ keys: [act("app.tools.expand")], action: "Toggle tool output expansion" },
+-				{ keys: [act("app.tools.toggleVisibility")], action: "Toggle tool activity visibility" },
 +				{ keys: [act("app.suspend")], action: "挂起到后台" },
 +				{ keys: [act("app.display.reset")], action: "重置终端显示" },
 +				{ keys: [act("app.thinking.cycle")], action: "轮换思考级别" },
 +				{ keys: [act("app.model.cycleForward")], action: "轮换角色模型（slow/default/smol）" },
 +				{ keys: [act("app.model.cycleBackward")], action: "反向轮换角色模型" },
- 				{ keys: [act("app.model.selectTemporary")], action: "Select model (temporary)" },
- 				{ keys: [act("app.model.select")], action: "Select model (set roles)" },
--				{ keys: [act("app.plan.toggle")], action: "Toggle plan mode" },
--				{ keys: [act("app.history.search")], action: "Search prompt history" },
--				{ keys: [act("app.tools.expand")], action: "Toggle tool output expansion" },
--				{ keys: [act("app.tools.toggleVisibility")], action: "Toggle tool activity visibility" },
++				{ keys: [act("app.model.selectTemporary")], action: "选择模型（临时）" },
++				{ keys: [act("app.model.select")], action: "选择模型（设置角色）" },
 +				{ keys: [act("app.plan.toggle")], action: "切换计划模式" },
 +				{ keys: [act("app.history.search")], action: "搜索提示词历史" },
 +				{ keys: [act("app.tools.expand")], action: "切换工具输出展开" },
@@ -276001,14 +276105,15 @@ index 4457764..b4afa87 100644
 -				{ keys: [act("app.approval.approve")], action: "Approve a pending tool call" },
 -				{ keys: [act("app.thinking.toggle")], action: "Toggle thinking block visibility" },
 -				{ keys: [act("app.editor.external")], action: "Edit message in external editor" },
+-				{ keys: [act("app.local.open")], action: "Open a local:// file in external editor" },
+-				{ keys: [act("app.retry")], action: "Retry last failed assistant turn" },
+-				{ keys: [act("app.clipboard.pasteImage")], action: "Paste image or text from clipboard" },
 +				{ keys: [act("app.ask.hide")], action: "隐藏/显示待处理的询问问题" },
 +				{ keys: [act("app.ask.note")], action: "给询问选项添加或编辑备注" },
 +				{ keys: [act("app.approval.approve")], action: "批准待处理的工具调用" },
 +				{ keys: [act("app.thinking.toggle")], action: "切换思考块可见性" },
 +				{ keys: [act("app.editor.external")], action: "在外部编辑器中编辑消息" },
- 				{ keys: [act("app.local.open")], action: "Open a local:// file in external editor" },
--				{ keys: [act("app.retry")], action: "Retry last failed assistant turn" },
--				{ keys: [act("app.clipboard.pasteImage")], action: "Paste image or text from clipboard" },
++				{ keys: [act("app.local.open")], action: "在外部编辑器中打开 local:// 文件" },
 +				{ keys: [act("app.retry")], action: "重试上一次失败的助手轮次" },
 +				{ keys: [act("app.clipboard.pasteImage")], action: "从剪贴板粘贴图片或文本" },
  				{
@@ -276040,7 +276145,8 @@ index 4457764..b4afa87 100644
 -					action: "Open the agent hub",
 +					action: "打开代理中心",
  				},
- 				{ keys: [{ token: "#<number>" }], action: "GitHub issue/PR reference (e.g. `#3164` → `pr://`/`issue://`)" },
+-				{ keys: [{ token: "#<number>" }], action: "GitHub issue/PR reference (e.g. `#3164` → `pr://`/`issue://`)" },
++				{ keys: [{ token: "#<number>" }], action: "引用 GitHub issue/PR（如 `#3164` → `pr://`/`issue://`）" },
  				{
  					keys: [{ token: "#" }, { text: " / " }, { token: "#<text>" }],
 -					action: "Prompt actions (copy / undo / move cursor)",
@@ -286377,7 +286483,7 @@ index d1e27e5..170222d 100644
  					: null,
  			},
 diff --git a/packages/tui/src/overlays/settings-defs.ts b/packages/tui/src/overlays/settings-defs.ts
-index a300dbb..b412ee1 100644
+index a300dbb..1089459 100644
 --- a/packages/tui/src/overlays/settings-defs.ts
 +++ b/packages/tui/src/overlays/settings-defs.ts
 @@ -32,30 +32,30 @@ export const SETTING_TABS: SettingTab[] = [
@@ -286434,7 +286540,7 @@ index a300dbb..b412ee1 100644
   */
  export const TAB_GROUPS: Record<SettingTab, readonly string[]> = {
 -	appearance: ["Theme", "Composer", "Status Line", "Display", "Images"],
-+	appearance: ["Theme", "Composer", "状态栏", "Display", "Images"],
++	appearance: ["主题", "输入框", "状态栏", "显示", "图片"],
  	model: ["Thinking", "Sampling", "Prompt", "Retry & Fallback", "Advisor", "Prewalk", "Vision"],
  	interaction: [
  		"Input",
@@ -290082,6 +290188,82 @@ index fb78024..f33026d 100644
  						"edit",
  					),
  				);
+diff --git a/packages/tui/src/prompt/tips.txt b/packages/tui/src/prompt/tips.txt
+index 9a6c608..8e74060 100644
+--- a/packages/tui/src/prompt/tips.txt
++++ b/packages/tui/src/prompt/tips.txt
+@@ -1,35 +1,35 @@
+-Tired of typing "keep going"? Just send a '.'
+-Type `#` anywhere in your prompt for quick actions — copy the line or the whole prompt, undo, jump the cursor
+-Type `/` at the start of your prompt to browse every command
+-Start your prompt with `!` to run it as bash — `!!` runs it without adding the output to context
+-Start your prompt with `$ ` to run Python — `$$ ` runs it without adding the output to context
+-You can /btw to ask a side question
+-Use /tan to fork the current conversation into a background agent
+-With default keybindings, {key:ctrl+d} deletes the character under the cursor instead of quitting your draft — see /hotkeys for your exit key
+-Find out which model you emotionally abuse the most with `omp stats`
+-Try task isolation to create CoW worktrees
+-Need a cheap nested model call? Use `completion(x...)`. Have a big batch of tasks? Ask clanker to use it!
+-Spaghetti code? Try complaining with /omfg
+-Did you know? Each kitty/tmux/cmux/zellij/wezterm split keeps its own session — `omp -c` resumes the right one
+-Drop the word `ultrathink` in your message for harder multi-step reasoning — watch it glow rainbow as you type
+-Agent overthinking? Say `chillax` — on models with per-message effort, thinking drops to the lowest level, even mid-turn — watch it glow as you type
+-Say `orchestrate` in your message to drive a multi-phase task with parallel subagents — watch it glow as you type
+-Say `workflowz` in your message to drive the task with parallel subagents in eval — watch it glow as you type
+-Bulk data to classify or triage? Say `jevify` in your message — the eval kernel's `judge()` processes the batch and you read only what it flags — watch it glow as you type
+-Log in to several accounts of the same provider — `/login` again — and omp load-balances across them automatically
+-Run `omp auth-broker serve` once and every machine pulls live tokens over the wire — refresh keys never leave the host; `omp auth-gateway` fronts it as a drop-in proxy any OpenAI-compatible client can hit
+-Press {key:alt+p} (or /switch) to switch provider, and {key:ctrl+p} to cycle role models smol -> slow -> etc
+-Press {key:ctrl+r} to search your prompt history and reuse a past message
+-`/force read` pins the next turn to one specific tool when the model keeps reaching for the wrong one
+-`/copy code` grabs the last code block to your clipboard — `/copy cmd` grabs the last shell/python command
+-`/shake` rips heavy tool results out of context to reclaim tokens without a full /compact — `/shake images` drops just images
+-Pair up live: `/collab` shares your session through an end-to-end encrypted relay link — a teammate runs `/join <link>` to watch tool calls stream and prompt the agent from their own omp
+-Press {tap:left} to drill into a running or finished agent and inspect its tool calls and transcript
+-Hit a Codex rate limit? `/usage reset` spends a saved reset credit to immediately restore your quota
+-No native tool_calling? Inference provider botches parsing them? `PI_DIALECT=glm|kimi|anthropic…` rolls it locally for them!
+-Turn on `/advisor` to attach a second model that reviews every turn and quietly injects advice
+-Try starting your prompt with a ->, and writing a list (1. Do X, 2. Do Y)
+-Press {key:shift+tab} to cycle through reasoning effort levels
+-omp can reconfigure and extend itself — ask any questions you have!
+-Lint/type errors piling up? `omp cleanse` (or /cleanse right here) hunts project diagnostics and fixes them with parallel subagents — {key:escape} cancels
+-[NO-TERN] Psst, omp has a natural habitat 🐦 [tern](https://scl.so/tern)
+\ No newline at end of file
++懒得一遍遍输入“keep going”？发一个 '.' 就行
++在提示词任意位置输入 `#` 可调出快捷操作 — 复制当前行或整段提示词、撤销、移动光标
++在提示词开头输入 `/` 可浏览所有命令
++提示词以 `!` 开头会作为 bash 运行 — `!!` 运行后不把输出加入上下文
++提示词以 `$ ` 开头会运行 Python — `$$ ` 运行后不把输出加入上下文
++可以用 /btw 提一个旁支问题
++用 /tan 把当前对话分叉成一个后台智能体
++默认快捷键下，{key:ctrl+d} 删除光标处的字符，而不是退出草稿 — 退出键见 /hotkeys
++用 `omp stats` 看看你把哪个模型折腾得最狠
++试试任务隔离，创建写时复制（CoW）的 worktree
++需要便宜的嵌套模型调用？用 `completion(x...)`。有一大批任务？让智能体去用它！
++代码像一团面条？用 /omfg 吐槽一下
++你知道吗？kitty/tmux/cmux/zellij/wezterm 的每个分屏都有自己的会话 — `omp -c` 会恢复对应的那个
++在消息里写上 `ultrathink` 可获得更强的多步推理 — 输入时它会泛起彩虹光
++agent 想太多？说一声 `chillax`——对支持逐消息 effort 的模型，思考会降到最低档，回合中途也生效——边打字边看它发光
++在消息里写上 `orchestrate`，用并行子智能体推进多阶段任务 — 输入时它会发光
++在消息里写上 `workflowz`，在 eval 中用并行子智能体推进任务 — 输入时它会发光
++有大批数据要分类或分诊？在消息里写上 `jevify` — eval 内核的 `judge()` 会处理整批，你只需看它标出的部分 — 输入时它会发光
++同一服务商可登录多个账户 — 再执行一次 `/login` — omp 会自动在它们之间负载均衡
++运行一次 `omp auth-broker serve`，每台机器都能在线获取实时令牌 — 刷新密钥不会离开主机；`omp auth-gateway` 把它包装成任何 OpenAI 兼容客户端都能直接使用的代理
++按 {key:alt+p}（或 /switch）切换服务商，按 {key:ctrl+p} 轮换角色模型 smol -> slow -> 等
++按 {key:ctrl+r} 搜索提示词历史并复用以前的消息
++当模型总是选错工具时，`/force read` 可把下一回合固定到指定工具
++`/copy code` 把最后一个代码块复制到剪贴板 — `/copy cmd` 复制最后一条 shell/python 命令
++`/shake` 把占空间的工具结果移出上下文以回收 token，无需完整 /compact — `/shake images` 只丢弃图片
++实时结对：`/collab` 通过端到端加密的中继链接共享你的会话 — 队友运行 `/join <link>` 即可观看工具调用，并从自己的 omp 向智能体提问
++按 {tap:left} 进入正在运行或已结束的智能体，查看它的工具调用和对话记录
++撞上 Codex 限流？`/usage reset` 消耗一次已保存的重置额度，立即恢复配额
++没有原生 tool_calling？推理服务商解析总出错？`PI_DIALECT=glm|kimi|anthropic…` 会在本地替它们处理！
++开启 `/advisor` 可挂接第二个模型，审阅每个回合并悄悄注入建议
++试试以 -> 开头写提示词，再列一个清单（1. 做 X，2. 做 Y）
++按 {key:shift+tab} 轮换推理强度等级
++omp 可以重新配置和扩展自己 — 有任何问题尽管问！
++Lint/类型错误越积越多？`omp cleanse`（或在这里用 /cleanse）会找出项目诊断问题并用并行子智能体修复 — {key:escape} 取消
++[NO-TERN] 嘘，omp 有个天然栖息地 🐦 [tern](https://scl.so/tern)
 diff --git a/packages/tui/src/prompt/tools-markdown.ts b/packages/tui/src/prompt/tools-markdown.ts
 index d41190c..c58c251 100644
 --- a/packages/tui/src/prompt/tools-markdown.ts

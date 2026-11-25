@@ -12431,6 +12431,10 @@
   {
    "en": "${}\n  ${}\n  ANTHROPIC_API_KEY          - Anthropic Claude models\n  ANTHROPIC_OAUTH_TOKEN      - Anthropic OAuth (takes precedence over API key)\n  CLAUDE_CODE_USE_FOUNDRY    - Enable Anthropic Foundry mode (uses Foundry endpoint + mTLS)\n  FOUNDRY_BASE_URL           - Anthropic Foundry base URL (e.g., https://<foundry-host>)\n  ANTHROPIC_FOUNDRY_API_KEY  - Anthropic token used as Authorization: Bearer <token> in Foundry mode\n  ANTHROPIC_CUSTOM_HEADERS   - Extra headers for Foundry or any custom ANTHROPIC_BASE_URL gateway (e.g., \"user-id: USERNAME\")\n  CLAUDE_CODE_DISABLE_EXPERIMENTAL_BETAS - Omit pre-release Anthropic fields (context_management, beta tool fields, task budgets, thinking.block_binding) for gateways that reject them\n  CLAUDE_CODE_CLIENT_CERT    - Client certificate (PEM path or inline PEM) for mTLS\n  CLAUDE_CODE_CLIENT_KEY     - Client private key (PEM path or inline PEM) for mTLS\n  NODE_EXTRA_CA_CERTS        - CA bundle path (or inline PEM) for server certificate validation\n  OPENAI_API_KEY             - OpenAI GPT models\n  GEMINI_API_KEY             - Google Gemini models\n  COPILOT_GITHUB_TOKEN      - GitHub Copilot\n\n  ${}\n  AZURE_OPENAI_API_KEY       - Azure OpenAI models\n  GROQ_API_KEY               - Groq models\n  CEREBRAS_API_KEY           - Cerebras models\n  XAI_API_KEY                - xAI Grok models\n  OPENROUTER_API_KEY         - OpenRouter aggregated models\n  KILO_API_KEY               - Kilo Gateway models\n  MISTRAL_API_KEY            - Mistral models\n  ZAI_API_KEY                - z.ai models (ZhipuAI/GLM)\n  UMANS_AI_CODING_PLAN_API_KEY - Umans AI Coding Plan models\n  ABLITERATION_API_KEY       - Abliteration uncensored GLM models\n  KIRO_API_KEY               - Kiro agentic IDE models\n  UMANS_WEBSEARCH_PROVIDER    - Umans gateway web search backend (native or exa)\n  MINIMAX_API_KEY            - MiniMax models\n  OPENCODE_API_KEY           - OpenCode Zen/OpenCode Go models\n  CURSOR_ACCESS_TOKEN        - Cursor AI models\n  CLINE_API_KEY              - ClinePass subscription models\n  COMMAND_CODE_API_KEY       - Command Code Provider API models\n  CHARM_HYPER_API_KEY        - Charm Hyper inference gateway models\n  AI_GATEWAY_API_KEY         - Vercel AI Gateway\n  STEPFUN_API_KEY            - StepFun Step models\n  HELMCODE_API_KEY           - Helmcode private EU inference\n  WAFER_SERVERLESS_API_KEY   - Wafer Serverless (pay-as-you-go)\n  YOLO_AUTO_API_KEY          - Yolo-Auto flat-rate Qwen models\n  SINGULARITYAPI_DEV_API_KEY - SingularityAPI universal gateway (300+ models)\n  SINGULARITYAPI_TECH_API_KEY - SingularityAPI reserved DeepSeek lanes\n  SCW_SECRET_KEY             - Scaleway Generative APIs models\n  OTARI_API_KEY              - Otari AI gateway (workspace models)\n  OTARI_BASE_URL             - Otari self-hosted API root (e.g. https://host/api/v1)\n\n  ${}\n  AWS_PROFILE                - AWS Bedrock (or AWS_ACCESS_KEY_ID + AWS_SECRET_ACCESS_KEY)\n  GOOGLE_CLOUD_PROJECT       - Google Vertex AI (requires GOOGLE_CLOUD_LOCATION)\n  GOOGLE_APPLICATION_CREDENTIALS - Service account for Vertex AI\n\n  ${}\n  EXA_API_KEY                - Exa web search\n  BRAVE_API_KEY              - Brave web search\n  PERPLEXITY_API_KEY         - Perplexity web search API key (optional; anonymous fallback)\n  PERPLEXITY_COOKIES         - Perplexity web search (session cookie)\n  TAVILY_API_KEY             - Tavily web search\n  TINYFISH_API_KEY           - TinyFish web search\n  KEENABLE_API_KEY           - Keenable web search (optional; keyless public fallback)\n  SOFYA_API_KEY              - Sofya web search\n  FIRECRAWL_API_KEY          - Firecrawl web search + fetch reader backend\n  ANTHROPIC_SEARCH_API_KEY   - Anthropic web search (override; isolates search from main ANTHROPIC_API_KEY)\n  ANTHROPIC_SEARCH_BASE_URL  - Anthropic web search base URL (override; pairs with ANTHROPIC_SEARCH_API_KEY)\n  TYPESAFE_API_KEY           - TypeSafe System One judgments (auto thinking, unexpected-stop, AI staging, eval judge())\n\n  ${}\n  OMP_PROFILE                 - Named profile for isolated agent state (same as --profile)\n  Use `omp --profile <name> --alias <command>` to create a shell shortcut for a profile\n  PI_CODING_AGENT_DIR        - Session storage directory (default: ~/${}/agent)\n  PI_PACKAGE_DIR             - Override package directory (for Nix/Guix store paths)\n  PI_SMOL_MODEL              - Override smol/fast model (see --smol)\n  PI_SLOW_MODEL              - Override slow/reasoning model (see --slow)\n  PI_PLAN_MODEL              - Override planning model (see --plan)\n  PI_NO_PTY                  - Disable PTY-based interactive bash execution\n  For complete environment variable reference, see:\n  ${}\n${}\n  ${}\n${}\n\n  ${}\n${}\n\n  Browser and computer use run inside eval: toggle with the browser.enabled\n  (default on) and computer.enabled (default off) settings.\n\n${}\n  --plugin-dir <path>        Load plugin from directory (repeatable)\n\n${}\n  omp agents unpack           - Export bundled subagents to ~/.omp/agent/agents (default)\n  omp agents unpack --project - Export bundled subagents to ./.omp/agents",
    "zh": "${}\n  ${}\n  ANTHROPIC_API_KEY          - Anthropic Claude 模型\n  ANTHROPIC_OAUTH_TOKEN      - Anthropic OAuth（优先于 API key）\n  CLAUDE_CODE_USE_FOUNDRY    - 启用 Anthropic Foundry 模式（用 Foundry 端点 + mTLS）\n  FOUNDRY_BASE_URL           - Anthropic Foundry 基础 URL（如 https://<foundry-host>）\n  ANTHROPIC_FOUNDRY_API_KEY  - Foundry 模式下作 Authorization: Bearer <token> 的 Anthropic token\n  ANTHROPIC_CUSTOM_HEADERS   - Foundry 或自定义 ANTHROPIC_BASE_URL 网关的额外头（如 \"user-id: USERNAME\"）\n  CLAUDE_CODE_DISABLE_EXPERIMENTAL_BETAS - 为拒绝预发布 Anthropic 字段的网关省略它们（context_management、beta 工具字段、任务预算、thinking.block_binding）\n  CLAUDE_CODE_CLIENT_CERT    - mTLS 客户端证书（PEM 路径或内联 PEM）\n  CLAUDE_CODE_CLIENT_KEY     - mTLS 客户端私钥（PEM 路径或内联 PEM）\n  NODE_EXTRA_CA_CERTS        - 服务器证书校验用 CA 包路径（或内联 PEM）\n  OPENAI_API_KEY             - OpenAI GPT 模型\n  GEMINI_API_KEY             - Google Gemini 模型\n  COPILOT_GITHUB_TOKEN      - GitHub Copilot\n\n  ${}\n  AZURE_OPENAI_API_KEY       - Azure OpenAI 模型\n  GROQ_API_KEY               - Groq 模型\n  CEREBRAS_API_KEY           - Cerebras 模型\n  XAI_API_KEY                - xAI Grok 模型\n  OPENROUTER_API_KEY         - OpenRouter 聚合模型\n  KILO_API_KEY               - Kilo Gateway 模型\n  MISTRAL_API_KEY            - Mistral 模型\n  ZAI_API_KEY                - z.ai 模型（ZhipuAI/GLM）\n  UMANS_AI_CODING_PLAN_API_KEY - Umans AI Coding Plan 模型\n  ABLITERATION_API_KEY       - Abliteration 无审查 GLM 模型\n  KIRO_API_KEY               - Kiro agentic IDE 模型\n  UMANS_WEBSEARCH_PROVIDER    - Umans 网关 web 搜索后端（native 或 exa）\n  MINIMAX_API_KEY            - MiniMax 模型\n  OPENCODE_API_KEY           - OpenCode Zen/OpenCode Go 模型\n  CURSOR_ACCESS_TOKEN        - Cursor AI 模型\n  CLINE_API_KEY              - ClinePass 订阅模型\n  COMMAND_CODE_API_KEY       - Command Code Provider API 模型\n  CHARM_HYPER_API_KEY        - Charm Hyper 推理网关模型\n  AI_GATEWAY_API_KEY         - Vercel AI Gateway\n  STEPFUN_API_KEY            - StepFun Step 模型\n  HELMCODE_API_KEY           - Helmcode 欧盟私有推理\n  WAFER_SERVERLESS_API_KEY   - Wafer Serverless（按量付费）\n  YOLO_AUTO_API_KEY          - Yolo-Auto 包月 Qwen 模型\n  SINGULARITYAPI_DEV_API_KEY - SingularityAPI 通用网关（300+ 模型）\n  SINGULARITYAPI_TECH_API_KEY - SingularityAPI 预留 DeepSeek 通道\n  SCW_SECRET_KEY             - Scaleway Generative APIs 模型\n  OTARI_API_KEY              - Otari AI 网关（工作区模型）\n  OTARI_BASE_URL             - Otari 自托管 API 根地址（如 https://host/api/v1）\n\n  ${}\n  AWS_PROFILE                - AWS Bedrock（或 AWS_ACCESS_KEY_ID + AWS_SECRET_ACCESS_KEY）\n  GOOGLE_CLOUD_PROJECT       - Google Vertex AI（需要 GOOGLE_CLOUD_LOCATION）\n  GOOGLE_APPLICATION_CREDENTIALS - Vertex AI 服务账号\n\n  ${}\n  EXA_API_KEY                - Exa web 搜索\n  BRAVE_API_KEY              - Brave web 搜索\n  PERPLEXITY_API_KEY         - Perplexity web 搜索 API key（可选；有匿名回退）\n  PERPLEXITY_COOKIES         - Perplexity web 搜索（会话 cookie）\n  TAVILY_API_KEY             - Tavily web 搜索\n  TINYFISH_API_KEY           - TinyFish web 搜索\n  KEENABLE_API_KEY           - Keenable web 搜索（可选；可无 key 公共回退）\n  SOFYA_API_KEY              - Sofya web 搜索\n  FIRECRAWL_API_KEY          - Firecrawl web 搜索 + fetch 阅读后端\n  ANTHROPIC_SEARCH_API_KEY   - Anthropic web 搜索（覆盖；把搜索与主 ANTHROPIC_API_KEY 隔离）\n  ANTHROPIC_SEARCH_BASE_URL  - Anthropic web 搜索 base URL（覆盖；与 ANTHROPIC_SEARCH_API_KEY 搭配）\n  TYPESAFE_API_KEY           - TypeSafe System One 评判（auto thinking、unexpected-stop、AI staging、eval judge()）\n\n  ${}\n  OMP_PROFILE                 - 隔离 agent 状态的具名配置（同 --profile）\n  用 `omp --profile <name> --alias <command>` 为配置创建 shell 快捷方式\n  PI_CODING_AGENT_DIR        - 会话存储目录（默认：~/${}/agent）\n  PI_PACKAGE_DIR             - 覆盖包目录（用于 Nix/Guix store 路径）\n  PI_SMOL_MODEL              - 覆盖 smol/快速模型（见 --smol）\n  PI_SLOW_MODEL              - 覆盖 slow/推理模型（见 --slow）\n  PI_PLAN_MODEL              - 覆盖规划模型（见 --plan）\n  PI_NO_PTY                  - 禁用基于 PTY 的交互式 bash 执行\n  完整环境变量参考见：\n  ${}\n${}\n  ${}\n${}\n\n  ${}\n${}\n\n  Browser 与 computer use 在 eval 内运行：用 browser.enabled（默认开）和 computer.enabled（默认关）设置切换。\n\n${}\n  --plugin-dir <path>        从目录加载插件（可重复）\n\n${}\n  omp agents unpack           - 将内置子代理导出到 ~/.omp/agent/agents（默认）\n  omp agents unpack --project - 将内置子代理导出到 ./.omp/agents"
+  },
+  {
+   "en": "${} (when ${})",
+   "zh": "${}（当 ${}）"
   }
  ],
  "packages/coding-agent/src/cli/images-cli.ts": [
@@ -34079,6 +34083,22 @@
   {
    "en": "Console Notification",
    "zh": "控制台通知"
+  },
+  {
+   "en": "Theme",
+   "zh": "主题"
+  },
+  {
+   "en": "Composer",
+   "zh": "输入框"
+  },
+  {
+   "en": "Display",
+   "zh": "显示"
+  },
+  {
+   "en": "Images",
+   "zh": "图片"
   }
  ],
  "packages/coding-agent/src/modes/startup-composer.ts": [
@@ -34119,6 +34139,14 @@
   {
    "en": "Queued message for after compaction",
    "zh": "压缩后待发送的队列消息"
+  },
+  {
+   "en": "Update available",
+   "zh": "有可用更新"
+  },
+  {
+   "en": " · New version ${} is available. Run ",
+   "zh": " · 新版本 ${} 可用，运行 "
   }
  ],
  "packages/coding-agent/src/modes/warp-events.ts": [
@@ -65477,6 +65505,34 @@
   {
    "en": "Keyboard shortcuts",
    "zh": "键盘快捷键"
+  },
+  {
+   "en": "Delete word backwards",
+   "zh": "删除前一个词"
+  },
+  {
+   "en": "Delete to start of line",
+   "zh": "删除到行首"
+  },
+  {
+   "en": "Delete to end of line",
+   "zh": "删除到行尾"
+  },
+  {
+   "en": "Select model (temporary)",
+   "zh": "选择模型（临时）"
+  },
+  {
+   "en": "Select model (set roles)",
+   "zh": "选择模型（设置角色）"
+  },
+  {
+   "en": "Open a local:// file in external editor",
+   "zh": "在外部编辑器中打开 local:// 文件"
+  },
+  {
+   "en": "GitHub issue/PR reference (e.g. `#3164` → `pr://`/`issue://`)",
+   "zh": "引用 GitHub issue/PR（如 `#3164` → `pr://`/`issue://`）"
   }
  ],
  "packages/tui/src/html-form/data.ts": [
@@ -72251,6 +72307,22 @@
   {
    "en": "Tiny Model",
    "zh": "Tiny 模型"
+  },
+  {
+   "en": "Theme",
+   "zh": "主题"
+  },
+  {
+   "en": "Composer",
+   "zh": "输入框"
+  },
+  {
+   "en": "Display",
+   "zh": "显示"
+  },
+  {
+   "en": "Images",
+   "zh": "图片"
   }
  ],
  "packages/tui/src/overlays/settings-selector.ts": [
