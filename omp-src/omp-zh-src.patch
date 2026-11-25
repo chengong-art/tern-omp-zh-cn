@@ -189306,7 +189306,7 @@ index 26ca0dc..3dd6c70 100644
  	// The preview prefers `output` over `stderr`, so a run that failed after
  	// streaming prose (provider stream error, missing yield) would otherwise
 diff --git a/packages/coding-agent/src/task/settings.ts b/packages/coding-agent/src/task/settings.ts
-index ee76777..d187daf 100644
+index ee76777..2fb438f 100644
 --- a/packages/coding-agent/src/task/settings.ts
 +++ b/packages/coding-agent/src/task/settings.ts
 @@ -32,8 +32,8 @@ export const cfgTaskIsolationEnabled = register({
@@ -189901,12 +189901,14 @@ index ee76777..d187daf 100644
  	},
  });
  
-@@ -741,8 +729,8 @@ export const cfgTaskShowResolvedModelBadge = register({
+@@ -740,9 +728,9 @@ export const cfgTaskShowResolvedModelBadge = register({
+ 	default: false,
  	ui: {
  		tab: "appearance",
- 		group: "Display",
+-		group: "Display",
 -		label: "Show Resolved Model Badge",
 -		description: "Display the actual model ID used by each subagent in the task widget status line",
++		group: "显示",
 +		label: "显示已解析模型徽章",
 +		description: "在任务小组件状态行显示每个子代理实际使用的模型 ID",
  	},
@@ -206891,15 +206893,17 @@ index 62c0764..af8a8db 100644
  }
  
 diff --git a/packages/coding-agent/src/utils/title-settings.ts b/packages/coding-agent/src/utils/title-settings.ts
-index 5a3b679..8a61e3a 100644
+index 5a3b679..07dcbf3 100644
 --- a/packages/coding-agent/src/utils/title-settings.ts
 +++ b/packages/coding-agent/src/utils/title-settings.ts
-@@ -18,16 +18,16 @@ export const cfgTitleIcons = register({
+@@ -17,17 +17,17 @@ export const cfgTitleIcons = register({
+ 	default: "nf+emoji",
  	ui: {
  		tab: "appearance",
- 		group: "Display",
+-		group: "Display",
 -		label: "Title Icons",
 -		description: "Icon and short code that head new generated or /rename session titles",
++		group: "显示",
 +		label: "标题图标",
 +		description: "置于新生成或 /rename 会话标题前的图标和短代码",
  		options: [

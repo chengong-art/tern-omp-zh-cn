@@ -45019,6 +45019,10 @@
   {
    "en": "Run LSP formatting and diagnostics on subagent edits. Off by default to keep subagents cheap; the lsp tool stays available to them either way.",
    "zh": "对子代理编辑运行 LSP 格式化与诊断。默认关闭以保持子代理低成本；两种方式下 lsp 工具都对他们可用。"
+  },
+  {
+   "en": "Display",
+   "zh": "显示"
   }
  ],
  "packages/coding-agent/src/task/spawn-policy.ts": [
@@ -53957,6 +53961,10 @@
   {
    "en": "Every 10 prompts",
    "zh": "每 10 条提示"
+  },
+  {
+   "en": "Display",
+   "zh": "显示"
   }
  ],
  "packages/coding-agent/src/utils/tools-manager.ts": [

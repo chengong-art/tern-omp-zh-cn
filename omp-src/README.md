@@ -7,7 +7,7 @@
 | 项 | 值 |
 | --- | --- |
 | 基线 | `@oh-my-pi/pi-coding-agent` **19.1.1**，commit `31ffee513f27a01bba7d4dfbe12bae239cdc646a` |
-| 词表 | `zh-CN-src.json`，**20,545 条** `{en, zh}` 对照，覆盖 1,789 个文件 |
+| 词表 | `zh-CN-src.json`，**20,547 条** `{en, zh}` 对照，覆盖 1,789 个文件 |
 | 补丁 | `omp-zh-src.patch`，**2,397 个文件**改动，`git apply` 干净应用 |
 | 测试 | `bun test` 41,767 个测试：除断言英文原文的失败外无翻译引起的破坏；二进制 `--smoke-test` 通过 |
 
@@ -36,7 +36,7 @@ bun packages/coding-agent/src/cli.ts   # 中文界面
 | 文件 | 内容 |
 | --- | --- |
 | `omp-zh-src.patch` | `git diff` 产物，打在 31ffee51 上 |
-| `zh-CN-src.json` | `{文件相对路径: [{en, zh}]}`，全部 20,545 条对照 |
+| `zh-CN-src.json` | `{文件相对路径: [{en, zh}]}`，全部 20,547 条对照 |
 | `apply-dict.mjs` | 词表回灌工具：`bun apply-dict.mjs <dict.json>`，用于增量更新 |
 | `validate.py` | 译文表与补丁静态校验，CI 自动运行 |
 
