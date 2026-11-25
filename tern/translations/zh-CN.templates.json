@@ -637,5 +637,9 @@
   "Tern doesn't know how {}'s shell quotes {}. Resume it there.": "Tern 不知道 {} 的 Shell 如何引用 {}。请在该主机上恢复会话。",
   "Unstage every {} file": "取消暂存全部 {} 个文件",
   "Update Tern on {} (Settings › Hosts › Update) to {}.": "将 {} 上的 Tern 更新到 {}（设置 › 主机 › 更新）。",
-  "Viewing {}: what you send goes to it · Esc goes back to Main": "正在查看 {}：你发送的内容会发给它 · Esc 返回主会话"
+  "Viewing {}: what you send goes to it · Esc goes back to Main": "正在查看 {}：你发送的内容会发给它 · Esc 返回主会话",
+  "Link copied · {}": "链接已复制 · {}",
+  "Send to cloud on a {} machine": "在 {} 机器上发送到云端",
+  "Send to cloud on a {} machine, {}{}": "在 {} 机器上发送到云端，{}{}",
+  "The clip service answered {}": "片段服务返回：{}"
 }
