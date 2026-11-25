@@ -3571,10 +3571,6 @@
    "zh": "${} 必须是非空字符串"
   },
   {
-   "en": "${} must be a non-empty string",
-   "zh": "${} 必须是非空字符串"
-  },
-  {
    "en": "images: ${}",
    "zh": "images：${}"
   }
@@ -4205,10 +4201,6 @@
    "zh": "不支持的 response_format：${}"
   },
   {
-   "en": "${} must be a string",
-   "zh": "${} 必须是字符串"
-  },
-  {
    "en": "transcriptions: ${}",
    "zh": "transcriptions：${}"
   }
@@ -4275,14 +4267,6 @@
   {
    "en": "resolution must be one of ${}",
    "zh": "resolution 必须是 ${} 之一"
-  },
-  {
-   "en": "${} must be an object",
-   "zh": "${} 必须是对象"
-  },
-  {
-   "en": "${} must be a boolean",
-   "zh": "${} 必须是布尔值"
   },
   {
    "en": "${} must not exceed ${} characters",
@@ -9845,10 +9829,6 @@
    "zh": "错误：${}\n"
   },
   {
-   "en": "error: ${}\n",
-   "zh": "错误：${}\n"
-  },
-  {
    "en": "Created ${} for profile ${} in ${}\n",
    "zh": "已创建 ${}（配置 ${}，位于 ${}）\n"
   }
@@ -10274,11 +10254,11 @@
   },
   {
    "en": "in",
-   "zh": "输入"
+   "zh": "in"
   },
   {
    "en": "out",
-   "zh": "输出"
+   "zh": "out"
   },
   {
    "en": "queued",
@@ -10384,7 +10364,7 @@
   },
   {
    "en": "models",
-   "zh": "模型"
+   "zh": "models"
   },
   {
    "en": "Could not resolve ${}:\n${}",
@@ -10550,7 +10530,7 @@
   },
   {
    "en": "hosts",
-   "zh": "主机"
+   "zh": "hosts"
   },
   {
    "en": "just now",
@@ -17151,10 +17131,6 @@
   {
    "en": "# Machine-readable output\n  omp usage --json",
    "zh": "# 机器可读输出\n  omp usage --json"
-  },
-  {
-   "en": "# Invalidate cached usage reports for all providers\n  omp usage invalidate",
-   "zh": "# 使所有服务商的缓存用量报告失效\n  omp usage invalidate"
   },
   {
    "en": "# Usage-limit trend over the last 30 days\n  omp usage --history --days 30",
@@ -25071,14 +25047,6 @@
    "zh": "readiness 正则无效：${}"
   },
   {
-   "en": "Invalid readiness regex: ${}",
-   "zh": "readiness 正则无效：${}"
-  },
-  {
-   "en": "../daemon/paths",
-   "zh": "../daemon/paths"
-  },
-  {
    "en": "../daemon/paths",
    "zh": "../daemon/paths"
   },
@@ -28459,10 +28427,6 @@
    "zh": "Shake 失败：${}"
   },
   {
-   "en": "Cannot open a fork in another terminal when --api-key was supplied at startup; the key cannot be forwarded without exposing it in the multiplexer command. Configure provider credentials in the auth store and retry.",
-   "zh": "启动时提供了 --api-key 则无法在另一终端分叉；密钥无法在 multiplexer 命令中安全转发。请在 auth store 配置服务商凭据后重试。"
-  },
-  {
    "en": "Compacting context",
    "zh": "正在压缩上下文"
   },
@@ -28534,7 +28498,7 @@
   },
   {
    "en": "jobs",
-   "zh": "任务"
+   "zh": "jobs"
   },
   {
    "en": "${} background tasks completed",
@@ -29062,7 +29026,7 @@
   },
   {
    "en": "disabled",
-   "zh": "已禁用"
+   "zh": "disabled"
   },
   {
    "en": "no active subscriptions",
@@ -35575,10 +35539,6 @@
    "zh": "${}/${} 没有 API key"
   },
   {
-   "en": "no API key for ${}/${}",
-   "zh": "${}/${} 没有 API key"
-  },
-  {
    "en": "${}: ${} covers ${} with about ${} left.${}",
    "zh": "${}：${} 覆盖 ${}，约剩 ${}。${}"
   },
@@ -35885,10 +35845,6 @@
   {
    "en": "Stopped",
    "zh": "已停止"
-  },
-  {
-   "en": "${}, ${}% continuation probability, expected savings ${} ${} $${}",
-   "zh": "${}，续行概率 ${}%，预期节省 ${} ${} $${}"
   },
   {
    "en": "${}, ${}% continuation probability, expected savings ${} ${} $${}",
@@ -36596,7 +36552,7 @@
   },
   {
    "en": "stay",
-   "zh": "保留"
+   "zh": "stay"
   },
   {
    "en": "${} ${} in System Prompt: the system prompt changed after it was built (e.g. by an extension hook or SDK callback).",
@@ -36798,7 +36754,7 @@
   },
   {
    "en": "en-US",
-   "zh": "'zh-CN'"
+   "zh": "en-US"
   }
  ],
  "packages/coding-agent/src/session/model-controls.ts": [
@@ -37739,10 +37695,6 @@
   {
    "en": "Tool call rejected by user (${})",
    "zh": "工具调用被用户拒绝（${}）"
-  },
-  {
-   "en": "removed ${}",
-   "zh": "已移除 ${}"
   },
   {
    "en": "removed ${}",
@@ -39346,7 +39298,7 @@
   },
   {
    "en": "retries",
-   "zh": "重试"
+   "zh": "retries"
   },
   {
    "en": "Assistant returned an empty stop after retry cap; provider reported ${} output token${}${}, but no text or tool calls were delivered. Usage alone does not establish the cause",
@@ -40711,10 +40663,6 @@
   {
    "en": "Move failed: ${}",
    "zh": "Move 失败：${}"
-  },
-  {
-   "en": "handoff",
-   "zh": "handoff"
   },
   {
    "en": "handoff",
@@ -44357,10 +44305,6 @@
    "zh": "任务 ${}${}"
   },
   {
-   "en": "Task ${}${}",
-   "zh": "任务 ${}${}"
-  },
-  {
    "en": "task.batch is disabled, so the task tool does not accept ${}. Spawn one agent per call with `task`, or enable the task.batch setting.",
    "zh": "task.batch 已禁用，task 工具不接受 ${}。请每次调用用 `task` 生成一个代理，或启用 task.batch 设置。"
   },
@@ -45900,7 +45844,7 @@
   },
   {
    "en": "segments",
-   "zh": "段"
+   "zh": "segments"
   },
   {
    "en": "target not yet approved",
@@ -46892,7 +46836,7 @@
   },
   {
    "en": "${} must be a finite number",
-   "zh": "${} 必须是有限数字"
+   "zh": "${} 必须是有限数值"
   },
   {
    "en": "${}: could not confirm the click: the press reached the page, which removed the element's frame before the button came up, so no click followed; check the page before clicking again",
@@ -46925,10 +46869,6 @@
   {
    "en": "No <select> option matches ${}",
    "zh": "没有 <select> 选项匹配 ${}"
-  },
-  {
-   "en": "${} must be a finite number",
-   "zh": "${} 必须是有限数"
   },
   {
    "en": "<input type=${}> does not accept ${}; give its value format, e.g. ${}",
@@ -47965,16 +47905,8 @@
    "zh": "omp 未重载即把同一页面重挂到新 worker，下次调用可用"
   },
   {
-   "en": "omp reattached to the same page on a new worker without reloading it, so the next call works",
-   "zh": "omp 未重载即把同一页面重挂到新 worker，下次调用可用"
-  },
-  {
    "en": "${}. omp could not reattach to the tab's page (it may have closed), so it released the tab. Open it again with browser.open()",
    "zh": "${}。omp 无法重挂该标签页的页面（可能已关闭），已将其释放。请用 browser.open() 重新打开"
-  },
-  {
-   "en": "another call on this tab is still running. Await each call before starting the next instead of running them together (Promise.all, asyncio.gather), or group the steps in one tab.run(...)",
-   "zh": "该标签页上另一次调用仍在运行。请等待每次调用结束再开始下一次，而不是并行发起（Promise.all、asyncio.gather）；或把多个步骤合进一次 tab.run(...)"
   },
   {
    "en": "omp could not reattach to the tab after Chrome had refused it, so the tab was released",
@@ -49100,7 +49032,7 @@
   },
   {
    "en": "apps",
-   "zh": "应用"
+   "zh": "apps"
   },
   {
    "en": "${} opens it by that exact name or ID, or shows a window of it if it runs without one, and returns it with that window (window: null if none appears within 3 s).\n",
@@ -50574,7 +50506,7 @@
   },
   {
    "en": "files",
-   "zh": "文件"
+   "zh": "files"
   },
   {
    "en": "path entry \"${}\" — only line-range selectors like \":50-100\" are supported (no \":raw\"/\":conflicts\")",
@@ -50944,7 +50876,7 @@
   },
   {
    "en": "memories",
-   "zh": "记忆"
+   "zh": "memories"
   },
   {
    "en": "Found ${} relevant ${} (as of ${} UTC):\n\n${}",
@@ -53189,10 +53121,6 @@
   {
    "en": "write target '${}' ends with a read-tool selector ':${}' and no such file exists — refusing to create a literal file by that name. ",
    "zh": "写入目标 '${}' 以读取工具选择器 ':${}' 结尾且该文件不存在——拒绝按此名创建字面文件。"
-  },
-  {
-   "en": "Unknown URI-like write target '${}'.${} Prefix the path with './' to write it as a filesystem path.",
-   "zh": "未知的类 URI 写入目标 '${}'。${} 给路径加 './' 前缀可将其写为文件系统路径。"
   }
  ],
  "packages/coding-agent/src/tools/yield.ts": [
@@ -53349,10 +53277,6 @@
    "zh": "${} ${} 中止前空结果剩余重试次数：${}。"
   },
   {
-   "en": "${} ${} Empty result retries remaining before abort: ${}.",
-   "zh": "${} ${} 中止前空结果剩余重试次数：${}。"
-  },
-  {
    "en": "Structured output matching the schema:\n${}",
    "zh": "符合 schema 的结构化输出：\n${}"
   },
@@ -53397,32 +53321,12 @@
    "zh": "Maeve（英式女声）"
   },
   {
-   "en": "Delia (American female)",
-   "zh": "Delia（美式女声）"
-  },
-  {
-   "en": "Harper (American female)",
-   "zh": "Harper（美式女声）"
-  },
-  {
-   "en": "Miles (American male)",
-   "zh": "Miles（美式男声）"
-  },
-  {
-   "en": "Harper (American female)",
-   "zh": "Harper（美式女声）"
-  },
-  {
    "en": "Miles (American male)",
    "zh": "Miles（美式男声）"
   },
   {
    "en": "Easton (American male)",
    "zh": "Easton（美式男声）"
-  },
-  {
-   "en": "Maeve (British female)",
-   "zh": "Maeve（英式女声）"
   },
   {
    "en": "Hugh (British male)",
@@ -54594,7 +54498,7 @@
   },
   {
    "en": "en-US",
-   "zh": "'zh-CN'"
+   "zh": "en-US"
   }
  ],
  "packages/coding-agent/src/web/scrapers/brew.ts": [
@@ -54852,7 +54756,7 @@
   },
   {
    "en": "en-US",
-   "zh": "'zh-CN'"
+   "zh": "en-US"
   }
  ],
  "packages/coding-agent/src/web/scrapers/crates-io.ts": [
@@ -55174,7 +55078,7 @@
  "packages/coding-agent/src/web/scrapers/firefox-addons.ts": [
   {
    "en": "en-US",
-   "zh": "zh-CN"
+   "zh": "en-US"
   },
   {
    "en": " (${} reviews)",
@@ -55850,7 +55754,7 @@
   },
   {
    "en": "en-US",
-   "zh": "zh-CN"
+   "zh": "en-US"
   },
   {
    "en": "\n**Profile Fields:**\n",
@@ -58660,7 +58564,7 @@
  "packages/stats/src/client/data/formatters.ts": [
   {
    "en": "en-US",
-   "zh": "zh-CN"
+   "zh": "en-US"
   },
   {
    "en": "${}m ${}s",
@@ -59766,15 +59670,11 @@
   },
   {
    "en": "requests",
-   "zh": "请求"
+   "zh": "requests"
   },
   {
    "en": "agent",
    "zh": "agent"
-  },
-  {
-   "en": "requests",
-   "zh": "请求"
   },
   {
    "en": "Where decision-model tokens went, by use case",
@@ -60640,7 +60540,7 @@
   },
   {
    "en": "tools",
-   "zh": "工具"
+   "zh": "tools"
   },
   {
    "en": "Which tools omp called in ${}, how often they failed, and what they cost.",
@@ -60829,10 +60729,6 @@
   {
    "en": "Net ${}",
    "zh": "净 ${}"
-  },
-  {
-   "en": "${} extra turns (${})",
-   "zh": "${} 个额外轮次（${}）"
   },
   {
    "en": "${} extra turns (${})",
@@ -61301,16 +61197,8 @@
    "zh": "cut"
   },
   {
-   "en": "cut",
-   "zh": "cut"
-  },
-  {
    "en": "recoveries",
    "zh": "recoveries"
-  },
-  {
-   "en": "cut",
-   "zh": "cut"
   }
  ],
  "packages/stats/src/client/spotlight/Savings.tsx": [
@@ -61416,7 +61304,7 @@
   },
   {
    "en": "anyway",
-   "zh": "仍返回\n\t\t\t\t\t"
+   "zh": "anyway"
   },
   {
    "en": "turns",
@@ -61656,7 +61544,7 @@
   },
   {
    "en": "errors",
-   "zh": "错误"
+   "zh": "errors"
   }
  ],
  "packages/stats/src/client/traces/Minimap.tsx": [
@@ -62732,7 +62620,7 @@
   },
   {
    "en": "runs",
-   "zh": "轮"
+   "zh": "runs"
   },
   {
    "en": "passed",
@@ -64370,7 +64258,7 @@
   },
   {
    "en": "en-US",
-   "zh": "zh-CN"
+   "zh": "en-US"
   }
  ],
  "packages/tui/src/charts/chart-svg.ts": [
@@ -64552,7 +64440,7 @@
   },
   {
    "en": "notes",
-   "zh": "条备注"
+   "zh": "notes"
   },
   {
    "en": "${} Advisor",
@@ -64618,7 +64506,7 @@
   },
   {
    "en": "retries",
-   "zh": "次重试"
+   "zh": "retries"
   },
   {
    "en": "Thought for ${}",
@@ -64900,7 +64788,7 @@
   },
   {
    "en": "en-US",
-   "zh": "'zh-CN'"
+   "zh": "en-US"
   },
   {
    "en": "spotlight",
@@ -65739,10 +65627,6 @@
    "zh": "answer"
   },
   {
-   "en": "answer",
-   "zh": "answer"
-  },
-  {
    "en": "${} ${}",
    "zh": "${} ${}"
   },
@@ -65772,7 +65656,7 @@
   },
   {
    "en": "cancel",
-   "zh": "取消"
+   "zh": "cancel"
   },
   {
    "en": "Submits these answers in ${}s",
@@ -67304,11 +67188,11 @@
   },
   {
    "en": "apply",
-   "zh": "应用"
+   "zh": "apply"
   },
   {
    "en": "open",
-   "zh": "打开"
+   "zh": "open"
   },
   {
    "en": "pick",
@@ -67324,7 +67208,7 @@
   },
   {
    "en": "scope",
-   "zh": "范围"
+   "zh": "scope"
   },
   {
    "en": "regenerate",
@@ -67340,15 +67224,15 @@
   },
   {
    "en": "agents",
-   "zh": "代理"
+   "zh": "agents"
   },
   {
    "en": "configure",
-   "zh": "配置"
+   "zh": "configure"
   },
   {
    "en": "reload",
-   "zh": "重载"
+   "zh": "reload"
   },
   {
    "en": "Source",
@@ -67745,10 +67629,6 @@
    "zh": "第 ${} 行"
   },
   {
-   "en": "line ${}",
-   "zh": "第 ${} 行"
-  },
-  {
    "en": "${} · line ${}",
    "zh": "${} · 第 ${} 行"
   }
@@ -67905,10 +67785,6 @@
    "zh": " ${} 隐藏"
   },
   {
-   "en": "question",
-   "zh": "question"
-  },
-  {
    "en": "Submit the answers",
    "zh": "提交答案"
   },
@@ -67947,10 +67823,6 @@
   {
    "en": "cancel",
    "zh": "cancel"
-  },
-  {
-   "en": "question",
-   "zh": "question"
   }
  ],
  "packages/tui/src/overlays/bordered-loader.ts": [
@@ -68598,7 +68470,7 @@
   },
   {
    "en": "block",
-   "zh": "块"
+   "zh": "block"
   },
   {
    "en": "step",
@@ -68606,7 +68478,7 @@
   },
   {
    "en": "back",
-   "zh": "返回"
+   "zh": "back"
   },
   {
    "en": "close",
@@ -68622,7 +68494,7 @@
   },
   {
    "en": "blocks",
-   "zh": "块"
+   "zh": "blocks"
   },
   {
    "en": "earlier turns",
@@ -71310,7 +71182,7 @@
   },
   {
    "en": "cancel",
-   "zh": "取消"
+   "zh": "cancel"
   },
   {
    "en": "save",
@@ -71980,7 +71852,7 @@
   },
   {
    "en": "en-US",
-   "zh": "'zh-CN'"
+   "zh": "en-US"
   }
  ],
  "packages/tui/src/overlays/session-observer-registry.ts": [
@@ -72662,7 +72534,7 @@
   },
   {
    "en": "lines",
-   "zh": "行"
+   "zh": "lines"
   },
   {
    "en": "line ${} · the hottest line this fold hides",
@@ -72866,7 +72738,7 @@
   },
   {
    "en": "switch",
-   "zh": "切换"
+   "zh": "switch"
   },
   {
    "en": "page",
@@ -72882,7 +72754,7 @@
   },
   {
    "en": "filter",
-   "zh": "筛选"
+   "zh": "filter"
   },
   {
    "en": "Session Tree",
@@ -73580,7 +73452,7 @@
  "packages/tui/src/prompt/usage-amounts.ts": [
   {
    "en": "en-US",
-   "zh": "zh-CN"
+   "zh": "en-US"
   }
  ],
  "packages/tui/src/prompt/welcome.ts": [
@@ -74400,11 +74272,11 @@
   },
   {
    "en": "turn",
-   "zh": "轮"
+   "zh": "turn"
   },
   {
    "en": "turns",
-   "zh": "轮"
+   "zh": "turns"
   },
   {
    "en": "${} ahead",
@@ -74927,10 +74799,6 @@
   {
    "en": "Wall time: ${} seconds",
    "zh": "Wall time：${} 秒"
-  },
-  {
-   "en": "PID ${}",
-   "zh": "PID ${}"
   },
   {
    "en": " (requested ${} clamped)",
@@ -75728,7 +75596,7 @@
   },
   {
    "en": "jobs",
-   "zh": "任务"
+   "zh": "jobs"
   },
   {
    "en": "The agent's own completion estimate: ${}%",
@@ -76612,7 +76480,7 @@
   },
   {
    "en": "lines",
-   "zh": "行"
+   "zh": "lines"
   },
   {
    "en": "job",
@@ -76620,7 +76488,7 @@
   },
   {
    "en": "jobs",
-   "zh": "任务"
+   "zh": "jobs"
   },
   {
    "en": "… ${} more settled",
@@ -81468,7 +81336,7 @@
   },
   {
    "en": "calls",
-   "zh": "调用"
+   "zh": "calls"
   }
  ],
  "packages/coding-agent/test/tools/lsp-regressions.test.ts": [
@@ -81528,7 +81396,7 @@
  "packages/coding-agent/test/tools/browser-interactions.test.ts": [
   {
    "en": "range",
-   "zh": "范围"
+   "zh": "range"
   }
  ],
  "packages/tui/test/table-chart.test.ts": [
@@ -81546,7 +81414,7 @@
  "python/robomp/web/scripts/verify-live.ts": [
   {
    "en": "elapsed",
-   "zh": "已耗时"
+   "zh": "elapsed"
   }
  ],
  "packages/coding-agent/test/agent-loop-wait-interrupt.test.ts": [
@@ -81558,7 +81426,7 @@
  "packages/coding-agent/test/plugin-verb-launch-leak.test.ts": [
   {
    "en": "for",
-   "zh": "，花费"
+   "zh": "for"
   }
  ],
  "packages/tui/test/session-picker-native.test.ts": [
@@ -81570,11 +81438,11 @@
  "packages/coding-agent/test/job-widgets/derivation.test.ts": [
   {
    "en": "req",
-   "zh": "请求"
+   "zh": "req"
   },
   {
    "en": "tok",
-   "zh": "词元"
+   "zh": "tok"
   }
  ],
  "packages/coding-agent/test/advisor/config.test.ts": [
@@ -81604,13 +81472,13 @@
  "packages/coding-agent/test/tools/web-scrapers/reddit.test.ts": [
   {
    "en": "more",
-   "zh": "个"
+   "zh": "more"
   }
  ],
  "packages/coding-agent/test/config/compaction-threshold.test.ts": [
   {
    "en": "saved",
-   "zh": "已省"
+   "zh": "saved"
   }
  ],
  "packages/coding-agent/src/tools/jfind/keywords.ts": [
@@ -81622,19 +81490,19 @@
  "packages/coding-agent/test/tools/jtd-to-json-schema.test.ts": [
   {
    "en": "results",
-   "zh": "个结果"
+   "zh": "results"
   }
  ],
  "scripts/tool-prompt-usage.ts": [
   {
    "en": "tokens",
-   "zh": "词元"
+   "zh": "tokens"
   }
  ],
  "packages/snapcompact/test/snapcompact.test.ts": [
   {
    "en": "kept",
-   "zh": "保留"
+   "zh": "kept"
   }
  ],
  "packages/tui/test/plan-review-overlay.test.ts": [
@@ -81646,23 +81514,23 @@
  "packages/coding-agent/test/rpc-dictation.test.ts": [
   {
    "en": "saved",
-   "zh": "已省"
+   "zh": "saved"
   }
  ],
  "packages/coding-agent/test/agent-session-auto-compaction-queue.test.ts": [
   {
    "en": "in",
-   "zh": "在"
+   "zh": "in"
   }
  ],
  "python/robomp/web/scripts/verify-cards.ts": [
   {
    "en": "failed",
-   "zh": "失败"
+   "zh": "failed"
   },
   {
    "en": "new",
-   "zh": "新"
+   "zh": "new"
   }
  ],
  "packages/coding-agent/test/agent-session-magic-keywords.test.ts": [
@@ -81680,7 +81548,7 @@
  "python/robomp/web/src/state.ts": [
   {
    "en": "error",
-   "zh": "错误"
+   "zh": "error"
   }
  ],
  "packages/coding-agent/test/extension-session-modes.test.ts": [
@@ -81724,7 +81592,7 @@
  "packages/coding-agent/test/tools/computer.test.ts": [
   {
    "en": "unanswered",
-   "zh": "未回答"
+   "zh": "unanswered"
   }
  ],
  "packages/coding-agent/test/btw-history.test.ts": [
@@ -81897,10 +81765,6 @@
   {
    "en": "IDA unavailable: no Python interpreter can import ida_domain and idapro (tried: ${}). Install ida-domain into the Python targeted by IDA's idapyswitch, or set ida.python.",
    "zh": "IDA 不可用：没有能 import ida_domain 和 idapro 的 Python 解释器（已尝试：${}）。请把 ida-domain 装入 IDA 的 idapyswitch 所指的 Python，或设置 ida.python。"
-  },
-  {
-   "en": "IDA python probe failed",
-   "zh": "IDA python 探测失败"
   },
   {
    "en": "IDA python probe failed",
@@ -83791,10 +83655,6 @@
    "zh": "running"
   },
   {
-   "en": "global",
-   "zh": "global"
-  },
-  {
    "en": "daemon not running — showing stored units",
    "zh": "守护进程未运行 —— 显示已存单元"
   }
@@ -83823,14 +83683,6 @@
   {
    "en": "mnemopi-embed: worker returned error",
    "zh": "mnemopi-embed：worker 返回错误"
-  },
-  {
-   "en": "mnemopi embed ${}",
-   "zh": "mnemopi embed ${}"
-  },
-  {
-   "en": "mnemopi embed ${}",
-   "zh": "mnemopi embed ${}"
   },
   {
    "en": "mnemopi-embed: connection error",
@@ -83917,20 +83769,12 @@
    "zh": "text-predict：sync 已丢弃"
   },
   {
-   "en": "text-predict: daemon unavailable; word completion paused",
-   "zh": "text-predict：daemon 不可用；词语补全已暂停"
-  },
-  {
    "en": "text-predict ${}: ${}",
    "zh": "text-predict ${}：${}"
   },
   {
    "en": "text-predict: lease release failed",
    "zh": "text-predict：租约释放失败"
-  },
-  {
-   "en": "text-predict ${}: ${}",
-   "zh": "text-predict ${}：${}"
   }
  ],
  "packages/coding-agent/src/ida/install.ts": [

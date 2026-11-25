@@ -7,8 +7,8 @@
 | 项 | 值 |
 | --- | --- |
 | 基线 | `@oh-my-pi/pi-coding-agent` **19.1.1**，commit `31ffee513f27a01bba7d4dfbe12bae239cdc646a` |
-| 词表 | `zh-CN-src.json`，**20,566 条** `{en, zh}` 对照，覆盖 ~1,783 个文件 |
-| 补丁 | `omp-zh-src.patch`，**1,776 个文件**改动，`git apply` 干净应用 |
+| 词表 | `zh-CN-src.json`，**20,527 条** `{en, zh}` 对照，覆盖 1,789 个文件 |
+| 补丁 | `omp-zh-src.patch`，**2,397 个文件**改动，`git apply` 干净应用 |
 | 测试 | `bun test` 41,767 个测试：除断言英文原文的失败外无翻译引起的破坏；二进制 `--smoke-test` 通过 |
 
 ## 用法
@@ -36,8 +36,19 @@ bun packages/coding-agent/src/cli.ts   # 中文界面
 | 文件 | 内容 |
 | --- | --- |
 | `omp-zh-src.patch` | `git diff` 产物，打在 31ffee51 上 |
-| `zh-CN-src.json` | `{文件相对路径: [{en, zh}]}`，全部 20,566 条对照 |
+| `zh-CN-src.json` | `{文件相对路径: [{en, zh}]}`，全部 20,527 条对照 |
 | `apply-dict.mjs` | 词表回灌工具：`bun apply-dict.mjs <dict.json>`，用于增量更新 |
+| `validate.py` | 译文表与补丁静态校验，CI 自动运行 |
+
+## 自动校验
+
+`validate.py` 固化了几类容易漏进大词表的错误：`${}` / `{}` / `{{name}}` 占位符数量和顺序、`\${` 转义、译文额外包一层引号、以及小写标识符字面量（枚举、action id、union、wire 值等）被翻译。小写标识符一律保守保持英文；需要汉化某个仅用于显示的小写词时，先确认同文件没有机器消费同一字面量。
+
+```sh
+python3 omp-src/validate.py
+```
+
+GitHub Actions 还会克隆上游 `v19.1.1`，确认 `omp-zh-src.patch` 能干净应用，并扫描补丁后的源码中是否再次出现 locale 引号嵌套（如 `"'zh-CN'"`）。`--audit-machine-usage` 可额外列出中文文案出现在比较、`case`、`includes` 等位置的可疑点；这些是启发式警告，需要人工判断生产者和比较方是否成对翻译。
 
 ## 已知边界
 
