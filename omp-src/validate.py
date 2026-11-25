@@ -16,6 +16,7 @@ CJK = r"[\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff]"
 CJK_RE = re.compile(CJK)
 LOWER_IDENT_RE = re.compile(r"^[a-z][\w.-]*$")
 NAMED_PLACEHOLDER_RE = re.compile(r"\{\{([^{}]+)\}\}")
+TEMPLATE_EXPR_RE = re.compile(r"(?<!\\)\$\{[^{}]*\}")
 PRINTF_TOKEN_RE = re.compile(r"%(?:\d+\$)?[sdif]")
 CONTROL_RE = re.compile(r"[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]")
 
@@ -44,9 +45,12 @@ def fmt_entry(file, index):
 
 def placeholders_ok(en, zh):
     problems = []
-    for token in ("${}", "{}"):
-        if en.count(token) != zh.count(token):
-            problems.append(f"{token} count {en.count(token)} != {zh.count(token)}")
+    en_template = TEMPLATE_EXPR_RE.findall(en)
+    zh_template = TEMPLATE_EXPR_RE.findall(zh)
+    if en_template != zh_template:
+        problems.append(f"template expressions {en_template!r} != {zh_template!r}")
+    if en.count("{}") != zh.count("{}"):
+        problems.append(f"{{}} count {en.count('{}')} != {zh.count('{}')}")
     en_named = NAMED_PLACEHOLDER_RE.findall(en)
     zh_named = NAMED_PLACEHOLDER_RE.findall(zh)
     if en_named != zh_named:
@@ -140,8 +144,10 @@ def validate_runtime_dict(path):
             if not isinstance(en, str) or not isinstance(zh, str) or not en or not zh:
                 errors.append(f"{where}: keys and values must be non-empty strings")
                 continue
-            if en.count("${") != zh.count("${"):
-                errors.append(f"{where}: interpolation count {en.count('${')} != {zh.count('${')}")
+            en_template = TEMPLATE_EXPR_RE.findall(en)
+            zh_template = TEMPLATE_EXPR_RE.findall(zh)
+            if en_template != zh_template:
+                errors.append(f"{where}: template expressions {en_template!r} != {zh_template!r}")
             if en.count("{}") != zh.count("{}"):
                 errors.append(f"{where}: {{}} count mismatch")
             en_flags = re.findall(r"--[A-Za-z0-9][\w-]*", en)
@@ -156,8 +162,10 @@ def validate_runtime_dict(path):
             if not (isinstance(item, list) and len(item) == 2 and all(isinstance(x, str) and x for x in item)):
                 errors.append(f"{path}:literals[{index}]: must be [src, dst] non-empty strings")
                 continue
-            if item[0].count("${") != item[1].count("${"):
-                errors.append(f"{path}:literals[{index}]: interpolation count mismatch")
+            en_template = TEMPLATE_EXPR_RE.findall(item[0])
+            zh_template = TEMPLATE_EXPR_RE.findall(item[1])
+            if en_template != zh_template:
+                errors.append(f"{path}:literals[{index}]: template expressions {en_template!r} != {zh_template!r}")
     print(
         "runtime dictionary: "
         + ", ".join(f"{section}={len(data.get(section, {}))}" for section in ("descriptions", "tips", "messages"))
