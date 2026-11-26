@@ -7,8 +7,8 @@
 | 对象 | 版本与验证状态 | 方式 |
 | --- | --- | --- |
 | Tern | 0.9.16、0.9.26、0.9.30、0.9.32（macOS，Apple 芯片；0.9.30 已复测 Option-as-Alt、中文菜单和帧同步文案；0.9.32 构建、签名验证通过）<br>0.9.33（macOS，Apple 芯片；构建、strict 签名验证及 UI 验证通过） | 生成一份汉化后的 `Tern.app` 副本，原程序只读不改 |
-| omp | 19.1.1（npm / Homebrew 安装的 JS 版） | 就地修改 `cli.js`，自动留备份，可一键还原 |
-| omp | 19.1.1（源码，commit `31ffee51`） | 源码级全量汉化 patch（20,547 条 / 1,789 个词表文件 / 2,398 个补丁文件），见 [`omp-src/`](omp-src/) |
+| omp | 19.1.1（npm / Homebrew 安装的 JS 版，尚未更新到 19.2.1） | 就地修改 `cli.js`，自动留备份，可一键还原 |
+| omp | 19.2.1（源码，commit `b55cd1bb`） | 源码级全量汉化 patch（24,270 条 / 2,693 个词表文件 / 2,701 个补丁文件），见 [`omp-src/`](omp-src/) |
 
 0.9.32 UI 验证通过：从精确路径启动新构建的主程序，唯一 `Tern Tray` helper 和 daemon 稳定运行超过 2 分钟；键盘设置稳定。已验证中文菜单项：`重开标签`、`隐藏组件栏`、`从手机连接`、`共享会话`。
 
@@ -30,7 +30,7 @@
 - View：`Show all commands`、`Ask Carly…`
 - 其他菜单项仍为英文（如 `Enter Full Screen`、`Hide Others`、`Show All`、`Quit tern`）；标准 `Edit`/`Window` 菜单项按预期保留英文。
 
-已编译好的 macOS arm64 单文件二进制和打好的源码包在 [Releases](https://github.com/chengong-art/tern-omp-zh-cn/releases)（tag `omp-19.1.1-zh-cn`）里，不用自己装 bun 和 Rust 工具链。
+已编译好的 macOS arm64 单文件二进制和打好的源码包在 [Releases](https://github.com/chengong-art/tern-omp-zh-cn/releases)（tag `omp-19.1.1-zh-cn`；19.2.1 版二进制待发布）里，不用自己装 bun 和 Rust 工具链。
 
 各版本的验证状态见上表。Tern 的补丁按特征在二进制里定位改写点，换版本后个别条目可能定位不到（会列出来，那几处保持英文）；omp 的补丁按原文匹配，新版本里改过措辞的条目会被跳过并列出来。
 
