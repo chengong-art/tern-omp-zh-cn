@@ -1,0 +1,28 @@
+name: Validate omp translations
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  omp-translations:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate translation dictionaries
+        run: python3 omp-src/validate.py
+
+      - name: Clone oh-my-pi baseline
+        run: git clone --depth 1 --branch v19.1.1 https://github.com/can1357/oh-my-pi.git upstream
+
+      - name: Check patch applies and patched tree is clean
+        run: |
+          python3 omp-src/validate.py --source-root upstream
+          cd upstream
+          git apply --check --whitespace=nowarn ../omp-src/omp-zh-src.patch
+          git apply --whitespace=nowarn ../omp-src/omp-zh-src.patch
+          cd ..
+          python3 omp-src/validate.py --source-root upstream --patched-root upstream

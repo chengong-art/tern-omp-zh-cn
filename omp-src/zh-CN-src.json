@@ -3571,10 +3571,6 @@
    "zh": "${} 必须是非空字符串"
   },
   {
-   "en": "${} must be a non-empty string",
-   "zh": "${} 必须是非空字符串"
-  },
-  {
    "en": "images: ${}",
    "zh": "images：${}"
   }
@@ -4205,10 +4201,6 @@
    "zh": "不支持的 response_format：${}"
   },
   {
-   "en": "${} must be a string",
-   "zh": "${} 必须是字符串"
-  },
-  {
    "en": "transcriptions: ${}",
    "zh": "transcriptions：${}"
   }
@@ -4275,14 +4267,6 @@
   {
    "en": "resolution must be one of ${}",
    "zh": "resolution 必须是 ${} 之一"
-  },
-  {
-   "en": "${} must be an object",
-   "zh": "${} 必须是对象"
-  },
-  {
-   "en": "${} must be a boolean",
-   "zh": "${} 必须是布尔值"
   },
   {
    "en": "${} must not exceed ${} characters",
@@ -9845,10 +9829,6 @@
    "zh": "错误：${}\n"
   },
   {
-   "en": "error: ${}\n",
-   "zh": "错误：${}\n"
-  },
-  {
    "en": "Created ${} for profile ${} in ${}\n",
    "zh": "已创建 ${}（配置 ${}，位于 ${}）\n"
   }
@@ -10274,11 +10254,11 @@
   },
   {
    "en": "in",
-   "zh": "输入"
+   "zh": "in"
   },
   {
    "en": "out",
-   "zh": "输出"
+   "zh": "out"
   },
   {
    "en": "queued",
@@ -10384,7 +10364,7 @@
   },
   {
    "en": "models",
-   "zh": "模型"
+   "zh": "models"
   },
   {
    "en": "Could not resolve ${}:\n${}",
@@ -10550,7 +10530,7 @@
   },
   {
    "en": "hosts",
-   "zh": "主机"
+   "zh": "hosts"
   },
   {
    "en": "just now",
@@ -12451,6 +12431,10 @@
   {
    "en": "${}\n  ${}\n  ANTHROPIC_API_KEY          - Anthropic Claude models\n  ANTHROPIC_OAUTH_TOKEN      - Anthropic OAuth (takes precedence over API key)\n  CLAUDE_CODE_USE_FOUNDRY    - Enable Anthropic Foundry mode (uses Foundry endpoint + mTLS)\n  FOUNDRY_BASE_URL           - Anthropic Foundry base URL (e.g., https://<foundry-host>)\n  ANTHROPIC_FOUNDRY_API_KEY  - Anthropic token used as Authorization: Bearer <token> in Foundry mode\n  ANTHROPIC_CUSTOM_HEADERS   - Extra headers for Foundry or any custom ANTHROPIC_BASE_URL gateway (e.g., \"user-id: USERNAME\")\n  CLAUDE_CODE_DISABLE_EXPERIMENTAL_BETAS - Omit pre-release Anthropic fields (context_management, beta tool fields, task budgets, thinking.block_binding) for gateways that reject them\n  CLAUDE_CODE_CLIENT_CERT    - Client certificate (PEM path or inline PEM) for mTLS\n  CLAUDE_CODE_CLIENT_KEY     - Client private key (PEM path or inline PEM) for mTLS\n  NODE_EXTRA_CA_CERTS        - CA bundle path (or inline PEM) for server certificate validation\n  OPENAI_API_KEY             - OpenAI GPT models\n  GEMINI_API_KEY             - Google Gemini models\n  COPILOT_GITHUB_TOKEN      - GitHub Copilot\n\n  ${}\n  AZURE_OPENAI_API_KEY       - Azure OpenAI models\n  GROQ_API_KEY               - Groq models\n  CEREBRAS_API_KEY           - Cerebras models\n  XAI_API_KEY                - xAI Grok models\n  OPENROUTER_API_KEY         - OpenRouter aggregated models\n  KILO_API_KEY               - Kilo Gateway models\n  MISTRAL_API_KEY            - Mistral models\n  ZAI_API_KEY                - z.ai models (ZhipuAI/GLM)\n  UMANS_AI_CODING_PLAN_API_KEY - Umans AI Coding Plan models\n  ABLITERATION_API_KEY       - Abliteration uncensored GLM models\n  KIRO_API_KEY               - Kiro agentic IDE models\n  UMANS_WEBSEARCH_PROVIDER    - Umans gateway web search backend (native or exa)\n  MINIMAX_API_KEY            - MiniMax models\n  OPENCODE_API_KEY           - OpenCode Zen/OpenCode Go models\n  CURSOR_ACCESS_TOKEN        - Cursor AI models\n  CLINE_API_KEY              - ClinePass subscription models\n  COMMAND_CODE_API_KEY       - Command Code Provider API models\n  CHARM_HYPER_API_KEY        - Charm Hyper inference gateway models\n  AI_GATEWAY_API_KEY         - Vercel AI Gateway\n  STEPFUN_API_KEY            - StepFun Step models\n  HELMCODE_API_KEY           - Helmcode private EU inference\n  WAFER_SERVERLESS_API_KEY   - Wafer Serverless (pay-as-you-go)\n  YOLO_AUTO_API_KEY          - Yolo-Auto flat-rate Qwen models\n  SINGULARITYAPI_DEV_API_KEY - SingularityAPI universal gateway (300+ models)\n  SINGULARITYAPI_TECH_API_KEY - SingularityAPI reserved DeepSeek lanes\n  SCW_SECRET_KEY             - Scaleway Generative APIs models\n  OTARI_API_KEY              - Otari AI gateway (workspace models)\n  OTARI_BASE_URL             - Otari self-hosted API root (e.g. https://host/api/v1)\n\n  ${}\n  AWS_PROFILE                - AWS Bedrock (or AWS_ACCESS_KEY_ID + AWS_SECRET_ACCESS_KEY)\n  GOOGLE_CLOUD_PROJECT       - Google Vertex AI (requires GOOGLE_CLOUD_LOCATION)\n  GOOGLE_APPLICATION_CREDENTIALS - Service account for Vertex AI\n\n  ${}\n  EXA_API_KEY                - Exa web search\n  BRAVE_API_KEY              - Brave web search\n  PERPLEXITY_API_KEY         - Perplexity web search API key (optional; anonymous fallback)\n  PERPLEXITY_COOKIES         - Perplexity web search (session cookie)\n  TAVILY_API_KEY             - Tavily web search\n  TINYFISH_API_KEY           - TinyFish web search\n  KEENABLE_API_KEY           - Keenable web search (optional; keyless public fallback)\n  SOFYA_API_KEY              - Sofya web search\n  FIRECRAWL_API_KEY          - Firecrawl web search + fetch reader backend\n  ANTHROPIC_SEARCH_API_KEY   - Anthropic web search (override; isolates search from main ANTHROPIC_API_KEY)\n  ANTHROPIC_SEARCH_BASE_URL  - Anthropic web search base URL (override; pairs with ANTHROPIC_SEARCH_API_KEY)\n  TYPESAFE_API_KEY           - TypeSafe System One judgments (auto thinking, unexpected-stop, AI staging, eval judge())\n\n  ${}\n  OMP_PROFILE                 - Named profile for isolated agent state (same as --profile)\n  Use `omp --profile <name> --alias <command>` to create a shell shortcut for a profile\n  PI_CODING_AGENT_DIR        - Session storage directory (default: ~/${}/agent)\n  PI_PACKAGE_DIR             - Override package directory (for Nix/Guix store paths)\n  PI_SMOL_MODEL              - Override smol/fast model (see --smol)\n  PI_SLOW_MODEL              - Override slow/reasoning model (see --slow)\n  PI_PLAN_MODEL              - Override planning model (see --plan)\n  PI_NO_PTY                  - Disable PTY-based interactive bash execution\n  For complete environment variable reference, see:\n  ${}\n${}\n  ${}\n${}\n\n  ${}\n${}\n\n  Browser and computer use run inside eval: toggle with the browser.enabled\n  (default on) and computer.enabled (default off) settings.\n\n${}\n  --plugin-dir <path>        Load plugin from directory (repeatable)\n\n${}\n  omp agents unpack           - Export bundled subagents to ~/.omp/agent/agents (default)\n  omp agents unpack --project - Export bundled subagents to ./.omp/agents",
    "zh": "${}\n  ${}\n  ANTHROPIC_API_KEY          - Anthropic Claude 模型\n  ANTHROPIC_OAUTH_TOKEN      - Anthropic OAuth（优先于 API key）\n  CLAUDE_CODE_USE_FOUNDRY    - 启用 Anthropic Foundry 模式（用 Foundry 端点 + mTLS）\n  FOUNDRY_BASE_URL           - Anthropic Foundry 基础 URL（如 https://<foundry-host>）\n  ANTHROPIC_FOUNDRY_API_KEY  - Foundry 模式下作 Authorization: Bearer <token> 的 Anthropic token\n  ANTHROPIC_CUSTOM_HEADERS   - Foundry 或自定义 ANTHROPIC_BASE_URL 网关的额外头（如 \"user-id: USERNAME\"）\n  CLAUDE_CODE_DISABLE_EXPERIMENTAL_BETAS - 为拒绝预发布 Anthropic 字段的网关省略它们（context_management、beta 工具字段、任务预算、thinking.block_binding）\n  CLAUDE_CODE_CLIENT_CERT    - mTLS 客户端证书（PEM 路径或内联 PEM）\n  CLAUDE_CODE_CLIENT_KEY     - mTLS 客户端私钥（PEM 路径或内联 PEM）\n  NODE_EXTRA_CA_CERTS        - 服务器证书校验用 CA 包路径（或内联 PEM）\n  OPENAI_API_KEY             - OpenAI GPT 模型\n  GEMINI_API_KEY             - Google Gemini 模型\n  COPILOT_GITHUB_TOKEN      - GitHub Copilot\n\n  ${}\n  AZURE_OPENAI_API_KEY       - Azure OpenAI 模型\n  GROQ_API_KEY               - Groq 模型\n  CEREBRAS_API_KEY           - Cerebras 模型\n  XAI_API_KEY                - xAI Grok 模型\n  OPENROUTER_API_KEY         - OpenRouter 聚合模型\n  KILO_API_KEY               - Kilo Gateway 模型\n  MISTRAL_API_KEY            - Mistral 模型\n  ZAI_API_KEY                - z.ai 模型（ZhipuAI/GLM）\n  UMANS_AI_CODING_PLAN_API_KEY - Umans AI Coding Plan 模型\n  ABLITERATION_API_KEY       - Abliteration 无审查 GLM 模型\n  KIRO_API_KEY               - Kiro agentic IDE 模型\n  UMANS_WEBSEARCH_PROVIDER    - Umans 网关 web 搜索后端（native 或 exa）\n  MINIMAX_API_KEY            - MiniMax 模型\n  OPENCODE_API_KEY           - OpenCode Zen/OpenCode Go 模型\n  CURSOR_ACCESS_TOKEN        - Cursor AI 模型\n  CLINE_API_KEY              - ClinePass 订阅模型\n  COMMAND_CODE_API_KEY       - Command Code Provider API 模型\n  CHARM_HYPER_API_KEY        - Charm Hyper 推理网关模型\n  AI_GATEWAY_API_KEY         - Vercel AI Gateway\n  STEPFUN_API_KEY            - StepFun Step 模型\n  HELMCODE_API_KEY           - Helmcode 欧盟私有推理\n  WAFER_SERVERLESS_API_KEY   - Wafer Serverless（按量付费）\n  YOLO_AUTO_API_KEY          - Yolo-Auto 包月 Qwen 模型\n  SINGULARITYAPI_DEV_API_KEY - SingularityAPI 通用网关（300+ 模型）\n  SINGULARITYAPI_TECH_API_KEY - SingularityAPI 预留 DeepSeek 通道\n  SCW_SECRET_KEY             - Scaleway Generative APIs 模型\n  OTARI_API_KEY              - Otari AI 网关（工作区模型）\n  OTARI_BASE_URL             - Otari 自托管 API 根地址（如 https://host/api/v1）\n\n  ${}\n  AWS_PROFILE                - AWS Bedrock（或 AWS_ACCESS_KEY_ID + AWS_SECRET_ACCESS_KEY）\n  GOOGLE_CLOUD_PROJECT       - Google Vertex AI（需要 GOOGLE_CLOUD_LOCATION）\n  GOOGLE_APPLICATION_CREDENTIALS - Vertex AI 服务账号\n\n  ${}\n  EXA_API_KEY                - Exa web 搜索\n  BRAVE_API_KEY              - Brave web 搜索\n  PERPLEXITY_API_KEY         - Perplexity web 搜索 API key（可选；有匿名回退）\n  PERPLEXITY_COOKIES         - Perplexity web 搜索（会话 cookie）\n  TAVILY_API_KEY             - Tavily web 搜索\n  TINYFISH_API_KEY           - TinyFish web 搜索\n  KEENABLE_API_KEY           - Keenable web 搜索（可选；可无 key 公共回退）\n  SOFYA_API_KEY              - Sofya web 搜索\n  FIRECRAWL_API_KEY          - Firecrawl web 搜索 + fetch 阅读后端\n  ANTHROPIC_SEARCH_API_KEY   - Anthropic web 搜索（覆盖；把搜索与主 ANTHROPIC_API_KEY 隔离）\n  ANTHROPIC_SEARCH_BASE_URL  - Anthropic web 搜索 base URL（覆盖；与 ANTHROPIC_SEARCH_API_KEY 搭配）\n  TYPESAFE_API_KEY           - TypeSafe System One 评判（auto thinking、unexpected-stop、AI staging、eval judge()）\n\n  ${}\n  OMP_PROFILE                 - 隔离 agent 状态的具名配置（同 --profile）\n  用 `omp --profile <name> --alias <command>` 为配置创建 shell 快捷方式\n  PI_CODING_AGENT_DIR        - 会话存储目录（默认：~/${}/agent）\n  PI_PACKAGE_DIR             - 覆盖包目录（用于 Nix/Guix store 路径）\n  PI_SMOL_MODEL              - 覆盖 smol/快速模型（见 --smol）\n  PI_SLOW_MODEL              - 覆盖 slow/推理模型（见 --slow）\n  PI_PLAN_MODEL              - 覆盖规划模型（见 --plan）\n  PI_NO_PTY                  - 禁用基于 PTY 的交互式 bash 执行\n  完整环境变量参考见：\n  ${}\n${}\n  ${}\n${}\n\n  ${}\n${}\n\n  Browser 与 computer use 在 eval 内运行：用 browser.enabled（默认开）和 computer.enabled（默认关）设置切换。\n\n${}\n  --plugin-dir <path>        从目录加载插件（可重复）\n\n${}\n  omp agents unpack           - 将内置子代理导出到 ~/.omp/agent/agents（默认）\n  omp agents unpack --project - 将内置子代理导出到 ./.omp/agents"
+  },
+  {
+   "en": "${} (when ${})",
+   "zh": "${}（当 ${}）"
   }
  ],
  "packages/coding-agent/src/cli/images-cli.ts": [
@@ -17151,10 +17135,6 @@
   {
    "en": "# Machine-readable output\n  omp usage --json",
    "zh": "# 机器可读输出\n  omp usage --json"
-  },
-  {
-   "en": "# Invalidate cached usage reports for all providers\n  omp usage invalidate",
-   "zh": "# 使所有服务商的缓存用量报告失效\n  omp usage invalidate"
   },
   {
    "en": "# Usage-limit trend over the last 30 days\n  omp usage --history --days 30",
@@ -25071,14 +25051,6 @@
    "zh": "readiness 正则无效：${}"
   },
   {
-   "en": "Invalid readiness regex: ${}",
-   "zh": "readiness 正则无效：${}"
-  },
-  {
-   "en": "../daemon/paths",
-   "zh": "../daemon/paths"
-  },
-  {
    "en": "../daemon/paths",
    "zh": "../daemon/paths"
   },
@@ -28459,10 +28431,6 @@
    "zh": "Shake 失败：${}"
   },
   {
-   "en": "Cannot open a fork in another terminal when --api-key was supplied at startup; the key cannot be forwarded without exposing it in the multiplexer command. Configure provider credentials in the auth store and retry.",
-   "zh": "启动时提供了 --api-key 则无法在另一终端分叉；密钥无法在 multiplexer 命令中安全转发。请在 auth store 配置服务商凭据后重试。"
-  },
-  {
    "en": "Compacting context",
    "zh": "正在压缩上下文"
   },
@@ -28534,7 +28502,7 @@
   },
   {
    "en": "jobs",
-   "zh": "任务"
+   "zh": "jobs"
   },
   {
    "en": "${} background tasks completed",
@@ -29062,7 +29030,7 @@
   },
   {
    "en": "disabled",
-   "zh": "已禁用"
+   "zh": "disabled"
   },
   {
    "en": "no active subscriptions",
@@ -34115,6 +34083,22 @@
   {
    "en": "Console Notification",
    "zh": "控制台通知"
+  },
+  {
+   "en": "Theme",
+   "zh": "主题"
+  },
+  {
+   "en": "Composer",
+   "zh": "输入框"
+  },
+  {
+   "en": "Display",
+   "zh": "显示"
+  },
+  {
+   "en": "Images",
+   "zh": "图片"
   }
  ],
  "packages/coding-agent/src/modes/startup-composer.ts": [
@@ -34155,6 +34139,14 @@
   {
    "en": "Queued message for after compaction",
    "zh": "压缩后待发送的队列消息"
+  },
+  {
+   "en": "Update available",
+   "zh": "有可用更新"
+  },
+  {
+   "en": " · New version ${} is available. Run ",
+   "zh": " · 新版本 ${} 可用，运行 "
   }
  ],
  "packages/coding-agent/src/modes/warp-events.ts": [
@@ -35575,10 +35567,6 @@
    "zh": "${}/${} 没有 API key"
   },
   {
-   "en": "no API key for ${}/${}",
-   "zh": "${}/${} 没有 API key"
-  },
-  {
    "en": "${}: ${} covers ${} with about ${} left.${}",
    "zh": "${}：${} 覆盖 ${}，约剩 ${}。${}"
   },
@@ -35885,10 +35873,6 @@
   {
    "en": "Stopped",
    "zh": "已停止"
-  },
-  {
-   "en": "${}, ${}% continuation probability, expected savings ${} ${} $${}",
-   "zh": "${}，续行概率 ${}%，预期节省 ${} ${} $${}"
   },
   {
    "en": "${}, ${}% continuation probability, expected savings ${} ${} $${}",
@@ -36596,7 +36580,7 @@
   },
   {
    "en": "stay",
-   "zh": "保留"
+   "zh": "stay"
   },
   {
    "en": "${} ${} in System Prompt: the system prompt changed after it was built (e.g. by an extension hook or SDK callback).",
@@ -36798,7 +36782,7 @@
   },
   {
    "en": "en-US",
-   "zh": "'zh-CN'"
+   "zh": "en-US"
   }
  ],
  "packages/coding-agent/src/session/model-controls.ts": [
@@ -37739,10 +37723,6 @@
   {
    "en": "Tool call rejected by user (${})",
    "zh": "工具调用被用户拒绝（${}）"
-  },
-  {
-   "en": "removed ${}",
-   "zh": "已移除 ${}"
   },
   {
    "en": "removed ${}",
@@ -39346,7 +39326,7 @@
   },
   {
    "en": "retries",
-   "zh": "重试"
+   "zh": "retries"
   },
   {
    "en": "Assistant returned an empty stop after retry cap; provider reported ${} output token${}${}, but no text or tool calls were delivered. Usage alone does not establish the cause",
@@ -40711,10 +40691,6 @@
   {
    "en": "Move failed: ${}",
    "zh": "Move 失败：${}"
-  },
-  {
-   "en": "handoff",
-   "zh": "handoff"
   },
   {
    "en": "handoff",
@@ -44357,10 +44333,6 @@
    "zh": "任务 ${}${}"
   },
   {
-   "en": "Task ${}${}",
-   "zh": "任务 ${}${}"
-  },
-  {
    "en": "task.batch is disabled, so the task tool does not accept ${}. Spawn one agent per call with `task`, or enable the task.batch setting.",
    "zh": "task.batch 已禁用，task 工具不接受 ${}。请每次调用用 `task` 生成一个代理，或启用 task.batch 设置。"
   },
@@ -45047,6 +45019,10 @@
   {
    "en": "Run LSP formatting and diagnostics on subagent edits. Off by default to keep subagents cheap; the lsp tool stays available to them either way.",
    "zh": "对子代理编辑运行 LSP 格式化与诊断。默认关闭以保持子代理低成本；两种方式下 lsp 工具都对他们可用。"
+  },
+  {
+   "en": "Display",
+   "zh": "显示"
   }
  ],
  "packages/coding-agent/src/task/spawn-policy.ts": [
@@ -45900,7 +45876,7 @@
   },
   {
    "en": "segments",
-   "zh": "段"
+   "zh": "segments"
   },
   {
    "en": "target not yet approved",
@@ -46892,7 +46868,7 @@
   },
   {
    "en": "${} must be a finite number",
-   "zh": "${} 必须是有限数字"
+   "zh": "${} 必须是有限数值"
   },
   {
    "en": "${}: could not confirm the click: the press reached the page, which removed the element's frame before the button came up, so no click followed; check the page before clicking again",
@@ -46925,10 +46901,6 @@
   {
    "en": "No <select> option matches ${}",
    "zh": "没有 <select> 选项匹配 ${}"
-  },
-  {
-   "en": "${} must be a finite number",
-   "zh": "${} 必须是有限数"
   },
   {
    "en": "<input type=${}> does not accept ${}; give its value format, e.g. ${}",
@@ -47965,16 +47937,8 @@
    "zh": "omp 未重载即把同一页面重挂到新 worker，下次调用可用"
   },
   {
-   "en": "omp reattached to the same page on a new worker without reloading it, so the next call works",
-   "zh": "omp 未重载即把同一页面重挂到新 worker，下次调用可用"
-  },
-  {
    "en": "${}. omp could not reattach to the tab's page (it may have closed), so it released the tab. Open it again with browser.open()",
    "zh": "${}。omp 无法重挂该标签页的页面（可能已关闭），已将其释放。请用 browser.open() 重新打开"
-  },
-  {
-   "en": "another call on this tab is still running. Await each call before starting the next instead of running them together (Promise.all, asyncio.gather), or group the steps in one tab.run(...)",
-   "zh": "该标签页上另一次调用仍在运行。请等待每次调用结束再开始下一次，而不是并行发起（Promise.all、asyncio.gather）；或把多个步骤合进一次 tab.run(...)"
   },
   {
    "en": "omp could not reattach to the tab after Chrome had refused it, so the tab was released",
@@ -49100,7 +49064,7 @@
   },
   {
    "en": "apps",
-   "zh": "应用"
+   "zh": "apps"
   },
   {
    "en": "${} opens it by that exact name or ID, or shows a window of it if it runs without one, and returns it with that window (window: null if none appears within 3 s).\n",
@@ -50574,7 +50538,7 @@
   },
   {
    "en": "files",
-   "zh": "文件"
+   "zh": "files"
   },
   {
    "en": "path entry \"${}\" — only line-range selectors like \":50-100\" are supported (no \":raw\"/\":conflicts\")",
@@ -50944,7 +50908,7 @@
   },
   {
    "en": "memories",
-   "zh": "记忆"
+   "zh": "memories"
   },
   {
    "en": "Found ${} relevant ${} (as of ${} UTC):\n\n${}",
@@ -53189,10 +53153,6 @@
   {
    "en": "write target '${}' ends with a read-tool selector ':${}' and no such file exists — refusing to create a literal file by that name. ",
    "zh": "写入目标 '${}' 以读取工具选择器 ':${}' 结尾且该文件不存在——拒绝按此名创建字面文件。"
-  },
-  {
-   "en": "Unknown URI-like write target '${}'.${} Prefix the path with './' to write it as a filesystem path.",
-   "zh": "未知的类 URI 写入目标 '${}'。${} 给路径加 './' 前缀可将其写为文件系统路径。"
   }
  ],
  "packages/coding-agent/src/tools/yield.ts": [
@@ -53349,10 +53309,6 @@
    "zh": "${} ${} 中止前空结果剩余重试次数：${}。"
   },
   {
-   "en": "${} ${} Empty result retries remaining before abort: ${}.",
-   "zh": "${} ${} 中止前空结果剩余重试次数：${}。"
-  },
-  {
    "en": "Structured output matching the schema:\n${}",
    "zh": "符合 schema 的结构化输出：\n${}"
   },
@@ -53397,32 +53353,12 @@
    "zh": "Maeve（英式女声）"
   },
   {
-   "en": "Delia (American female)",
-   "zh": "Delia（美式女声）"
-  },
-  {
-   "en": "Harper (American female)",
-   "zh": "Harper（美式女声）"
-  },
-  {
-   "en": "Miles (American male)",
-   "zh": "Miles（美式男声）"
-  },
-  {
-   "en": "Harper (American female)",
-   "zh": "Harper（美式女声）"
-  },
-  {
    "en": "Miles (American male)",
    "zh": "Miles（美式男声）"
   },
   {
    "en": "Easton (American male)",
    "zh": "Easton（美式男声）"
-  },
-  {
-   "en": "Maeve (British female)",
-   "zh": "Maeve（英式女声）"
   },
   {
    "en": "Hugh (British male)",
@@ -54025,6 +53961,10 @@
   {
    "en": "Every 10 prompts",
    "zh": "每 10 条提示"
+  },
+  {
+   "en": "Display",
+   "zh": "显示"
   }
  ],
  "packages/coding-agent/src/utils/tools-manager.ts": [
@@ -54594,7 +54534,7 @@
   },
   {
    "en": "en-US",
-   "zh": "'zh-CN'"
+   "zh": "en-US"
   }
  ],
  "packages/coding-agent/src/web/scrapers/brew.ts": [
@@ -54852,7 +54792,7 @@
   },
   {
    "en": "en-US",
-   "zh": "'zh-CN'"
+   "zh": "en-US"
   }
  ],
  "packages/coding-agent/src/web/scrapers/crates-io.ts": [
@@ -55174,7 +55114,7 @@
  "packages/coding-agent/src/web/scrapers/firefox-addons.ts": [
   {
    "en": "en-US",
-   "zh": "zh-CN"
+   "zh": "en-US"
   },
   {
    "en": " (${} reviews)",
@@ -55850,7 +55790,7 @@
   },
   {
    "en": "en-US",
-   "zh": "zh-CN"
+   "zh": "en-US"
   },
   {
    "en": "\n**Profile Fields:**\n",
@@ -58660,7 +58600,7 @@
  "packages/stats/src/client/data/formatters.ts": [
   {
    "en": "en-US",
-   "zh": "zh-CN"
+   "zh": "en-US"
   },
   {
    "en": "${}m ${}s",
@@ -59766,15 +59706,11 @@
   },
   {
    "en": "requests",
-   "zh": "请求"
+   "zh": "requests"
   },
   {
    "en": "agent",
    "zh": "agent"
-  },
-  {
-   "en": "requests",
-   "zh": "请求"
   },
   {
    "en": "Where decision-model tokens went, by use case",
@@ -60640,7 +60576,7 @@
   },
   {
    "en": "tools",
-   "zh": "工具"
+   "zh": "tools"
   },
   {
    "en": "Which tools omp called in ${}, how often they failed, and what they cost.",
@@ -60829,10 +60765,6 @@
   {
    "en": "Net ${}",
    "zh": "净 ${}"
-  },
-  {
-   "en": "${} extra turns (${})",
-   "zh": "${} 个额外轮次（${}）"
   },
   {
    "en": "${} extra turns (${})",
@@ -61301,16 +61233,8 @@
    "zh": "cut"
   },
   {
-   "en": "cut",
-   "zh": "cut"
-  },
-  {
    "en": "recoveries",
    "zh": "recoveries"
-  },
-  {
-   "en": "cut",
-   "zh": "cut"
   }
  ],
  "packages/stats/src/client/spotlight/Savings.tsx": [
@@ -61416,7 +61340,7 @@
   },
   {
    "en": "anyway",
-   "zh": "仍返回\n\t\t\t\t\t"
+   "zh": "anyway"
   },
   {
    "en": "turns",
@@ -61656,7 +61580,7 @@
   },
   {
    "en": "errors",
-   "zh": "错误"
+   "zh": "errors"
   }
  ],
  "packages/stats/src/client/traces/Minimap.tsx": [
@@ -62732,7 +62656,7 @@
   },
   {
    "en": "runs",
-   "zh": "轮"
+   "zh": "runs"
   },
   {
    "en": "passed",
@@ -64370,7 +64294,7 @@
   },
   {
    "en": "en-US",
-   "zh": "zh-CN"
+   "zh": "en-US"
   }
  ],
  "packages/tui/src/charts/chart-svg.ts": [
@@ -64552,7 +64476,7 @@
   },
   {
    "en": "notes",
-   "zh": "条备注"
+   "zh": "notes"
   },
   {
    "en": "${} Advisor",
@@ -64618,7 +64542,7 @@
   },
   {
    "en": "retries",
-   "zh": "次重试"
+   "zh": "retries"
   },
   {
    "en": "Thought for ${}",
@@ -64900,7 +64824,7 @@
   },
   {
    "en": "en-US",
-   "zh": "'zh-CN'"
+   "zh": "en-US"
   },
   {
    "en": "spotlight",
@@ -65589,6 +65513,34 @@
   {
    "en": "Keyboard shortcuts",
    "zh": "键盘快捷键"
+  },
+  {
+   "en": "Delete word backwards",
+   "zh": "删除前一个词"
+  },
+  {
+   "en": "Delete to start of line",
+   "zh": "删除到行首"
+  },
+  {
+   "en": "Delete to end of line",
+   "zh": "删除到行尾"
+  },
+  {
+   "en": "Select model (temporary)",
+   "zh": "选择模型（临时）"
+  },
+  {
+   "en": "Select model (set roles)",
+   "zh": "选择模型（设置角色）"
+  },
+  {
+   "en": "Open a local:// file in external editor",
+   "zh": "在外部编辑器中打开 local:// 文件"
+  },
+  {
+   "en": "GitHub issue/PR reference (e.g. `#3164` → `pr://`/`issue://`)",
+   "zh": "引用 GitHub issue/PR（如 `#3164` → `pr://`/`issue://`）"
   }
  ],
  "packages/tui/src/html-form/data.ts": [
@@ -65739,10 +65691,6 @@
    "zh": "answer"
   },
   {
-   "en": "answer",
-   "zh": "answer"
-  },
-  {
    "en": "${} ${}",
    "zh": "${} ${}"
   },
@@ -65772,7 +65720,7 @@
   },
   {
    "en": "cancel",
-   "zh": "取消"
+   "zh": "cancel"
   },
   {
    "en": "Submits these answers in ${}s",
@@ -67304,11 +67252,11 @@
   },
   {
    "en": "apply",
-   "zh": "应用"
+   "zh": "apply"
   },
   {
    "en": "open",
-   "zh": "打开"
+   "zh": "open"
   },
   {
    "en": "pick",
@@ -67324,7 +67272,7 @@
   },
   {
    "en": "scope",
-   "zh": "范围"
+   "zh": "scope"
   },
   {
    "en": "regenerate",
@@ -67340,15 +67288,15 @@
   },
   {
    "en": "agents",
-   "zh": "代理"
+   "zh": "agents"
   },
   {
    "en": "configure",
-   "zh": "配置"
+   "zh": "configure"
   },
   {
    "en": "reload",
-   "zh": "重载"
+   "zh": "reload"
   },
   {
    "en": "Source",
@@ -67745,10 +67693,6 @@
    "zh": "第 ${} 行"
   },
   {
-   "en": "line ${}",
-   "zh": "第 ${} 行"
-  },
-  {
    "en": "${} · line ${}",
    "zh": "${} · 第 ${} 行"
   }
@@ -67905,10 +67849,6 @@
    "zh": " ${} 隐藏"
   },
   {
-   "en": "question",
-   "zh": "question"
-  },
-  {
    "en": "Submit the answers",
    "zh": "提交答案"
   },
@@ -67947,10 +67887,6 @@
   {
    "en": "cancel",
    "zh": "cancel"
-  },
-  {
-   "en": "question",
-   "zh": "question"
   }
  ],
  "packages/tui/src/overlays/bordered-loader.ts": [
@@ -68598,7 +68534,7 @@
   },
   {
    "en": "block",
-   "zh": "块"
+   "zh": "block"
   },
   {
    "en": "step",
@@ -68606,7 +68542,7 @@
   },
   {
    "en": "back",
-   "zh": "返回"
+   "zh": "back"
   },
   {
    "en": "close",
@@ -68622,7 +68558,7 @@
   },
   {
    "en": "blocks",
-   "zh": "块"
+   "zh": "blocks"
   },
   {
    "en": "earlier turns",
@@ -71310,7 +71246,7 @@
   },
   {
    "en": "cancel",
-   "zh": "取消"
+   "zh": "cancel"
   },
   {
    "en": "save",
@@ -71980,7 +71916,7 @@
   },
   {
    "en": "en-US",
-   "zh": "'zh-CN'"
+   "zh": "en-US"
   }
  ],
  "packages/tui/src/overlays/session-observer-registry.ts": [
@@ -72379,6 +72315,22 @@
   {
    "en": "Tiny Model",
    "zh": "Tiny 模型"
+  },
+  {
+   "en": "Theme",
+   "zh": "主题"
+  },
+  {
+   "en": "Composer",
+   "zh": "输入框"
+  },
+  {
+   "en": "Display",
+   "zh": "显示"
+  },
+  {
+   "en": "Images",
+   "zh": "图片"
   }
  ],
  "packages/tui/src/overlays/settings-selector.ts": [
@@ -72662,7 +72614,7 @@
   },
   {
    "en": "lines",
-   "zh": "行"
+   "zh": "lines"
   },
   {
    "en": "line ${} · the hottest line this fold hides",
@@ -72866,7 +72818,7 @@
   },
   {
    "en": "switch",
-   "zh": "切换"
+   "zh": "switch"
   },
   {
    "en": "page",
@@ -72882,7 +72834,7 @@
   },
   {
    "en": "filter",
-   "zh": "筛选"
+   "zh": "filter"
   },
   {
    "en": "Session Tree",
@@ -73580,7 +73532,7 @@
  "packages/tui/src/prompt/usage-amounts.ts": [
   {
    "en": "en-US",
-   "zh": "zh-CN"
+   "zh": "en-US"
   }
  ],
  "packages/tui/src/prompt/welcome.ts": [
@@ -74400,11 +74352,11 @@
   },
   {
    "en": "turn",
-   "zh": "轮"
+   "zh": "turn"
   },
   {
    "en": "turns",
-   "zh": "轮"
+   "zh": "turns"
   },
   {
    "en": "${} ahead",
@@ -74927,10 +74879,6 @@
   {
    "en": "Wall time: ${} seconds",
    "zh": "Wall time：${} 秒"
-  },
-  {
-   "en": "PID ${}",
-   "zh": "PID ${}"
   },
   {
    "en": " (requested ${} clamped)",
@@ -75728,7 +75676,7 @@
   },
   {
    "en": "jobs",
-   "zh": "任务"
+   "zh": "jobs"
   },
   {
    "en": "The agent's own completion estimate: ${}%",
@@ -76612,7 +76560,7 @@
   },
   {
    "en": "lines",
-   "zh": "行"
+   "zh": "lines"
   },
   {
    "en": "job",
@@ -76620,7 +76568,7 @@
   },
   {
    "en": "jobs",
-   "zh": "任务"
+   "zh": "jobs"
   },
   {
    "en": "… ${} more settled",
@@ -81468,7 +81416,7 @@
   },
   {
    "en": "calls",
-   "zh": "调用"
+   "zh": "calls"
   }
  ],
  "packages/coding-agent/test/tools/lsp-regressions.test.ts": [
@@ -81528,7 +81476,7 @@
  "packages/coding-agent/test/tools/browser-interactions.test.ts": [
   {
    "en": "range",
-   "zh": "范围"
+   "zh": "range"
   }
  ],
  "packages/tui/test/table-chart.test.ts": [
@@ -81546,7 +81494,7 @@
  "python/robomp/web/scripts/verify-live.ts": [
   {
    "en": "elapsed",
-   "zh": "已耗时"
+   "zh": "elapsed"
   }
  ],
  "packages/coding-agent/test/agent-loop-wait-interrupt.test.ts": [
@@ -81558,7 +81506,7 @@
  "packages/coding-agent/test/plugin-verb-launch-leak.test.ts": [
   {
    "en": "for",
-   "zh": "，花费"
+   "zh": "for"
   }
  ],
  "packages/tui/test/session-picker-native.test.ts": [
@@ -81570,11 +81518,11 @@
  "packages/coding-agent/test/job-widgets/derivation.test.ts": [
   {
    "en": "req",
-   "zh": "请求"
+   "zh": "req"
   },
   {
    "en": "tok",
-   "zh": "词元"
+   "zh": "tok"
   }
  ],
  "packages/coding-agent/test/advisor/config.test.ts": [
@@ -81604,13 +81552,13 @@
  "packages/coding-agent/test/tools/web-scrapers/reddit.test.ts": [
   {
    "en": "more",
-   "zh": "个"
+   "zh": "more"
   }
  ],
  "packages/coding-agent/test/config/compaction-threshold.test.ts": [
   {
    "en": "saved",
-   "zh": "已省"
+   "zh": "saved"
   }
  ],
  "packages/coding-agent/src/tools/jfind/keywords.ts": [
@@ -81622,19 +81570,19 @@
  "packages/coding-agent/test/tools/jtd-to-json-schema.test.ts": [
   {
    "en": "results",
-   "zh": "个结果"
+   "zh": "results"
   }
  ],
  "scripts/tool-prompt-usage.ts": [
   {
    "en": "tokens",
-   "zh": "词元"
+   "zh": "tokens"
   }
  ],
  "packages/snapcompact/test/snapcompact.test.ts": [
   {
    "en": "kept",
-   "zh": "保留"
+   "zh": "kept"
   }
  ],
  "packages/tui/test/plan-review-overlay.test.ts": [
@@ -81646,23 +81594,23 @@
  "packages/coding-agent/test/rpc-dictation.test.ts": [
   {
    "en": "saved",
-   "zh": "已省"
+   "zh": "saved"
   }
  ],
  "packages/coding-agent/test/agent-session-auto-compaction-queue.test.ts": [
   {
    "en": "in",
-   "zh": "在"
+   "zh": "in"
   }
  ],
  "python/robomp/web/scripts/verify-cards.ts": [
   {
    "en": "failed",
-   "zh": "失败"
+   "zh": "failed"
   },
   {
    "en": "new",
-   "zh": "新"
+   "zh": "new"
   }
  ],
  "packages/coding-agent/test/agent-session-magic-keywords.test.ts": [
@@ -81680,7 +81628,7 @@
  "python/robomp/web/src/state.ts": [
   {
    "en": "error",
-   "zh": "错误"
+   "zh": "error"
   }
  ],
  "packages/coding-agent/test/extension-session-modes.test.ts": [
@@ -81724,7 +81672,7 @@
  "packages/coding-agent/test/tools/computer.test.ts": [
   {
    "en": "unanswered",
-   "zh": "未回答"
+   "zh": "unanswered"
   }
  ],
  "packages/coding-agent/test/btw-history.test.ts": [
@@ -81897,10 +81845,6 @@
   {
    "en": "IDA unavailable: no Python interpreter can import ida_domain and idapro (tried: ${}). Install ida-domain into the Python targeted by IDA's idapyswitch, or set ida.python.",
    "zh": "IDA 不可用：没有能 import ida_domain 和 idapro 的 Python 解释器（已尝试：${}）。请把 ida-domain 装入 IDA 的 idapyswitch 所指的 Python，或设置 ida.python。"
-  },
-  {
-   "en": "IDA python probe failed",
-   "zh": "IDA python 探测失败"
   },
   {
    "en": "IDA python probe failed",
@@ -83791,10 +83735,6 @@
    "zh": "running"
   },
   {
-   "en": "global",
-   "zh": "global"
-  },
-  {
    "en": "daemon not running — showing stored units",
    "zh": "守护进程未运行 —— 显示已存单元"
   }
@@ -83823,14 +83763,6 @@
   {
    "en": "mnemopi-embed: worker returned error",
    "zh": "mnemopi-embed：worker 返回错误"
-  },
-  {
-   "en": "mnemopi embed ${}",
-   "zh": "mnemopi embed ${}"
-  },
-  {
-   "en": "mnemopi embed ${}",
-   "zh": "mnemopi embed ${}"
   },
   {
    "en": "mnemopi-embed: connection error",
@@ -83917,20 +83849,12 @@
    "zh": "text-predict：sync 已丢弃"
   },
   {
-   "en": "text-predict: daemon unavailable; word completion paused",
-   "zh": "text-predict：daemon 不可用；词语补全已暂停"
-  },
-  {
    "en": "text-predict ${}: ${}",
    "zh": "text-predict ${}：${}"
   },
   {
    "en": "text-predict: lease release failed",
    "zh": "text-predict：租约释放失败"
-  },
-  {
-   "en": "text-predict ${}: ${}",
-   "zh": "text-predict ${}：${}"
   }
  ],
  "packages/coding-agent/src/ida/install.ts": [

@@ -108447,7 +108447,7 @@ index 6d824f8..766f0cc 100644
  	}, WORKER_DEADLINE_MS);
  	await writer.put({ phase: "checking" });
 diff --git a/packages/coding-agent/src/cli/bench-cli.ts b/packages/coding-agent/src/cli/bench-cli.ts
-index ea5793d..3b10d51 100644
+index ea5793d..af75a94 100644
 --- a/packages/coding-agent/src/cli/bench-cli.ts
 +++ b/packages/coding-agent/src/cli/bench-cli.ts
 @@ -333,7 +333,7 @@ function getErrorMessage(error: unknown): string {
@@ -108524,15 +108524,6 @@ index ea5793d..3b10d51 100644
  	const kind = opts.tagKind && result.challenge ? `${chalk.cyan(result.challenge.padEnd(10))} ` : "";
  	if (result.ok) {
  		// A prefill run emits a handful of tokens: its output rates are noise, the input rate is the result.
-@@ -848,7 +848,7 @@ function formatRunLine(result: BenchRunResult, index: number, total: number, opt
- 			result.challenge === "prefill"
- 				? `${chalk.dim("prefill")} ${result.prefillTps.toFixed(0)}/s`
- 				: `${chalk.dim("tok/s")} ${result.tokensPerSecond.toFixed(1)} ${chalk.dim("gen")} ${gen}`;
--		return `  ${chalk.green("✓")} ${prefix} ${kind}${chalk.dim("TTFT")} ${formatMs(result.ttftMs)} ${rates} ${chalk.dim("in")} ${formatNumber(result.inputTokens)} ${chalk.dim("out")} ${formatNumber(result.outputTokens)} ${chalk.dim("total")} ${formatMs(result.durationMs)}`;
-+		return `  ${chalk.green("✓")} ${prefix} ${kind}${chalk.dim("TTFT")} ${formatMs(result.ttftMs)} ${rates} ${chalk.dim("输入")} ${formatNumber(result.inputTokens)} ${chalk.dim("输出")} ${formatNumber(result.outputTokens)} ${chalk.dim("total")} ${formatMs(result.durationMs)}`;
- 	}
- 	return `  ${chalk.red("✗")} ${prefix} ${kind}${chalk.red(truncateToWidth(replaceTabs(result.error).replace(/\r?\n/g, " "), ERROR_WIDTH))}`;
- }
 @@ -876,8 +876,8 @@ interface BenchTableRow {
  
  function formatProgress(progress: BenchProgress, unit: "runs" | "pairs"): string {
@@ -108635,7 +108626,7 @@ index ea5793d..3b10d51 100644
  				}
  				offset += step.runs;
 diff --git a/packages/coding-agent/src/cli/bench-runtime.ts b/packages/coding-agent/src/cli/bench-runtime.ts
-index 2ce7119..6be0dea 100644
+index 2ce7119..8b6cdb8 100644
 --- a/packages/coding-agent/src/cli/bench-runtime.ts
 +++ b/packages/coding-agent/src/cli/bench-runtime.ts
 @@ -216,10 +216,11 @@ export async function resolveBenchTargets(
@@ -108647,7 +108638,7 @@ index 2ce7119..6be0dea 100644
  	const errors = outcomes.filter((outcome): outcome is string => typeof outcome === "string");
  	if (errors.length > 0) {
 -		throw new Error(`Could not resolve ${errors.length === 1 ? "model" : "models"}:\n${errors.join("\n")}`);
-+		throw new Error(`无法解析 ${errors.length === 1 ? "model" : "模型"}：
++		throw new Error(`无法解析 ${errors.length === 1 ? "model" : "models"}：
 +${errors.join("\n")}`);
  	}
  	return outcomes as BenchTarget[];
@@ -108930,7 +108921,7 @@ index 5afad12..dec4f01 100644
  	const exchange = await runClaudeMessagesCapture(args);
  	const output = args.json ? `${JSON.stringify(exchange, null, 2)}\n` : formatCapturedMessagesExchange(exchange);
 diff --git a/packages/coding-agent/src/cli/collab-cli.ts b/packages/coding-agent/src/cli/collab-cli.ts
-index 0479aea..d3fda88 100644
+index 0479aea..28f2a4a 100644
 --- a/packages/coding-agent/src/cli/collab-cli.ts
 +++ b/packages/coding-agent/src/cli/collab-cli.ts
 @@ -55,11 +55,11 @@ export async function runCollabListCommand(
@@ -108943,7 +108934,7 @@ index 0479aea..d3fda88 100644
  	}
  
 -	print(chalk.green(`${hosts.length} active Collab ${hosts.length === 1 ? "host" : "hosts"}`));
-+	print(chalk.green(`${hosts.length} 个活跃 Collab ${hosts.length === 1 ? "host" : "主机"}`));
++	print(chalk.green(`${hosts.length} 个活跃 Collab ${hosts.length === 1 ? "host" : "hosts"}`));
  	for (const host of hosts) {
  		// Session names and POSIX paths come from other processes and may carry
  		// tabs, newlines, or escape bytes; keep each on one clean line.
@@ -112056,9 +112047,18 @@ index 1e6af4f..dabc7fe 100644
  	} finally {
  		db.close();
 diff --git a/packages/coding-agent/src/cli/help-extra.ts b/packages/coding-agent/src/cli/help-extra.ts
-index fb956ff..f41deb9 100644
+index fb956ff..a12bee6 100644
 --- a/packages/coding-agent/src/cli/help-extra.ts
 +++ b/packages/coding-agent/src/cli/help-extra.ts
+@@ -4,7 +4,7 @@ import { CONFIG_DIR_NAME } from "@oh-my-pi/pi-utils/dirs";
+ import { BUILTIN_TOOL_HELP, type BuiltinToolHelp } from "../tools/builtin-names";
+ 
+ function renderBuiltinToolSummary(help: BuiltinToolHelp): string {
+-	return help.defaultState === "detected" ? `${help.summary} (when ${help.detectedWhen})` : help.summary;
++	return help.defaultState === "detected" ? `${help.summary}（当 ${help.detectedWhen}）` : help.summary;
+ }
+ 
+ /** Lists tools in `BUILTIN_TOOL_HELP` entry order, which ranks them by how often they are used. */
 @@ -16,96 +16,95 @@ function renderBuiltinTools(group: "default" | "optional"): string {
  }
  
@@ -154816,7 +154816,7 @@ index 73eb577..532430c 100644
  		}
  		// No per-provider footer; global header shows last check.
 diff --git a/packages/coding-agent/src/modes/controllers/event-controller.ts b/packages/coding-agent/src/modes/controllers/event-controller.ts
-index 754e2b4..99eb75e 100644
+index 754e2b4..f3b2212 100644
 --- a/packages/coding-agent/src/modes/controllers/event-controller.ts
 +++ b/packages/coding-agent/src/modes/controllers/event-controller.ts
 @@ -138,11 +138,11 @@ function nativeTaskJobToast(message: { role: string; customType?: string; detail
@@ -154868,7 +154868,7 @@ index 754e2b4..99eb75e 100644
 -				this.ctx.showStatus(
 -					`Stopped waiting · ${running} background ${running === 1 ? "job" : "jobs"} still running (/jobs)`,
 -				);
-+				this.ctx.showStatus(`已停止等待 · ${running} 个后台 ${running === 1 ? "job" : "任务"} 仍在运行（/jobs）`);
++				this.ctx.showStatus(`已停止等待 · ${running} 个后台 ${running === 1 ? "job" : "jobs"} 仍在运行（/jobs）`);
  			}
  		} else {
  			if (!runActive) setRunStatus(this.#settledRunStatus(event));
@@ -155535,7 +155535,7 @@ index 2a6fafa..8595faf 100644
  		this.#assistantTranscriptStartedAt = 0;
  		const visualizer = new LiveVisualizer({
 diff --git a/packages/coding-agent/src/modes/controllers/mcp-command-controller.ts b/packages/coding-agent/src/modes/controllers/mcp-command-controller.ts
-index 0434b48..59b9582 100644
+index 0434b48..a350d37 100644
 --- a/packages/coding-agent/src/modes/controllers/mcp-command-controller.ts
 +++ b/packages/coding-agent/src/modes/controllers/mcp-command-controller.ts
 @@ -67,7 +67,7 @@ import { groupBySource, parseRemoveArgs, readScopeFlag, showCommandMessage } fro
@@ -156184,7 +156184,7 @@ index 0434b48..59b9582 100644
  				if (isCurrentlyDisabled === !enabled) {
  					this.#showMessage(
 -						["", theme.fg("muted", `Server "${name}" is already ${enabled ? "enabled" : "disabled"}.`), ""].join(
-+						["", theme.fg("muted", `服务器 "${name}" 已是${enabled ? "enabled" : "已禁用"}状态。`), ""].join(
++						["", theme.fg("muted", `服务器 "${name}" 已是${enabled ? "enabled" : "disabled"}状态。`), ""].join(
  							"\n",
  						),
  					);
@@ -156216,7 +156216,7 @@ index 0434b48..59b9582 100644
 -					["", theme.fg("muted", `Server "${name}" is already ${enabled ? "enabled" : "disabled"}.`), ""].join(
 -						"\n",
 -					),
-+					["", theme.fg("muted", `服务器 "${name}" 已是${enabled ? "enabled" : "已禁用"}状态。`), ""].join("\n"),
++					["", theme.fg("muted", `服务器 "${name}" 已是${enabled ? "enabled" : "disabled"}状态。`), ""].join("\n"),
  				);
  				return;
  			}
@@ -156498,7 +156498,7 @@ index 0434b48..59b9582 100644
  	}
  
  	/**
-@@ -1881,15 +1866,15 @@ export class MCPCommandController {
+@@ -1881,7 +1866,7 @@ export class MCPCommandController {
  	 */
  	async #handleNotifications(): Promise<void> {
  		if (!this.ctx.mcpManager) {
@@ -156507,10 +156507,9 @@ index 0434b48..59b9582 100644
  			return;
  		}
  
- 		const { enabled, subscriptions } = this.ctx.mcpManager.getNotificationState();
+@@ -1889,7 +1874,7 @@ export class MCPCommandController {
  		const servers = this.ctx.mcpManager.getConnectedServers();
--		const statusIcon = enabled ? theme.fg("success", "enabled") : theme.fg("warning", "disabled");
-+		const statusIcon = enabled ? theme.fg("success", "enabled") : theme.fg("warning", "已禁用");
+ 		const statusIcon = enabled ? theme.fg("success", "enabled") : theme.fg("warning", "disabled");
  		const lines: string[] = [];
 -		lines.push(`  Status: ${statusIcon}  ${theme.fg("dim", "(mcp.notifications setting)")}`);
 +		lines.push(`  状态：${statusIcon}  ${theme.fg("dim", "（mcp.notifications 设置）")}`);
@@ -166456,7 +166455,7 @@ index a798abf..c8f3e8f 100644
  			compact: instructionsOrOptions => runExtensionCompact(session, instructionsOrOptions),
  		},
 diff --git a/packages/coding-agent/src/modes/settings.ts b/packages/coding-agent/src/modes/settings.ts
-index 45365da..1857b57 100644
+index 45365da..0bcf30c 100644
 --- a/packages/coding-agent/src/modes/settings.ts
 +++ b/packages/coding-agent/src/modes/settings.ts
 @@ -37,10 +37,10 @@ export const cfgAutoResume = register({
@@ -166484,34 +166483,40 @@ index 45365da..1857b57 100644
  	},
  });
  
-@@ -68,8 +68,8 @@ export const cfgThemeDark = register({
+@@ -67,9 +67,9 @@ export const cfgThemeDark = register({
+ 	default: "titanium",
  	ui: {
  		tab: "appearance",
- 		group: "Theme",
+-		group: "Theme",
 -		label: "Dark Theme",
 -		description: "Theme used when the terminal has a dark background",
++		group: "主题",
 +		label: "深色主题",
 +		description: "终端为深色背景时使用的主题",
  		options: "runtime",
  	},
  });
-@@ -82,8 +82,8 @@ export const cfgThemeLight = register({
+@@ -81,9 +81,9 @@ export const cfgThemeLight = register({
+ 	default: "light",
  	ui: {
  		tab: "appearance",
- 		group: "Theme",
+-		group: "Theme",
 -		label: "Light Theme",
 -		description: "Theme used when the terminal has a light background",
++		group: "主题",
 +		label: "浅色主题",
 +		description: "终端为浅色背景时使用的主题",
  		options: "runtime",
  	},
  });
-@@ -97,16 +97,16 @@ export const cfgSymbolPreset = register({
+@@ -96,17 +96,17 @@ export const cfgSymbolPreset = register({
+ 	default: "unicode",
  	ui: {
  		tab: "appearance",
- 		group: "Theme",
+-		group: "Theme",
 -		label: "Symbol Preset",
 -		description: "Glyph set for icons and symbols (Unicode, Nerd Font, or ASCII)",
++		group: "主题",
 +		label: "符号预设",
 +		description: "图标与符号的字形集（Unicode、Nerd Font 或 ASCII）",
  		options: [
@@ -166528,33 +166533,39 @@ index 45365da..1857b57 100644
  		],
  	},
  });
-@@ -119,8 +119,8 @@ export const cfgColorBlindMode = register({
+@@ -118,9 +118,9 @@ export const cfgColorBlindMode = register({
+ 	default: false,
  	ui: {
  		tab: "appearance",
- 		group: "Theme",
+-		group: "Theme",
 -		label: "Color-Blind Mode",
 -		description: "Use blue instead of green for diff additions",
++		group: "主题",
 +		label: "色盲模式",
 +		description: "diff 新增行用蓝色而非绿色",
  	},
  });
  effect(cfgColorBlindMode, setColorBlindMode);
-@@ -133,8 +133,8 @@ export const cfgComposerShape = register({
+@@ -132,9 +132,9 @@ export const cfgComposerShape = register({
+ 	default: "band",
  	ui: {
  		tab: "appearance",
- 		group: "Composer",
+-		group: "Composer",
 -		label: "Composer Shape",
 -		description: "Visual layout of the input editor and status line",
++		group: "输入框",
 +		label: "Composer 形状",
 +		description: "输入编辑器与状态栏的视觉布局",
  		options: "runtime",
  	},
  });
-@@ -147,9 +147,9 @@ export const cfgComposerTokenRate = register({
+@@ -146,10 +146,10 @@ export const cfgComposerTokenRate = register({
+ 	default: false,
  	ui: {
  		tab: "appearance",
- 		group: "Composer",
+-		group: "Composer",
 -		label: "Generation Rate",
++		group: "输入框",
 +		label: "生成速率",
  		description:
 -			"Show a live generation tok/s readout: on the working row next to the session title, or in the native composer bar right after the thinking level, where the last reading stays between turns. Estimated from streamed deltas and corrected by the provider's billed output count as each message completes.",
@@ -166725,34 +166736,40 @@ index 45365da..1857b57 100644
  });
  
  export const cfgStatusLineSegmentOptions = register({
-@@ -307,8 +307,8 @@ export const cfgTerminalShowImages = register({
+@@ -306,9 +306,9 @@ export const cfgTerminalShowImages = register({
+ 	default: true,
  	ui: {
  		tab: "appearance",
- 		group: "Images",
+-		group: "Images",
 -		label: "Show Inline Images",
 -		description: "Render images inline in the terminal",
++		group: "图片",
 +		label: "显示行内图片",
 +		description: "在终端中行内渲染图片",
  		condition: "hasImageProtocol",
  	},
  });
-@@ -320,8 +320,8 @@ export const cfgImagesAutoResize = register({
+@@ -319,9 +319,9 @@ export const cfgImagesAutoResize = register({
+ 	default: true,
  	ui: {
  		tab: "appearance",
- 		group: "Images",
+-		group: "Images",
 -		label: "Auto-Resize Images",
 -		description: "Resize large images to 2000x2000 max for better model compatibility",
++		group: "图片",
 +		label: "自动缩放图片",
 +		description: "把大图缩到最大 2000x2000 以提高模型兼容性",
  	},
  });
  
-@@ -332,8 +332,8 @@ export const cfgImagesBlockImages = register({
+@@ -331,9 +331,9 @@ export const cfgImagesBlockImages = register({
+ 	default: false,
  	ui: {
  		tab: "appearance",
- 		group: "Images",
+-		group: "Images",
 -		label: "Block Images",
 -		description: "Prevent images from being sent to LLM providers",
++		group: "图片",
 +		label: "阻止图片",
 +		description: "阻止图片发送给 LLM 服务商",
  	},
@@ -166787,12 +166804,14 @@ index 45365da..1857b57 100644
  });
  
  export const cfgTuiResizeScrollback = register({
-@@ -371,23 +369,23 @@ export const cfgTuiResizeScrollback = register({
+@@ -370,24 +368,24 @@ export const cfgTuiResizeScrollback = register({
+ 	default: "rebuild",
  	ui: {
  		tab: "appearance",
- 		group: "Display",
+-		group: "Display",
 -		label: "Resize Scrollback",
 -		description: "How a settled terminal resize refreshes transcript rows retained in terminal scrollback",
++		group: "显示",
 +		label: "缩放回滚区",
 +		description: "终端缩放稳定后如何刷新回滚区中保留的记录行",
  		options: [
@@ -166819,35 +166838,41 @@ index 45365da..1857b57 100644
  			},
  		],
  	},
-@@ -400,9 +398,8 @@ export const cfgTerminalShowProgress = register({
+@@ -399,10 +397,9 @@ export const cfgTerminalShowProgress = register({
+ 	default: false,
  	ui: {
  		tab: "appearance",
- 		group: "Display",
+-		group: "Display",
 -		label: "Native Terminal Progress",
 -		description:
 -			"Emit OSC 9;4 indeterminate progress while the agent or context maintenance is running (always on in Tern)",
++		group: "显示",
 +		label: "原生终端进度",
 +		description: "代理或上下文维护运行时发出 OSC 9;4 不确定进度（Tern 中始终开启）",
  	},
  });
  
-@@ -413,9 +410,8 @@ export const cfgTerminalProgramStatus = register({
+@@ -412,10 +409,9 @@ export const cfgTerminalProgramStatus = register({
+ 	default: true,
  	ui: {
  		tab: "appearance",
- 		group: "Display",
+-		group: "Display",
 -		label: "Program Status (OSC 7501)",
 -		description:
 -			"Report whether the agent is working, waiting on you, done, or failed over OSC 7501, for terminal tab indicators and agent inboxes",
++		group: "显示",
 +		label: "程序状态（OSC 7501）",
 +		description: "通过 OSC 7501 报告代理在工作、等你、完成或失败，供终端标签指示与代理收件箱使用",
  	},
  });
  
-@@ -426,9 +422,9 @@ export const cfgTuiTextSizing = register({
+@@ -425,10 +421,10 @@ export const cfgTuiTextSizing = register({
+ 	default: false,
  	ui: {
  		tab: "appearance",
- 		group: "Display",
+-		group: "Display",
 -		label: "Large Headings (Kitty)",
++		group: "显示",
 +		label: "大标题（Kitty）",
  		description:
 -			"Render Markdown H1 headings at 2x scale using Kitty's OSC 66 text-sizing protocol. Only takes effect on Kitty terminals; ignored everywhere else. Off by default.",
@@ -166855,57 +166880,67 @@ index 45365da..1857b57 100644
  	},
  });
  
-@@ -439,9 +435,8 @@ export const cfgTuiColorfulMarkdown = register({
+@@ -438,10 +434,9 @@ export const cfgTuiColorfulMarkdown = register({
+ 	default: true,
  	ui: {
  		tab: "appearance",
- 		group: "Display",
+-		group: "Display",
 -		label: "Colorful Markdown",
 -		description:
 -			"Color headings by level, bold and italic text, inline code, and table headers from the theme's ANSI palette. Off uses one heading color and plain bold/italic.",
++		group: "显示",
 +		label: "彩色 Markdown",
 +		description: "用主题 ANSI 调色板为标题按级别着色、加粗斜体、行内代码与表头上色。关闭时标题单色、粗斜体无样式。",
  	},
  });
  
-@@ -452,8 +447,8 @@ export const cfgTuiRenderMermaid = register({
+@@ -451,9 +446,9 @@ export const cfgTuiRenderMermaid = register({
+ 	default: true,
  	ui: {
  		tab: "appearance",
- 		group: "Display",
+-		group: "Display",
 -		label: "Render Mermaid Diagrams",
 -		description: "Render Mermaid fenced code blocks as ASCII diagrams",
++		group: "显示",
 +		label: "渲染 Mermaid 图",
 +		description: "把 Mermaid 围栏代码块渲染为 ASCII 图",
  	},
  });
  
-@@ -464,9 +459,8 @@ export const cfgTuiRenderSvg = register({
+@@ -463,10 +458,9 @@ export const cfgTuiRenderSvg = register({
+ 	default: true,
  	ui: {
  		tab: "appearance",
- 		group: "Display",
+-		group: "Display",
 -		label: "Render SVG Figures",
 -		description:
 -			"Invite the agent to draw diagrams and charts as SVG, rendered inline as images on terminals that show graphics",
++		group: "显示",
 +		label: "渲染 SVG 图",
 +		description: "允许代理把图和图表画成 SVG，在支持图形的终端上行内渲染为图片",
  	},
  });
  
-@@ -477,7 +471,7 @@ export const cfgTuiRenderEmbeds = register({
+@@ -476,8 +470,8 @@ export const cfgTuiRenderEmbeds = register({
+ 	default: true,
  	ui: {
  		tab: "appearance",
- 		group: "Display",
+-		group: "Display",
 -		label: "Render Embedded Images and Pages",
++		group: "显示",
 +		label: "渲染内嵌图片与页面",
  		description:
  			"Invite the agent to show pictures with <img> and web pages with <iframe>, loading them (remote addresses included) to draw inline on terminals that show graphics",
  	},
-@@ -491,27 +485,25 @@ export const cfgTuiAutoGraph = register({
+@@ -490,28 +484,26 @@ export const cfgTuiAutoGraph = register({
+ 	default: "auto",
  	ui: {
  		tab: "appearance",
- 		group: "Display",
+-		group: "Display",
 -		label: "Auto-Graph Tables",
 -		description:
 -			"Draw a chart under numeric tables in the agent's answers, in your theme's colors, on terminals that show graphics",
++		group: "显示",
 +		label: "自动绘制表格图",
 +		description: "在代理回答中的数值表格下方画图表，用你的主题色，在支持图形的终端上",
  		options: [
@@ -166936,22 +166971,26 @@ index 45365da..1857b57 100644
  		],
  	},
  });
-@@ -523,8 +515,8 @@ export const cfgTuiReactions = register({
+@@ -522,9 +514,9 @@ export const cfgTuiReactions = register({
+ 	default: true,
  	ui: {
  		tab: "appearance",
- 		group: "Display",
+-		group: "Display",
 -		label: "Agent Reactions",
 -		description: "Invite the agent to react to your message with an emoji badge on its bubble",
++		group: "显示",
 +		label: "代理回应表情",
 +		description: "允许代理在你的消息气泡上用 emoji 徽章回应",
  	},
  });
  
-@@ -535,9 +527,9 @@ export const cfgTuiCodexResetFireworks = register({
+@@ -534,10 +526,10 @@ export const cfgTuiCodexResetFireworks = register({
+ 	default: false,
  	ui: {
  		tab: "appearance",
- 		group: "Display",
+-		group: "Display",
 -		label: "Codex Reset Fireworks",
++		group: "显示",
 +		label: "Codex 重置烟花",
  		get description() {
 -			return `Celebrate unscheduled Codex weekly usage resets and newly banked saved resets with a top-third fireworks overlay that remains until ${formatKeyHint("escape")}`;
@@ -166959,11 +166998,13 @@ index 45365da..1857b57 100644
  		},
  	},
  });
-@@ -549,9 +541,9 @@ export const cfgTuiTitleState = register({
+@@ -548,10 +540,10 @@ export const cfgTuiTitleState = register({
+ 	default: true,
  	ui: {
  		tab: "appearance",
- 		group: "Display",
+-		group: "Display",
 -		label: "Terminal Title Run State",
++		group: "显示",
 +		label: "终端标题运行状态",
  		description:
 -			"Show the agent run state in the terminal title's separator — an animated spinner while working (a static ':' under WSL), '>' when it's your turn, '!' when the agent is waiting on you",
@@ -166971,13 +167012,15 @@ index 45365da..1857b57 100644
  	},
  });
  
-@@ -563,14 +555,13 @@ export const cfgTuiTitleSpinner = register({
+@@ -562,15 +554,14 @@ export const cfgTuiTitleSpinner = register({
+ 	default: "braille",
  	ui: {
  		tab: "appearance",
- 		group: "Display",
+-		group: "Display",
 -		label: "Terminal Title Spinner",
 -		description:
 -			"Glyph set for the working-state spinner in the terminal title — braille sweep, filling moon, single-dot cycle, or ASCII-safe line",
++		group: "显示",
 +		label: "终端标题旋转符",
 +		description: "终端标题工作态旋转符的字形集——盲文扫过、月相填充、单点循环或 ASCII 安全线",
  		options: [
@@ -166992,13 +167035,15 @@ index 45365da..1857b57 100644
  		],
  	},
  });
-@@ -588,14 +579,13 @@ export const cfgTuiSpinnerInterval = register({
+@@ -587,15 +578,14 @@ export const cfgTuiSpinnerInterval = register({
+ 	normalize: parseSpinnerInterval,
  	ui: {
  		tab: "appearance",
- 		group: "Display",
+-		group: "Display",
 -		label: "Spinner Interval (ms)",
 -		description:
 -			"Milliseconds between frames of every spinner, the terminal title included; 0 shows static glyphs. Unset follows Motion",
++		group: "显示",
 +		label: "旋转间隔（ms）",
 +		description: "所有旋转符（含终端标题）每帧间隔毫秒数；0 显示静态字形。未设跟随 Motion",
  		options: [
@@ -167013,13 +167058,15 @@ index 45365da..1857b57 100644
  		],
  	},
  });
-@@ -612,14 +602,13 @@ export const cfgTuiMaxFps = register({
+@@ -611,15 +601,14 @@ export const cfgTuiMaxFps = register({
+ 	normalize: parseMaxFps,
  	ui: {
  		tab: "appearance",
- 		group: "Display",
+-		group: "Display",
 -		label: "Max Frames Per Second",
 -		description:
 -			"Ceiling on how often the TUI repaints, streaming text included. Keystroke echo keeps 30 fps, so the pane you type in stays responsive",
++		group: "显示",
 +		label: "最大帧率",
 +		description: "TUI 重绘频率上限（含流式文本）。按键回显保持 30 fps，所以输入面板保持响应",
  		options: [
@@ -167033,23 +167080,27 @@ index 45365da..1857b57 100644
  		],
  	},
  });
-@@ -633,9 +622,8 @@ export const cfgTuiHyperlinks = register({
+@@ -632,10 +621,9 @@ export const cfgTuiHyperlinks = register({
+ 	default: "auto",
  	ui: {
  		tab: "appearance",
- 		group: "Display",
+-		group: "Display",
 -		label: "Terminal Hyperlinks",
 -		description:
 -			"Wrap paths and URLs in OSC 8 hyperlinks for terminal-native click-to-open (auto: detect support; off: never; always: unconditional)",
++		group: "显示",
 +		label: "终端超链接",
 +		description: "把路径与 URL 包成 OSC 8 超链接，终端原生点击打开（auto：检测支持；off：从不；always：无条件）",
  	},
  });
  // Also re-applied when a project-scoped reload (`/move`, cross-project resume, rollback) changes the
-@@ -649,10 +637,10 @@ export const cfgTuiMouse = register({
+@@ -648,11 +636,11 @@ export const cfgTuiMouse = register({
+ 	default: false,
  	ui: {
  		tab: "appearance",
- 		group: "Display",
+-		group: "Display",
 -		label: "Mouse Click-to-Focus",
++		group: "显示",
 +		label: "鼠标点击聚焦",
  		get description() {
  			const shift = formatKeyHint("shift");
@@ -167058,23 +167109,27 @@ index 45365da..1857b57 100644
  		},
  	},
  });
-@@ -664,8 +652,8 @@ export const cfgTuiTight = register({
+@@ -663,9 +651,9 @@ export const cfgTuiTight = register({
+ 	default: false,
  	ui: {
  		tab: "appearance",
- 		group: "Display",
+-		group: "Display",
 -		label: "Tight Layout",
 -		description: "Remove the 1-character horizontal padding from the left and right of the terminal output",
++		group: "显示",
 +		label: "紧凑布局",
 +		description: "移除终端输出左右两侧各 1 个字符的水平内边距",
  	},
  });
  
-@@ -677,12 +665,12 @@ export const cfgDisplayShimmer = register({
+@@ -676,13 +664,13 @@ export const cfgDisplayShimmer = register({
+ 	default: "classic",
  	ui: {
  		tab: "appearance",
- 		group: "Display",
+-		group: "Display",
 -		label: "Shimmer",
 -		description: "Animation style for working/loading messages; off under reduced or no Motion",
++		group: "显示",
 +		label: "微光动效",
 +		description: "工作/加载消息的动画样式；动效为减弱或无时关闭",
  		options: [
@@ -167087,11 +167142,13 @@ index 45365da..1857b57 100644
  		],
  	},
  });
-@@ -696,13 +684,13 @@ export const cfgTuiMotion = register({
+@@ -695,14 +683,14 @@ export const cfgTuiMotion = register({
+ 	env: "PI_MOTION",
  	ui: {
  		tab: "appearance",
- 		group: "Display",
+-		group: "Display",
 -		label: "Motion",
++		group: "显示",
 +		label: "动效",
  		description:
 -			"One switch over spinners, shimmer, and decorative blink/fade. Streaming text is unaffected (see Max Frames Per Second). A spinner interval you set still wins",
@@ -167106,13 +167163,15 @@ index 45365da..1857b57 100644
  		],
  	},
  });
-@@ -733,13 +721,12 @@ export const cfgDisplayPinnedAgents = register({
+@@ -732,14 +720,13 @@ export const cfgDisplayPinnedAgents = register({
+ 	default: "collapsed",
  	ui: {
  		tab: "appearance",
- 		group: "Display",
+-		group: "Display",
 -		label: "Pinned Agents",
 -		description:
 -			"Pinned live-agent jump list above the editor (off hides it; collapsed shows a few rows with an expander; full lists all)",
++		group: "显示",
 +		label: "置顶智能体",
 +		description: "编辑器上方的置顶活跃智能体跳转列表（关闭则隐藏；折叠则显示几行并带展开器；完整则列出全部）",
  		options: [
@@ -167125,91 +167184,107 @@ index 45365da..1857b57 100644
  		],
  	},
  });
-@@ -751,8 +738,8 @@ export const cfgDisplaySubagentLivePreview = register({
+@@ -750,9 +737,9 @@ export const cfgDisplaySubagentLivePreview = register({
+ 	default: false,
  	ui: {
  		tab: "appearance",
- 		group: "Display",
+-		group: "Display",
 -		label: "Subagent Live Preview",
 -		description: "Show each pinned subagent's current (or most recent) tool call beneath its row",
++		group: "显示",
 +		label: "子代理实时预览",
 +		description: "在每个钉住的子代理行下方显示其当前（或最近）的工具调用",
  	},
  });
  
-@@ -763,9 +750,8 @@ export const cfgDisplaySmoothStreaming = register({
+@@ -762,10 +749,9 @@ export const cfgDisplaySmoothStreaming = register({
+ 	default: true,
  	ui: {
  		tab: "appearance",
- 		group: "Display",
+-		group: "Display",
 -		label: "Smooth Streaming",
 -		description:
 -			"Reveal assistant text and streamed tool input smoothly while chunks arrive (Tern types assistant text out itself)",
++		group: "显示",
 +		label: "平滑流式",
 +		description: "分块到达时平滑显现助手文本与流式工具输入（Tern 会自行打出助手文本）",
  	},
  });
  
-@@ -776,8 +762,8 @@ export const cfgDisplayHideToolActivity = register({
+@@ -775,9 +761,9 @@ export const cfgDisplayHideToolActivity = register({
+ 	default: false,
  	ui: {
  		tab: "appearance",
- 		group: "Display",
+-		group: "Display",
 -		label: "Hide Tool Activity",
 -		description: "Hide model-initiated tool calls and results from the transcript",
++		group: "显示",
 +		label: "隐藏工具活动",
 +		description: "在记录中隐藏模型发起的工具调用与结果",
  	},
  });
  
-@@ -788,8 +774,8 @@ export const cfgDisplayShowTokenUsage = register({
+@@ -787,9 +773,9 @@ export const cfgDisplayShowTokenUsage = register({
+ 	default: false,
  	ui: {
  		tab: "appearance",
- 		group: "Display",
+-		group: "Display",
 -		label: "Show Token Usage",
 -		description: "Show per-turn token usage on assistant messages",
++		group: "显示",
 +		label: "显示词元用量",
 +		description: "在助手消息上显示每轮词元用量",
  	},
  });
  
-@@ -800,8 +786,8 @@ export const cfgDisplayShowTurnTime = register({
+@@ -799,9 +785,9 @@ export const cfgDisplayShowTurnTime = register({
+ 	default: false,
  	ui: {
  		tab: "appearance",
- 		group: "Display",
+-		group: "Display",
 -		label: "Show Turn Time",
 -		description: "Show the total prompt-to-yield time (including tool calls) on assistant message usage rows",
++		group: "显示",
 +		label: "显示轮次耗时",
 +		description: "在助手消息用量行显示总的从提示到让出时间（含工具调用）",
  	},
  });
  
-@@ -812,8 +798,8 @@ export const cfgDisplayCacheMissMarker = register({
+@@ -811,9 +797,9 @@ export const cfgDisplayCacheMissMarker = register({
+ 	default: false,
  	ui: {
  		tab: "appearance",
- 		group: "Display",
+-		group: "Display",
 -		label: "Cache Miss Marker",
 -		description: "Show a divider after an assistant turn whose request lost (missed) the prompt cache",
++		group: "显示",
 +		label: "缓存未命中标记",
 +		description: "在提示词缓存未命中的助手轮次后显示分隔线",
  	},
  });
  
-@@ -824,8 +810,8 @@ export const cfgDisplayShellVisualization = register({
+@@ -823,9 +809,9 @@ export const cfgDisplayShellVisualization = register({
+ 	default: true,
  	ui: {
  		tab: "appearance",
- 		group: "Display",
+-		group: "Display",
 -		label: "Shell Visualization",
 -		description: "Show bash commands as an interactive execution visualization instead of plain shell commands",
++		group: "显示",
 +		label: "Shell 可视化",
 +		description: "把 bash 命令显示为可交互的执行可视化，而非纯 shell 命令",
  	},
  });
  
-@@ -836,15 +822,14 @@ export const cfgDisplayAdvisorCollapsedLines = register({
+@@ -835,16 +821,15 @@ export const cfgDisplayAdvisorCollapsedLines = register({
+ 	default: 0,
  	ui: {
  		tab: "appearance",
- 		group: "Display",
+-		group: "Display",
 -		label: "Advisor Collapsed Lines",
 -		description:
 -			"Maximum note lines a collapsed advisor card shows below its header (0 keeps the full preview; expand with the tool-output toggle)",
++		group: "显示",
 +		label: "Advisor 折叠行数",
 +		description: "折叠的 advisor 卡片在标题下最多显示的备注行数（0 保留完整预览；用工具输出开关展开）",
  		options: [
@@ -167226,35 +167301,41 @@ index 45365da..1857b57 100644
  		],
  	},
  });
-@@ -869,9 +854,8 @@ export const cfgDisplayCollapseCompacted = register({
+@@ -868,10 +853,9 @@ export const cfgDisplayCollapseCompacted = register({
+ 	default: true,
  	ui: {
  		tab: "appearance",
- 		group: "Display",
+-		group: "Display",
 -		label: "Collapse Compacted History",
 -		description:
 -			"Collapse pre-compaction history behind the summary divider on the live transcript; disable to keep the full transcript inline with dividers at each compaction point",
++		group: "显示",
 +		label: "折叠已压缩历史",
 +		description: "在实时记录中把压缩前的历史折叠到摘要分隔线之后；关闭则保留完整记录并在每个压缩点放分隔线",
  	},
  });
  
-@@ -882,8 +866,8 @@ export const cfgShowHardwareCursor = register({
+@@ -881,9 +865,9 @@ export const cfgShowHardwareCursor = register({
+ 	default: true, // will be computed based on platform if undefined
  	ui: {
  		tab: "appearance",
- 		group: "Display",
+-		group: "Display",
 -		label: "Show Hardware Cursor",
 -		description: "Show terminal cursor for IME support",
++		group: "显示",
 +		label: "显示硬件光标",
 +		description: "为 IME 支持显示终端光标",
  	},
  });
  
-@@ -894,8 +878,8 @@ export const cfgTuiImeSafeCursor = register({
+@@ -893,9 +877,9 @@ export const cfgTuiImeSafeCursor = register({
+ 	default: false,
  	ui: {
  		tab: "appearance",
- 		group: "Display",
+-		group: "Display",
 -		label: "IME-Safe Prompt Layout",
 -		description: "Move the prompt's bottom border to a separate row so macOS IME preedit cannot displace it",
++		group: "显示",
 +		label: "输入法安全的提示布局",
 +		description: "把提示框底边移到单独一行，避免 macOS IME 预编辑挤占它",
  	},
@@ -167856,7 +167937,7 @@ index 2c46d33..e5c6b59 100644
  	const { Composer, COMPOSER_DEFAULTS }: typeof ComposerRuntime = require("@oh-my-pi/pi-tui/prompt/composer.js");
  	const cwd = options.cwd ?? process.cwd();
 diff --git a/packages/coding-agent/src/modes/utils/ui-helpers.ts b/packages/coding-agent/src/modes/utils/ui-helpers.ts
-index 5bde99e..f3b798c 100644
+index 5bde99e..a5a8d20 100644
 --- a/packages/coding-agent/src/modes/utils/ui-helpers.ts
 +++ b/packages/coding-agent/src/modes/utils/ui-helpers.ts
 @@ -1315,7 +1315,7 @@ export class UiHelpers {
@@ -167868,7 +167949,7 @@ index 5bde99e..f3b798c 100644
  				this.ctx.showStatus(`Session compacted ${times}`);
  			}
  			// Rows of the previous transcript already in native scrollback were drawn with the old
-@@ -1360,8 +1360,8 @@ export class UiHelpers {
+@@ -1360,14 +1360,14 @@ export class UiHelpers {
  	}
  
  	showNewVersionNotification(newVersion: string): void {
@@ -167879,6 +167960,14 @@ index 5bde99e..f3b798c 100644
  		const command = "omp update";
  		const native = noticeRow(
  			"info",
+ 			[
+-				span("Update available", "strong"),
+-				span(` · New version ${newVersion} is available. Run `),
++				span("有可用更新", "strong"),
++				span(` · 新版本 ${newVersion} 可用，运行 `),
+ 				span(command, "code"),
+ 			],
+ 			{ icon: "download" },
 @@ -1399,8 +1399,8 @@ export class UiHelpers {
  		}
  
@@ -175576,7 +175665,7 @@ index 747a4ca..d2d3d62 100644
  });
  
 diff --git a/packages/coding-agent/src/session/context-view.ts b/packages/coding-agent/src/session/context-view.ts
-index 919e503..fd24d75 100644
+index 919e503..eecda6c 100644
 --- a/packages/coding-agent/src/session/context-view.ts
 +++ b/packages/coding-agent/src/session/context-view.ts
 @@ -25,7 +25,7 @@ const ENCRYPTED_THINKING = "[Encrypted thinking]";
@@ -175593,7 +175682,7 @@ index 919e503..fd24d75 100644
  	].filter(Boolean);
  	if (counts.length === 0) return undefined;
 -	return `${counts.join(" and ")} ${left.length === 1 ? "stays" : "stay"} in System Prompt: the system prompt changed after it was built (e.g. by an extension hook or SDK callback).`;
-+	return `${counts.join(" and ")} ${left.length === 1 ? "stays" : "保留"} 于系统提示词：系统提示词在构建后被改动（如被扩展 hook 或 SDK 回调）。`;
++	return `${counts.join(" and ")} ${left.length === 1 ? "stays" : "stay"} 于系统提示词：系统提示词在构建后被改动（如被扩展 hook 或 SDK 回调）。`;
  }
  
  /**
@@ -175919,18 +176008,9 @@ index 225f4c7..10aa7ef 100644
  		timestamp: message.timestamp,
  	});
 diff --git a/packages/coding-agent/src/session/model-compaction-threshold.ts b/packages/coding-agent/src/session/model-compaction-threshold.ts
-index 092d4ea..e0f90d6 100644
+index 092d4ea..b0e4204 100644
 --- a/packages/coding-agent/src/session/model-compaction-threshold.ts
 +++ b/packages/coding-agent/src/session/model-compaction-threshold.ts
-@@ -53,7 +53,7 @@ export function describeModelCompactionPoint(scope: ScopeLike, model: Model): Mo
- 
- /** A window size as the hub's one-line notices show it: `272K`, `1.05M`. */
- function formatWindow(tokens: number): string {
--	return tokens.toLocaleString("en-US", { notation: "compact", maximumFractionDigits: 2 });
-+	return tokens.toLocaleString("'zh-CN'", { notation: "compact", maximumFractionDigits: 2 });
- }
- 
- /**
 @@ -90,10 +90,10 @@ function resolveTrigger(settings: CompactionSettings, window: number): ModelComp
  /** Why a trigger sits where it does, in a few words: `fixed`, `fixed 300K, capped by window`, `85% of 400K base`, `12.5% of window`. */
  function formatBasis(trigger: ModelCompactionTrigger): string {
@@ -175938,9 +176018,8 @@ index 092d4ea..e0f90d6 100644
 -		return trigger.cappedFrom === undefined ? "fixed" : `fixed ${formatWindow(trigger.cappedFrom)}, capped by window`;
 +		return trigger.cappedFrom === undefined ? "fixed" : `固定 ${formatWindow(trigger.cappedFrom)}，受窗口封顶`;
  	}
--	const share = `${trigger.share.toLocaleString("en-US", { maximumFractionDigits: 1 })}%`;
+ 	const share = `${trigger.share.toLocaleString("en-US", { maximumFractionDigits: 1 })}%`;
 -	return trigger.fromBase ? `${share} of ${formatWindow(trigger.scaledFrom)} base` : `${share} of window`;
-+	const share = `${trigger.share.toLocaleString("'zh-CN'", { maximumFractionDigits: 1 })}%`;
 +	return trigger.fromBase ? `${share}（${formatWindow(trigger.scaledFrom)} 基准）` : `窗口的 ${share}`;
  }
  
@@ -175960,10 +176039,9 @@ index 092d4ea..e0f90d6 100644
  /** A model entry in words, for the save message: `400,000-token base`, `fixed at 400,000 tokens`, `80% of the window`. */
  function describeModelCompactionEntry(threshold: CompactionThresholdPair): string {
 -	if (threshold.thresholdTokens <= 0) return `${threshold.thresholdPercent}% of the window`;
--	const tokens = threshold.thresholdTokens.toLocaleString("en-US");
--	return threshold.fixed ? `fixed at ${tokens} tokens` : `${tokens}-token base`;
 +	if (threshold.thresholdTokens <= 0) return `窗口的 ${threshold.thresholdPercent}%`;
-+	const tokens = threshold.thresholdTokens.toLocaleString("'zh-CN'");
+ 	const tokens = threshold.thresholdTokens.toLocaleString("en-US");
+-	return threshold.fixed ? `fixed at ${tokens} tokens` : `${tokens}-token base`;
 +	return threshold.fixed ? `固定为 ${tokens} 词元` : `${tokens} 词元基准`;
  }
  
@@ -180117,7 +180195,7 @@ index 40ad547..f9db83a 100644
  	}
  
 diff --git a/packages/coding-agent/src/session/turn-recovery.ts b/packages/coding-agent/src/session/turn-recovery.ts
-index 6f6104d..d237c09 100644
+index 6f6104d..f66f3c9 100644
 --- a/packages/coding-agent/src/session/turn-recovery.ts
 +++ b/packages/coding-agent/src/session/turn-recovery.ts
 @@ -1038,9 +1038,9 @@ export class TurnRecovery {
@@ -180242,7 +180320,7 @@ index 6f6104d..d237c09 100644
  			if (!switchedModel && !switchedCredential) {
  				const attempt = this.#retryAttempt - 1;
 -				message.errorMessage = `Retry budget exhausted after ${attempt} ${attempt === 1 ? "retry" : "retries"}: ${errorMessage}`;
-+				message.errorMessage = `重试预算在 ${attempt} 次${attempt === 1 ? "retry" : "重试"}后耗尽：${errorMessage}`;
++				message.errorMessage = `重试预算在 ${attempt} 次${attempt === 1 ? "retry" : "retries"}后耗尽：${errorMessage}`;
  				await this.#closeRetrySaga(
  					{ success: false, attempt, finalError: errorMessage },
  					{ terminalTurn: message, retryErrors: { status: "superseded" } },
@@ -189228,7 +189306,7 @@ index 26ca0dc..3dd6c70 100644
  	// The preview prefers `output` over `stderr`, so a run that failed after
  	// streaming prose (provider stream error, missing yield) would otherwise
 diff --git a/packages/coding-agent/src/task/settings.ts b/packages/coding-agent/src/task/settings.ts
-index ee76777..d187daf 100644
+index ee76777..2fb438f 100644
 --- a/packages/coding-agent/src/task/settings.ts
 +++ b/packages/coding-agent/src/task/settings.ts
 @@ -32,8 +32,8 @@ export const cfgTaskIsolationEnabled = register({
@@ -189823,12 +189901,14 @@ index ee76777..d187daf 100644
  	},
  });
  
-@@ -741,8 +729,8 @@ export const cfgTaskShowResolvedModelBadge = register({
+@@ -740,9 +728,9 @@ export const cfgTaskShowResolvedModelBadge = register({
+ 	default: false,
  	ui: {
  		tab: "appearance",
- 		group: "Display",
+-		group: "Display",
 -		label: "Show Resolved Model Badge",
 -		description: "Display the actual model ID used by each subagent in the task widget status line",
++		group: "显示",
 +		label: "显示已解析模型徽章",
 +		description: "在任务小组件状态行显示每个子代理实际使用的模型 ID",
  	},
@@ -191310,7 +191390,7 @@ index a9de035..78f86bc 100644
  			}
  			if (request.type === "ping") {
 diff --git a/packages/coding-agent/src/tools/approval.ts b/packages/coding-agent/src/tools/approval.ts
-index 23b6d20..850e75d 100644
+index 23b6d20..f0a69c9 100644
 --- a/packages/coding-agent/src/tools/approval.ts
 +++ b/packages/coding-agent/src/tools/approval.ts
 @@ -208,7 +208,7 @@ function resolveCachedModeApproval(
@@ -191371,7 +191451,7 @@ index 23b6d20..850e75d 100644
  	const rows: string[] = ["Command:"];
  	if (elidedLeading > 0) {
 -		rows.push(`  ✓ … (${elidedLeading} allowed ${elidedLeading === 1 ? "segment" : "segments"})`);
-+		rows.push(`  ✓ …（${elidedLeading} 个已允许 ${elidedLeading === 1 ? "segment" : "段"}）`);
++		rows.push(`  ✓ …（${elidedLeading} 个已允许 ${elidedLeading === 1 ? "segment" : "segments"}）`);
  	}
  	const remaining = segments.slice(elidedLeading);
  	const slots = COMPOUND_COMMAND_COMPACT_MAX_SEGMENTS - (elidedLeading > 0 ? 1 : 0);
@@ -191380,7 +191460,7 @@ index 23b6d20..850e75d 100644
  		const kept = Math.max(1, slots - 1);
  		const hidden = remaining.length - kept;
 -		rows.push(...remaining.slice(0, kept), `  … (${hidden} more ${hidden === 1 ? "segment" : "segments"})`);
-+		rows.push(...remaining.slice(0, kept), `  …（另 ${hidden} 个 ${hidden === 1 ? "segment" : "段"}）`);
++		rows.push(...remaining.slice(0, kept), `  …（另 ${hidden} 个 ${hidden === 1 ? "segment" : "segments"}）`);
  	}
  	return rows.join("\n");
  }
@@ -193216,7 +193296,7 @@ index 6fe5bae..21f08d3 100644
  		this.#scripts.delete(id);
  	}
 diff --git a/packages/coding-agent/src/tools/browser/interactions.ts b/packages/coding-agent/src/tools/browser/interactions.ts
-index 8ff94ba..ed04901 100644
+index 8ff94ba..eb674c9 100644
 --- a/packages/coding-agent/src/tools/browser/interactions.ts
 +++ b/packages/coding-agent/src/tools/browser/interactions.ts
 @@ -190,7 +190,7 @@ export class TypingInterruptedError extends ToolAbortError {
@@ -193242,7 +193322,7 @@ index 8ff94ba..ed04901 100644
  
  function requireFiniteNumber(value: number, label: string): void {
 -	if (!Number.isFinite(value)) throw new ToolError(`${label} must be a finite number`);
-+	if (!Number.isFinite(value)) throw new ToolError(`${label} 必须是有限数`);
++	if (!Number.isFinite(value)) throw new ToolError(`${label} 必须是有限数值`);
  }
  
  /**
@@ -197852,7 +197932,7 @@ index eb438f4..3ad023e 100644
  		await closed;
  	} finally {
 diff --git a/packages/coding-agent/src/tools/computer/window-miss.ts b/packages/coding-agent/src/tools/computer/window-miss.ts
-index d06c6b7..4451f70 100644
+index d06c6b7..9dc6aec 100644
 --- a/packages/coding-agent/src/tools/computer/window-miss.ts
 +++ b/packages/coding-agent/src/tools/computer/window-miss.ts
 @@ -31,13 +31,16 @@ export function describeWindowMiss(
@@ -197888,7 +197968,7 @@ index d06c6b7..4451f70 100644
  	if (omitted.length > 0) {
  		const count = omitted.reduce((sum, name) => sum + byApp.get(name)!.length, 0);
 -		lines.push(`- ${omitted.length} more ${omitted.length === 1 ? "app" : "apps"} with ${count} windows`);
-+		lines.push(`- 还有 ${omitted.length} 个 ${omitted.length === 1 ? "app" : "应用"}，各有 ${count} 个窗口`);
++		lines.push(`- 还有 ${omitted.length} 个 ${omitted.length === 1 ? "app" : "apps"}，各有 ${count} 个窗口`);
  	}
 -	return `${note}Open windows by app (id "title"):\n${lines.join("\n")}`;
 +	return `${note}按应用列出的打开窗口（id "标题"）：
@@ -200618,7 +200698,7 @@ index e5eeed2..bea5b1e 100644
  					}
  					return { target };
 diff --git a/packages/coding-agent/src/tools/grep.ts b/packages/coding-agent/src/tools/grep.ts
-index e38d034..0a750ea 100644
+index e38d034..7ba20c6 100644
 --- a/packages/coding-agent/src/tools/grep.ts
 +++ b/packages/coding-agent/src/tools/grep.ts
 @@ -180,7 +180,7 @@ function parseExternalUrlSpec(entry: string): { clean: string; ranges?: [LineRan
@@ -200655,7 +200735,7 @@ index e38d034..0a750ea 100644
  	const shown = paths.slice(0, 5).join(", ");
  	const rest = paths.length - 5;
 -	return rest > 0 ? `${shown} and ${rest} more ${rest === 1 ? "file" : "files"}` : shown;
-+	return rest > 0 ? `${shown} 及另外 ${rest} 个${rest === 1 ? "file" : "文件"}` : shown;
++	return rest > 0 ? `${shown} 及另外 ${rest} 个${rest === 1 ? "file" : "files"}` : shown;
  }
  
  /**
@@ -201329,7 +201409,7 @@ index 8256508..c6a2d0f 100644
  			content: [{ type: "text", text }],
  			details: result,
 diff --git a/packages/coding-agent/src/tools/memory-recall.ts b/packages/coding-agent/src/tools/memory-recall.ts
-index 6aadd62..26e30cb 100644
+index 6aadd62..abdff67 100644
 --- a/packages/coding-agent/src/tools/memory-recall.ts
 +++ b/packages/coding-agent/src/tools/memory-recall.ts
 @@ -24,7 +24,7 @@ export class MemoryRecallTool implements AgentTool<typeof memoryRecallSchema> {
@@ -201362,7 +201442,7 @@ index 6aadd62..26e30cb 100644
  							{
  								type: "text",
 -								text: `Found ${results.length} relevant ${results.length === 1 ? "memory" : "memories"} (as of ${formatCurrentTime()} UTC):\n\n${formatted}`,
-+								text: `找到 ${results.length} 条相关${results.length === 1 ? "memory" : "记忆"}（截至 ${formatCurrentTime()} UTC）：
++								text: `找到 ${results.length} 条相关${results.length === 1 ? "memory" : "memories"}（截至 ${formatCurrentTime()} UTC）：
 +
 +${formatted}`,
  							},
@@ -201391,7 +201471,7 @@ index 6aadd62..26e30cb 100644
  						{
  							type: "text",
 -							text: `Found ${results.length} relevant ${results.length === 1 ? "memory" : "memories"} (as of ${formatCurrentTime()} UTC):\n\n${formatted}`,
-+							text: `找到 ${results.length} 条相关${results.length === 1 ? "memory" : "记忆"}（截至 ${formatCurrentTime()} UTC）：
++							text: `找到 ${results.length} 条相关${results.length === 1 ? "memory" : "memories"}（截至 ${formatCurrentTime()} UTC）：
 +
 +${formatted}`,
  						},
@@ -206813,15 +206893,17 @@ index 62c0764..af8a8db 100644
  }
  
 diff --git a/packages/coding-agent/src/utils/title-settings.ts b/packages/coding-agent/src/utils/title-settings.ts
-index 5a3b679..8a61e3a 100644
+index 5a3b679..07dcbf3 100644
 --- a/packages/coding-agent/src/utils/title-settings.ts
 +++ b/packages/coding-agent/src/utils/title-settings.ts
-@@ -18,16 +18,16 @@ export const cfgTitleIcons = register({
+@@ -17,17 +17,17 @@ export const cfgTitleIcons = register({
+ 	default: "nf+emoji",
  	ui: {
  		tab: "appearance",
- 		group: "Display",
+-		group: "Display",
 -		label: "Title Icons",
 -		description: "Icon and short code that head new generated or /rename session titles",
++		group: "显示",
 +		label: "标题图标",
 +		description: "置于新生成或 /rename 会话标题前的图标和短代码",
  		options: [
@@ -207996,18 +208078,9 @@ index 00c8365..690b74b 100644
  	} catch {}
  
 diff --git a/packages/coding-agent/src/web/scrapers/bluesky.ts b/packages/coding-agent/src/web/scrapers/bluesky.ts
-index a968b41..304dd13 100644
+index a968b41..8d234f3 100644
 --- a/packages/coding-agent/src/web/scrapers/bluesky.ts
 +++ b/packages/coding-agent/src/web/scrapers/bluesky.ts
-@@ -77,7 +77,7 @@ function formatPost(post: BlueskyPost, isQuote = false): string {
- 	const author = post.author;
- 	const name = author.displayName || author.handle;
- 	const handle = `@${author.handle}`;
--	const date = new Date(post.record.createdAt).toLocaleString("en-US", {
-+	const date = new Date(post.record.createdAt).toLocaleString("'zh-CN'", {
- 		year: "numeric",
- 		month: "short",
- 		day: "numeric",
 @@ -120,7 +120,7 @@ function formatPost(post: BlueskyPost, isQuote = false): string {
  		) {
  			const rec = embed.record;
@@ -208033,15 +208106,6 @@ index a968b41..304dd13 100644
  					md += formatPost(thread.parent.post, true);
  					md += "\n---\n\n";
  				}
-@@ -244,7 +246,7 @@ export const handleBluesky: SpecialHandler = async (
- 			md += `- **Posts:** ${formatNumber(profile.postsCount || 0)}\n`;
- 
- 			if (profile.createdAt) {
--				const joined = new Date(profile.createdAt).toLocaleDateString("en-US", {
-+				const joined = new Date(profile.createdAt).toLocaleDateString("'zh-CN'", {
- 					year: "numeric",
- 					month: "long",
- 					day: "numeric",
 @@ -254,7 +256,7 @@ export const handleBluesky: SpecialHandler = async (
  
  			md += `\n**DID:** \`${profile.did}\`\n`;
@@ -208437,7 +208501,7 @@ index b2cd89f..6b4174c 100644
  
  	return null;
 diff --git a/packages/coding-agent/src/web/scrapers/coingecko.ts b/packages/coding-agent/src/web/scrapers/coingecko.ts
-index d215787..4ca17ca 100644
+index d215787..6bb73bc 100644
 --- a/packages/coding-agent/src/web/scrapers/coingecko.ts
 +++ b/packages/coding-agent/src/web/scrapers/coingecko.ts
 @@ -55,23 +55,29 @@ export const handleCoinGecko: SpecialHandler = async (
@@ -208483,7 +208547,7 @@ index d215787..4ca17ca 100644
  			if (market.price_change_percentage_24h !== undefined) {
  				const change = market.price_change_percentage_24h;
  				const sign = change >= 0 ? "+" : "";
-@@ -91,17 +97,19 @@ export const handleCoinGecko: SpecialHandler = async (
+@@ -91,15 +97,17 @@ export const handleCoinGecko: SpecialHandler = async (
  		}
  
  		if (market?.market_cap?.usd) {
@@ -208502,11 +208566,8 @@ index d215787..4ca17ca 100644
 -			md += `**All-Time High:** $${formatPrice(market.ath.usd)}`;
 +			md += `**历史最高：** $${formatPrice(market.ath.usd)}`;
  			if (market.ath_date?.usd) {
--				const athDate = new Date(market.ath_date.usd).toLocaleDateString("en-US", {
-+				const athDate = new Date(market.ath_date.usd).toLocaleDateString("'zh-CN'", {
+ 				const athDate = new Date(market.ath_date.usd).toLocaleDateString("en-US", {
  					year: "numeric",
- 					month: "short",
- 					day: "numeric",
 @@ -115,22 +123,24 @@ export const handleCoinGecko: SpecialHandler = async (
  
  		// Supply info
@@ -208555,15 +208616,6 @@ index d215787..4ca17ca 100644
  	} catch {}
  
  	return null;
-@@ -169,7 +180,7 @@ export const handleCoinGecko: SpecialHandler = async (
-  * Format price with appropriate decimal places
-  */
- function formatPrice(price: number): string {
--	if (price >= 1000) return price.toLocaleString("en-US", { maximumFractionDigits: 2 });
-+	if (price >= 1000) return price.toLocaleString("'zh-CN'", { maximumFractionDigits: 2 });
- 	if (price >= 1) return price.toFixed(2);
- 	if (price >= 0.01) return price.toFixed(4);
- 	if (price >= 0.0001) return price.toFixed(6);
 diff --git a/packages/coding-agent/src/web/scrapers/crates-io.ts b/packages/coding-agent/src/web/scrapers/crates-io.ts
 index 262bd63..0f04b69 100644
 --- a/packages/coding-agent/src/web/scrapers/crates-io.ts
@@ -209056,18 +209108,9 @@ index 8a94bd9..fb110b6 100644
  
  	return null;
 diff --git a/packages/coding-agent/src/web/scrapers/firefox-addons.ts b/packages/coding-agent/src/web/scrapers/firefox-addons.ts
-index c7fe84e..8989e69 100644
+index c7fe84e..a97e17d 100644
 --- a/packages/coding-agent/src/web/scrapers/firefox-addons.ts
 +++ b/packages/coding-agent/src/web/scrapers/firefox-addons.ts
-@@ -107,7 +107,7 @@ export const handleFirefoxAddons: SpecialHandler = async (
- 		if (!data) return null;
- 
- 		const fetchedAt = new Date().toISOString();
--		const defaultLocale = data.default_locale || "en-US";
-+		const defaultLocale = data.default_locale || "zh-CN";
- 
- 		const name = getLocalizedText(data.name, defaultLocale) ?? slug;
- 		const summary = getLocalizedText(data.summary, defaultLocale);
 @@ -139,12 +139,13 @@ export const handleFirefoxAddons: SpecialHandler = async (
  		if (summary) md += `${summary}\n\n`;
  
@@ -210336,18 +210379,9 @@ index a58e597..574e579 100644
  		}
  	} catch {}
 diff --git a/packages/coding-agent/src/web/scrapers/mastodon.ts b/packages/coding-agent/src/web/scrapers/mastodon.ts
-index aecd41e..46dd961 100644
+index aecd41e..5f0971d 100644
 --- a/packages/coding-agent/src/web/scrapers/mastodon.ts
 +++ b/packages/coding-agent/src/web/scrapers/mastodon.ts
-@@ -88,7 +88,7 @@ function isMastodonInstance(hostname: string, timeout: number, signal?: AbortSig
- function formatDate(isoDate: string): string {
- 	try {
- 		const date = new Date(isoDate);
--		return date.toLocaleDateString("en-US", {
-+		return date.toLocaleDateString("zh-CN", {
- 			year: "numeric",
- 			month: "short",
- 			day: "numeric",
 @@ -106,7 +106,9 @@ function formatDate(isoDate: string): string {
  async function formatStatus(status: MastodonStatus, isReblog = false): Promise<string> {
  	// Handle reblogs (boosts)
@@ -215432,19 +215466,6 @@ index 15474d4..6c36627 100644
  		}
  		const messages = await stream.result();
  		const results = events.filter(
-diff --git a/packages/coding-agent/test/agent-session-auto-compaction-queue.test.ts b/packages/coding-agent/test/agent-session-auto-compaction-queue.test.ts
-index f1f81b0..b1d6404 100644
---- a/packages/coding-agent/test/agent-session-auto-compaction-queue.test.ts
-+++ b/packages/coding-agent/test/agent-session-auto-compaction-queue.test.ts
-@@ -1452,7 +1452,7 @@ describe("AgentSession auto-compaction queue resume", () => {
- 		["a new session", session => session.newSession(), 0],
- 	];
- 	for (const [supersession, supersede, kept] of keptAfterSupersession) {
--		it(`keeps a turn-triggering custom message held by idle compaction ${kept ? "in" : "out of"} the transcript after ${supersession}, with no turn`, async () => {
-+		it(`keeps a turn-triggering custom message held by idle compaction ${kept ? "在" : "out of"} the transcript after ${supersession}, with no turn`, async () => {
- 			const held = await holdIdleCompaction();
- 			const sent = session.sendCustomMessage(
- 				{ customType: "extension-nudge", content: "act on the nudge", display: false },
 diff --git a/packages/coding-agent/test/agent-session-magic-keywords.test.ts b/packages/coding-agent/test/agent-session-magic-keywords.test.ts
 index f8ea98f..2c78b61 100644
 --- a/packages/coding-agent/test/agent-session-magic-keywords.test.ts
@@ -215483,71 +215504,6 @@ index dba5b49..24960d1 100644
 +				{ question: "未回答", answer: " \t\n", status: "cancelled", createdAt: 5, updatedAt: 6 },
  				{ question: "Still running", answer: "", status: "running", createdAt: 7, updatedAt: 7 },
  			],
- 		});
-diff --git a/packages/coding-agent/test/config/compaction-threshold.test.ts b/packages/coding-agent/test/config/compaction-threshold.test.ts
-index 6e329f5..ebe1f74 100644
---- a/packages/coding-agent/test/config/compaction-threshold.test.ts
-+++ b/packages/coding-agent/test/config/compaction-threshold.test.ts
-@@ -219,7 +219,7 @@ describe("compaction.modelThresholds", () => {
- 
- 			expect(() => setModelCompactionPoint(settings, deepseek, "90k")).toThrow("project config");
- 			expect(resolveModelCompactionSettings(settings, deepseek)).toMatchObject({ baseWindowTokens: 50000 });
--			expect(setModelCompactionPoint(settings, other, "90k")).toMatchObject({ kind: "saved", entry: 90000 });
-+			expect(setModelCompactionPoint(settings, other, "90k")).toMatchObject({ kind: "已省", entry: 90000 });
- 			expect(resolveModelCompactionSettings(settings, other)).toMatchObject({ baseWindowTokens: 90000 });
- 		});
- 	});
-@@ -248,13 +248,13 @@ describe("compaction.modelThresholds", () => {
- 
- 		// Saved: 400k minus the 60k reserve, on the extended window.
- 		expect(setModelCompactionPoint(settings, model, "400k", { tiers, confirmed: true })).toMatchObject({
--			kind: "saved",
-+			kind: "已省",
- 			entry: 400_000,
- 			trigger: { kind: "scaled", tokens: 340_000, share: 85, scaledFrom: 400_000, fromBase: true },
- 		});
- 		expect(resolveModelCompactionSettings(settings, model).baseWindowTokens).toBe(400_000);
- 		expect(setModelCompactionPoint(settings, model, "200k", { tiers })).toMatchObject({
--			kind: "saved",
-+			kind: "已省",
- 			entry: 200_000,
- 		});
- 
-@@ -271,7 +271,7 @@ describe("compaction.modelThresholds", () => {
- 
- 		// A base equal to the standard window fits it; a fixed trigger there needs the extended one.
- 		expect(setModelCompactionPoint(settings, model, "272k", { tiers })).toMatchObject({
--			kind: "saved",
-+			kind: "已省",
- 			entry: 272_000,
- 		});
- 		expect(setModelCompactionPoint(settings, model, "f272k", { tiers })).toMatchObject({
-@@ -279,7 +279,7 @@ describe("compaction.modelThresholds", () => {
- 			extendedWindow: 1_050_000,
- 		});
- 		expect(setModelCompactionPoint(settings, model, "f272k", { tiers, confirmed: true })).toMatchObject({
--			kind: "saved",
-+			kind: "已省",
- 			entry: "f272000",
- 			trigger: { kind: "fixed", tokens: 272_000 },
- 		});
-@@ -292,7 +292,7 @@ describe("compaction.modelThresholds", () => {
- 		const model = { provider: "openai", id: "gpt-5.6-terra", contextWindow: 1_050_000 } as Model;
- 		expect(
- 			setModelCompactionPoint(settings, model, "400k", { tiers: { standard: 272_000, extended: 1_050_000 } }),
--		).toMatchObject({ kind: "saved", entry: 400_000 });
-+		).toMatchObject({ kind: "已省", entry: 400_000 });
- 	});
- 
- 	it("plans where each kind of typed limit compacts, and nothing for input submit would reject", () => {
-@@ -362,7 +362,7 @@ describe("compaction.modelThresholds", () => {
- 			trigger: { kind: "fixed", tokens: 100_000 },
- 		});
- 		expect(setModelCompactionPoint(settings, model, "", { tiers })).toMatchObject({
--			kind: "saved",
-+			kind: "已省",
- 			entry: undefined,
- 			trigger: { kind: "fixed", tokens: 100_000 },
  		});
 diff --git a/packages/coding-agent/test/downloads/activity.test.ts b/packages/coding-agent/test/downloads/activity.test.ts
 index 0ad0cd4..2fd9d43 100644
@@ -216284,71 +216240,6 @@ index 9cd2731..f398aaa 100644
  		// The editor keeps focus: typing still goes to the prompt.
  		expect(mode.ui.getFocused()).toBe(mode.editor);
  
-diff --git a/packages/coding-agent/test/job-widgets/derivation.test.ts b/packages/coding-agent/test/job-widgets/derivation.test.ts
-index 66b191f..9953993 100644
---- a/packages/coding-agent/test/job-widgets/derivation.test.ts
-+++ b/packages/coding-agent/test/job-widgets/derivation.test.ts
-@@ -116,7 +116,7 @@ describe("job widget derivation", () => {
- 			validSpec({
- 				title: "decode",
- 				rules: [{ from: "out", match: String.raw`tok=(?P<tok>[\d.]+)` }],
--				blocks: [{ kind: "spark", field: "tok", label: "tok/s", ...bounds }],
-+				blocks: [{ kind: "spark", field: "词元", label: "tok/s", ...bounds }],
- 			});
- 		const domain = (spec: JobWidgetSpec, lines: string) => {
- 			const out = new ScriptedSource("out");
-@@ -143,7 +143,7 @@ describe("job widget derivation", () => {
- 			// One rule reads every number of the line into its own field.
- 			rules: [{ from: "out", match, key: "prec" }],
- 			blocks: [{ kind: "stat", items: [{ field: "ms", agg: "last", label: "step", unit: "ms", better: "lower" }] }],
--			headline: { field: "tok", agg: "last", unit: "tok/s", key: "nvfp4" },
-+			headline: { field: "词元", agg: "last", unit: "tok/s", key: "nvfp4" },
- 		});
- 		const out = new ScriptedSource("out");
- 		const h = harness(spec, out);
-@@ -334,7 +334,7 @@ describe("job widget derivation", () => {
- 			title: "bench",
- 			// Unanchored on purpose: a torn `…una tok=186` would otherwise read as model `una`.
- 			rules: [{ from: "out", match: String.raw`(?P<model>\S+) tok=(?P<tok>[\d.]+)`, key: "model" }],
--			blocks: [{ kind: "bars", field: "tok", agg: "last", label: "tok/s" }],
-+			blocks: [{ kind: "bars", field: "词元", agg: "last", label: "tok/s" }],
- 		});
- 		const out = new ScriptedSource("out");
- 		const h = harness(spec, out);
-@@ -379,7 +379,7 @@ describe("job widget derivation", () => {
- 		const spec = validSpec({
- 			title: "decode",
- 			rules: [{ from: "tools", match: String.raw`^BENCH tok_s=(?P<tok>[\d.]+)` }],
--			blocks: [{ kind: "spark", field: "tok", label: "tok/s" }],
-+			blocks: [{ kind: "spark", field: "词元", label: "tok/s" }],
- 		});
- 		// A stage rule on tool results would show a line of a file the subagent read.
- 		const staged = validSpec({
-@@ -586,13 +586,13 @@ describe("job widget spec validation", () => {
- 		for (const total of [undefined, "<UNKNOWN>", null]) {
- 			const checked = validateJobWidgetSpec({
- 				...base,
--				blocks: [{ kind: "meter", field: "rps", agg: "count", label: "requests", unit: "req", total }],
-+				blocks: [{ kind: "meter", field: "rps", agg: "count", label: "requests", unit: "请求", total }],
- 			});
- 			expect(checked).toEqual({
- 				ok: true,
- 				spec: {
- 					...base,
--					blocks: [{ kind: "stat", items: [{ field: "rps", agg: "count", unit: "req", label: "requests" }] }],
-+					blocks: [{ kind: "stat", items: [{ field: "rps", agg: "count", unit: "请求", label: "requests" }] }],
- 				},
- 			});
- 		}
-@@ -675,7 +675,7 @@ describe("job widget spec validation", () => {
- 		const checked = validateJobWidgetSpec({
- 			title: "bench",
- 			rules: [{ from: "out", match: String.raw`^BENCH model=(?P<model>\S+) tok=(?P<tok>[\d.]+)`, key: "model" }],
--			blocks: [{ kind: "spark", field: "tok", label: "tok/s", key: "model" }],
-+			blocks: [{ kind: "spark", field: "词元", label: "tok/s", key: "model" }],
- 		});
- 		expect(checked).toEqual({
- 			ok: false,
 diff --git a/packages/coding-agent/test/mcp-host/upstream-legacy-server.ts b/packages/coding-agent/test/mcp-host/upstream-legacy-server.ts
 index 2d08921..0f07068 100644
 --- a/packages/coding-agent/test/mcp-host/upstream-legacy-server.ts
@@ -216453,21 +216344,6 @@ index e738a47..bcef824 100644
  	});
  
  	it("falls back for plain objects missing code or message", () => {
-diff --git a/packages/coding-agent/test/plugin-verb-launch-leak.test.ts b/packages/coding-agent/test/plugin-verb-launch-leak.test.ts
-index 8482d94..f3e1c79 100644
---- a/packages/coding-agent/test/plugin-verb-launch-leak.test.ts
-+++ b/packages/coding-agent/test/plugin-verb-launch-leak.test.ts
-@@ -95,8 +95,8 @@ describe("documented-but-unregistered plugin verbs do not leak to launch (#2935)
- 			argv: ["launch", "upgrade", "the", "deps"],
- 		});
- 		// `marketplace` followed by a non-subcommand word is a genuine prompt.
--		expect(resolveCliArgv(["marketplace", "research", "for", "me"])).toEqual({
--			argv: ["launch", "marketplace", "research", "for", "me"],
-+		expect(resolveCliArgv(["marketplace", "research", "，花费", "me"])).toEqual({
-+			argv: ["launch", "marketplace", "research", "，花费", "me"],
- 		});
- 	});
- });
 diff --git a/packages/coding-agent/test/rpc-compatible-primitives.test.ts b/packages/coding-agent/test/rpc-compatible-primitives.test.ts
 index af7c2de..32a0d73 100644
 --- a/packages/coding-agent/test/rpc-compatible-primitives.test.ts
@@ -216484,26 +216360,6 @@ index af7c2de..32a0d73 100644
  	});
  
  	test("a burst keeps one request in flight and only the newest waiting one reaches the engine", async () => {
-diff --git a/packages/coding-agent/test/rpc-dictation.test.ts b/packages/coding-agent/test/rpc-dictation.test.ts
-index d6690c3..773b284 100644
---- a/packages/coding-agent/test/rpc-dictation.test.ts
-+++ b/packages/coding-agent/test/rpc-dictation.test.ts
-@@ -164,13 +164,13 @@ describe("RpcDictationBridge", () => {
- 
- 		const second = harness();
- 		await second.bridge.start("flush-error");
--		second.controller.target.commitVolatileText("saved");
-+		second.controller.target.commitVolatileText("已省");
- 		vi.spyOn(second.controller, "stop").mockRejectedValue(new Error("recognizer failed"));
- 		await expect(second.bridge.stop()).rejects.toThrow("recognizer failed");
- 		expect(second.frames.at(-1)).toEqual({
- 			type: "dictation_end",
- 			captureId: "flush-error",
--			text: "saved",
-+			text: "已省",
- 			error: "recognizer failed",
- 		});
- 		expect(second.bridge.active).toBe(false);
 diff --git a/packages/coding-agent/test/sdk-model-selection.test.ts b/packages/coding-agent/test/sdk-model-selection.test.ts
 index 17bd1ea..a7d5fee 100644
 --- a/packages/coding-agent/test/sdk-model-selection.test.ts
@@ -216583,19 +216439,6 @@ index 4805be2..95e70c8 100644
  		expect(agent?.spawns).toBeUndefined();
  		expect(agent?.model).toEqual(["@advisor"]);
  	});
-diff --git a/packages/coding-agent/test/tools/browser-interactions.test.ts b/packages/coding-agent/test/tools/browser-interactions.test.ts
-index ec3c62a..48fa0b0 100644
---- a/packages/coding-agent/test/tools/browser-interactions.test.ts
-+++ b/packages/coding-agent/test/tools/browser-interactions.test.ts
-@@ -1518,7 +1518,7 @@ return { values, reported: await tab.evaluate(() => window.reported), refused, a
- 					["datetime-local", "2026-10-12T14:30"],
- 					["month", "2026-10"],
- 					["week", "2026-W41"],
--					["range", "7"],
-+					["范围", "7"],
- 					["time", "16:45"],
- 					["month", ""],
- 				].flatMap(([id, filled]) => [`input:${id}=${filled}`, `change:${id}=${filled}`]),
 diff --git a/packages/coding-agent/test/tools/browser-observe.test.ts b/packages/coding-agent/test/tools/browser-observe.test.ts
 index d9f4f99..704a19e 100644
 --- a/packages/coding-agent/test/tools/browser-observe.test.ts
@@ -216673,43 +216516,6 @@ index c0a109a..023540a 100644
  		fs.mkdirSync(sessions, { recursive: true });
  		fs.writeFileSync(path.join(sessions, "Session_1"), "stale tabs");
  		let profileAtReplace: { sessions: boolean; preferences: boolean } | undefined;
-diff --git a/packages/coding-agent/test/tools/computer.test.ts b/packages/coding-agent/test/tools/computer.test.ts
-index b351750..e192ce3 100644
---- a/packages/coding-agent/test/tools/computer.test.ts
-+++ b/packages/coding-agent/test/tools/computer.test.ts
-@@ -3135,7 +3135,7 @@ describe("expanded computer APIs", () => {
- 					return await lateAnswer.promise;
- 				}),
- 			);
--			expect(result.returnValue).toEqual({ active: false, reason: "unanswered" });
-+			expect(result.returnValue).toEqual({ active: false, reason: "未回答" });
- 			// The prompt closed before the 2 s run timed out, leaving a quarter of it to the script.
- 			expect(closedAfterMs).toBeGreaterThan(1_000);
- 			expect(closedAfterMs).toBeLessThan(2_000);
-@@ -3169,7 +3169,7 @@ describe("expanded computer APIs", () => {
- 				undefined,
- 				confirmationContext(confirm),
- 			);
--			expect(result.returnValue).toEqual({ active: false, reason: "unanswered" });
-+			expect(result.returnValue).toEqual({ active: false, reason: "未回答" });
- 			expect(confirm).not.toHaveBeenCalled();
- 			expect(native.acquireCount).toBe(0);
- 		} finally {
-@@ -4368,12 +4368,12 @@ describe("display hold follows the agent turn", () => {
- 		if (confirm.type !== "control-request") throw new Error("Expected the run's control confirmation");
- 		expect(confirm.timeoutMs).toBeGreaterThan(114_000);
- 		expect(confirm.timeoutMs).toBeLessThanOrEqual(115_000);
--		transport.inbound({ type: "tool-reply", id: confirm.id, reply: { ok: true, value: "unanswered" } });
-+		transport.inbound({ type: "tool-reply", id: confirm.id, reply: { ok: true, value: "未回答" } });
- 		const result = await transport.waitFor(
- 			message => message.type === "result" && message.id === "unanswered-verdict",
- 		);
- 		if (result.type !== "result" || !result.ok) throw new Error("control.acquire failed");
--		expect(result.payload.returnValue).toEqual({ active: false, reason: "unanswered" });
-+		expect(result.payload.returnValue).toEqual({ active: false, reason: "未回答" });
- 		expect(native.acquireCount).toBe(0);
- 	});
- 
 diff --git a/packages/coding-agent/test/tools/glob.test.ts b/packages/coding-agent/test/tools/glob.test.ts
 index e2e1b79..57a6407 100644
 --- a/packages/coding-agent/test/tools/glob.test.ts
@@ -216723,37 +216529,6 @@ index e2e1b79..57a6407 100644
  			expect(nativeStarted).toBe(false);
  		} finally {
  			releaseStat.resolve();
-diff --git a/packages/coding-agent/test/tools/jtd-to-json-schema.test.ts b/packages/coding-agent/test/tools/jtd-to-json-schema.test.ts
-index 0f6767a..c02322a 100644
---- a/packages/coding-agent/test/tools/jtd-to-json-schema.test.ts
-+++ b/packages/coding-agent/test/tools/jtd-to-json-schema.test.ts
-@@ -30,7 +30,7 @@ describe("jtdToJsonSchema", () => {
- 					},
- 				},
- 			},
--			required: ["results"],
-+			required: ["个结果"],
- 			additionalProperties: false,
- 		});
- 		expect(jtdToJsonSchema({ type: "int32" })).toEqual({ type: "integer" });
-@@ -50,7 +50,7 @@ describe("jtdToJsonSchema", () => {
- 					},
- 				},
- 			},
--			required: ["results"],
-+			required: ["个结果"],
- 		});
- 
- 		expect(converted).toEqual({
-@@ -68,7 +68,7 @@ describe("jtdToJsonSchema", () => {
- 					},
- 				},
- 			},
--			required: ["results"],
-+			required: ["个结果"],
- 		});
- 	});
- 	it("does not misinterpret user-named properties that collide with JTD keywords (#1345)", () => {
 diff --git a/packages/coding-agent/test/tools/lsp-regressions.test.ts b/packages/coding-agent/test/tools/lsp-regressions.test.ts
 index 81030e3..7951604 100644
 --- a/packages/coding-agent/test/tools/lsp-regressions.test.ts
@@ -216811,26 +216586,6 @@ index 00b0def..13e68ea 100644
  					return { units: [] };
  				},
  				onCompletion: () => () => {},
-diff --git a/packages/coding-agent/test/tools/web-scrapers/reddit.test.ts b/packages/coding-agent/test/tools/web-scrapers/reddit.test.ts
-index 16f3d8e..440856b 100644
---- a/packages/coding-agent/test/tools/web-scrapers/reddit.test.ts
-+++ b/packages/coding-agent/test/tools/web-scrapers/reddit.test.ts
-@@ -33,13 +33,13 @@ const COMMENTS = [
- 							kind: "t1",
- 							data: { author: "ferris", body: "Agreed.", score: 1, is_submitter: true, replies: "" },
- 						},
--						{ kind: "more", data: { count: 4, children: ["x1", "x2"] } },
-+						{ kind: "个", data: { count: 4, children: ["x1", "x2"] } },
- 					],
- 				},
- 			},
- 		},
- 	},
--	{ kind: "more", data: { count: 13, children: ["y1"] } },
-+	{ kind: "个", data: { count: 13, children: ["y1"] } },
- ];
- 
- const REDLIB_THREAD = `<html><body>
 diff --git a/packages/coding-agent/tsconfig.examples.json b/packages/coding-agent/tsconfig.examples.json
 index 57151b6..411602e 100644
 --- a/packages/coding-agent/tsconfig.examples.json
@@ -265042,46 +264797,6 @@ index 353c6de..32933a5 100644
  {{files}}
  {{/if}}HISTORY
  ===================
-diff --git a/packages/snapcompact/test/snapcompact.test.ts b/packages/snapcompact/test/snapcompact.test.ts
-index 9d00bd8..e90eb01 100644
---- a/packages/snapcompact/test/snapcompact.test.ts
-+++ b/packages/snapcompact/test/snapcompact.test.ts
-@@ -1382,7 +1382,7 @@ describe("compact", () => {
- 				previousPreserveData: {
- 					...first.preserveData,
- 					openaiRemoteCompaction: { provider: "openai", replacementHistory: [] },
--					appKey: "kept",
-+					appKey: "保留",
- 				},
- 			}),
- 			{ frameSize: TEST_FRAME_SIZE },
-@@ -1390,7 +1390,7 @@ describe("compact", () => {
- 
- 		expect(second.summary).not.toContain("[Summary of earlier history]");
- 		expect(second.preserveData?.openaiRemoteCompaction).toBeUndefined();
--		expect(second.preserveData?.appKey).toBe("kept");
-+		expect(second.preserveData?.appKey).toBe("保留");
- 	});
- 
- 	it("scrubs every paragraph of ¶think: sections from the prior archive when thinking is excluded", async () => {
-@@ -1674,7 +1674,7 @@ describe("archive helpers", () => {
- 
- 			const rendered = await snapcompact.compact(
- 				{
--					firstKeptEntryId: "kept",
-+					firstKeptEntryId: "保留",
- 					messagesToSummarize: [createUserMessage("Continue.")],
- 					turnPrefixMessages: [],
- 					tokensBefore: 0,
-@@ -1847,7 +1847,7 @@ describe("archive helpers", () => {
- 		const text = `¶user: 41822 Resume prior conversation.${snapcompact.NEWLINE_GLYPH}${legend}${snapcompact.NEWLINE_GLYPH}¶ai: done`;
- 		const rendered = await snapcompact.compact(
- 			{
--				firstKeptEntryId: "kept",
-+				firstKeptEntryId: "保留",
- 				messagesToSummarize: [createUserMessage("Continue.")],
- 				turnPrefixMessages: [],
- 				tokensBefore: 0,
 diff --git a/packages/snapcompact/tsconfig.json b/packages/snapcompact/tsconfig.json
 index 08130e0..2961962 100644
 --- a/packages/snapcompact/tsconfig.json
@@ -265625,18 +265340,9 @@ index 258cd2e..ab8adfe 100644
  }: ChartProps) {
  	const [ref, width] = useWidth<HTMLDivElement>();
 diff --git a/packages/stats/src/client/data/formatters.ts b/packages/stats/src/client/data/formatters.ts
-index ac3440d..7492090 100644
+index ac3440d..d23e1e4 100644
 --- a/packages/stats/src/client/data/formatters.ts
 +++ b/packages/stats/src/client/data/formatters.ts
-@@ -6,7 +6,7 @@ import type { MessageStats } from "../types";
-  * (`toFixed`), durations and dates are English, so following the browser
-  * locale mixed conventions (e.g. `1,4 Mr` beside `97.0%` on a tr-TR browser).
-  */
--const NUMBER_LOCALE = "en-US";
-+const NUMBER_LOCALE = "zh-CN";
- 
- export function formatInteger(value: number): string {
- 	return value.toLocaleString(NUMBER_LOCALE);
 @@ -74,8 +74,8 @@ export function formatDurationMs(value: number | null, digits?: number): string
  export function formatElapsed(ms: number): string {
  	if (ms < 60_000) return formatDurationMs(ms);
@@ -267061,27 +266767,23 @@ index 1b30d57..a3b83d4 100644
  	return "day";
  }
 diff --git a/packages/stats/src/client/routes/OverviewRoute.tsx b/packages/stats/src/client/routes/OverviewRoute.tsx
-index cf183ca..eac19db 100644
+index cf183ca..76b27fa 100644
 --- a/packages/stats/src/client/routes/OverviewRoute.tsx
 +++ b/packages/stats/src/client/routes/OverviewRoute.tsx
-@@ -46,12 +46,12 @@ export interface OverviewRouteProps {
- 	onRequestClick: (id: number) => void;
- }
- 
--type ActivityMetric = "requests" | "tokens" | "cost";
-+type ActivityMetric = "请求" | "tokens" | "cost";
+@@ -49,9 +49,9 @@ export interface OverviewRouteProps {
+ type ActivityMetric = "requests" | "tokens" | "cost";
  
  const ACTIVITY_OPTIONS = [
 -	{ value: "requests" as const, label: "Requests" },
 -	{ value: "tokens" as const, label: "Tokens" },
 -	{ value: "cost" as const, label: "Cost" },
-+	{ value: "请求" as const, label: "请求" },
++	{ value: "requests" as const, label: "请求" },
 +	{ value: "tokens" as const, label: "词元" },
 +	{ value: "cost" as const, label: "费用" },
  ];
  
  const AGENT_LABEL: Record<AgentType, string> = { main: "Main agent", subagent: "Subagents", advisor: "Advisor" };
-@@ -62,16 +62,16 @@ const AGENT_COLOR: Record<AgentType, string> = {
+@@ -62,10 +62,10 @@ const AGENT_COLOR: Record<AgentType, string> = {
  };
  
  const TOKEN_MIX = [
@@ -267096,19 +266798,9 @@ index cf183ca..eac19db 100644
  ] as const;
  
  export function OverviewRoute({ active, range, onRequestClick }: OverviewRouteProps) {
- 	const overview = useQuery(["overview", range], ({ signal }) => getOverviewStats(range, signal), { enabled: active });
- 	const recent = useQuery(["recent-requests"], ({ signal }) => getRecentRequests(12, signal), { enabled: active });
--	const [metric, setMetric] = useState<ActivityMetric>("requests");
-+	const [metric, setMetric] = useState<ActivityMetric>("请求");
- 	const meta = rangeMeta(range);
- 
- 	const series = useMemo(() => {
-@@ -100,75 +100,75 @@ export function OverviewRoute({ active, range, onRequestClick }: OverviewRoutePr
- 	}, [overview.data]);
- 
+@@ -102,73 +102,73 @@ export function OverviewRoute({ active, range, onRequestClick }: OverviewRoutePr
  	const chartSeries =
--		metric === "requests"
-+		metric === "请求"
+ 		metric === "requests"
  			? [
 -					{ key: "ok", label: "Succeeded", color: "var(--chart-primary)", values: series.requests },
 -					{ key: "err", label: "Failed", color: "var(--bad)", values: series.errors },
@@ -268340,10 +268032,10 @@ index 42477c5..720beca 100644
  						</SectionHeading>
  						<Steps stats={data} stale={stats.stale} />
 diff --git a/packages/stats/src/client/routes/ToolsRoute.tsx b/packages/stats/src/client/routes/ToolsRoute.tsx
-index 79ac19a..a4f2b5c 100644
+index 79ac19a..54849d9 100644
 --- a/packages/stats/src/client/routes/ToolsRoute.tsx
 +++ b/packages/stats/src/client/routes/ToolsRoute.tsx
-@@ -44,20 +44,19 @@ export interface ToolsRouteProps {
+@@ -44,17 +44,16 @@ export interface ToolsRouteProps {
  type CallMetric = "calls" | "errors";
  
  const METRIC_OPTIONS = [
@@ -268364,11 +268056,7 @@ index 79ac19a..a4f2b5c 100644
 +const NO_CALLS = <EmptyState title="此范围内没有工具调用" />;
  
  export function ToolsRoute({ active, range }: ToolsRouteProps) {
--	const tools = useQuery(["tools", range], ({ signal }) => getToolDashboardStats(range, signal), { enabled: active });
-+	const tools = useQuery(["工具", range], ({ signal }) => getToolDashboardStats(range, signal), { enabled: active });
- 	const [metric, setMetric] = useState<CallMetric>("calls");
- 	const [hidden, toggleHidden] = useHiddenSeries();
- 	const [pickedTool, setToolFilter] = useState<string | null>(null);
+ 	const tools = useQuery(["tools", range], ({ signal }) => getToolDashboardStats(range, signal), { enabled: active });
 @@ -72,10 +71,7 @@ export function ToolsRoute({ active, range }: ToolsRouteProps) {
  
  	return (
@@ -269676,7 +269364,7 @@ index b463795..98cdc29 100644
  								<span className="spot-timeline-spacer" />
  								{row.holdout ? <span className="dim">saves nothing</span> : <NetCell value={row.netTokens} />}
 diff --git a/packages/stats/src/client/spotlight/Savings.tsx b/packages/stats/src/client/spotlight/Savings.tsx
-index 28a7d62..4c5e9f9 100644
+index 28a7d62..fd4a5f4 100644
 --- a/packages/stats/src/client/spotlight/Savings.tsx
 +++ b/packages/stats/src/client/spotlight/Savings.tsx
 @@ -21,12 +21,12 @@ import {
@@ -269782,15 +269470,6 @@ index 28a7d62..4c5e9f9 100644
  				},
  			);
  		}
-@@ -193,7 +193,7 @@ export function WhereSavingsWent({ stats, stale }: Omit<SavingsProps, "range">)
- 		if (adjustedNet !== null) {
- 			const anyway = adjustedNet - unadjusted;
- 			steps.push({
--				key: "anyway",
-+				key: "仍返回\n\t\t\t\t\t",
- 				label: (
- 					<>
- 						<span className="spot-step-swatch" style={{ background: "var(--spot-anyway)" }} />
 @@ -204,13 +204,13 @@ export function WhereSavingsWent({ stats, stale }: Omit<SavingsProps, "range">)
  				value: anyway,
  				color: "var(--spot-anyway)",
@@ -270100,7 +269779,7 @@ index 8306ecf..c0518d6 100644
  
  /** Compact token count with a real minus sign. */
 diff --git a/packages/stats/src/client/traces/AggregatesPanel.tsx b/packages/stats/src/client/traces/AggregatesPanel.tsx
-index 0d2f242..dd3572e 100644
+index 0d2f242..09fae61 100644
 --- a/packages/stats/src/client/traces/AggregatesPanel.tsx
 +++ b/packages/stats/src/client/traces/AggregatesPanel.tsx
 @@ -16,17 +16,17 @@ export function AggregatesPanel({ toolStats, index }: AggregatesPanelProps) {
@@ -270118,9 +269797,8 @@ index 0d2f242..dd3572e 100644
  			sort: row => row.calls,
  		},
  		{
--			key: "errors",
+ 			key: "errors",
 -			header: "Errors",
-+			key: "错误",
 +			header: "错误",
  			align: "right",
  			render: row =>
@@ -271625,7 +271303,7 @@ index 5851447..c717df8 100644
  		if (isEnoent(error)) {
  			return null;
 diff --git a/packages/tui/src/apps/autoresearch-dashboard.ts b/packages/tui/src/apps/autoresearch-dashboard.ts
-index a4090e0..758faa0 100644
+index a4090e0..99a591a 100644
 --- a/packages/tui/src/apps/autoresearch-dashboard.ts
 +++ b/packages/tui/src/apps/autoresearch-dashboard.ts
 @@ -176,7 +176,7 @@ export function createDashboardController(): DashboardController {
@@ -271758,18 +271436,15 @@ index a4090e0..758faa0 100644
  					],
  					size: "md",
  					role: "omp.autoresearch.trend",
-@@ -499,9 +499,9 @@ function describeDashboard(runtime: AutoresearchDashboardRuntime, maxRows: numbe
+@@ -499,7 +499,7 @@ function describeDashboard(runtime: AutoresearchDashboardRuntime, maxRows: numbe
  		);
  	}
  	if (visible.length < indexed.length) {
 -		children.push(keyed(text([span(`… ${indexed.length - visible.length} earlier runs hidden`, "dim")]), "hidden"));
 +		children.push(keyed(text([span(`…… 已隐藏 ${indexed.length - visible.length} 个更早的运行`, "dim")]), "hidden"));
  	}
--	children.push(node("table", { cols, rows, role: "omp.autoresearch.runs" }, undefined, "runs"));
-+	children.push(node("table", { cols, rows, role: "omp.autoresearch.runs" }, undefined, "轮"));
+ 	children.push(node("table", { cols, rows, role: "omp.autoresearch.runs" }, undefined, "runs"));
  	return [keyed(col(children, { gap: "sm" }), "dashboard")];
- }
- 
 @@ -510,7 +510,9 @@ function describeDashboard(runtime: AutoresearchDashboardRuntime, maxRows: numbe
  /** Sheet head: the experiment's name, then what the sheet is. */
  function describeSheetHead(runtime: AutoresearchDashboardRuntime): TspSpan[] {
@@ -271808,7 +271483,7 @@ index a4090e0..758faa0 100644
  		children.push(
  			keyed(
 -				text([span(`${archived} ${archived === 1 ? "run" : "runs"} archived from earlier segments`)], {
-+				text([span(`来自更早分段的 ${archived} ${archived === 1 ? "run" : "轮"} 已归档`)], {
++				text([span(`来自更早分段的 ${archived} ${archived === 1 ? "run" : "runs"} 已归档`)], {
  					role: "omp.autoresearch.note",
  				}),
  				"archived",
@@ -271874,7 +271549,7 @@ index a4090e0..758faa0 100644
  	if (archived > 0) {
  		children.push(
 -			text([span(`${archived} ${archived === 1 ? "run" : "runs"} archived from earlier segments`)], {
-+			text([span(`来自更早分段的 ${archived} ${archived === 1 ? "run" : "轮"} 已归档`)], {
++			text([span(`来自更早分段的 ${archived} ${archived === 1 ? "run" : "runs"} 已归档`)], {
  				role: "omp.autoresearch.note",
  			}),
  		);
@@ -271922,7 +271597,7 @@ index a4090e0..758faa0 100644
  					),
  				]),
  			],
-@@ -776,11 +775,11 @@ function describeStats(runtime: AutoresearchDashboardRuntime, current: readonly
+@@ -776,8 +775,8 @@ function describeStats(runtime: AutoresearchDashboardRuntime, current: readonly
  
  	const total = Math.max(state.maxExperiments ?? 0, current.length);
  	const failed = counts.crash + counts.checks_failed;
@@ -271932,11 +271607,7 @@ index a4090e0..758faa0 100644
 +	if (failed > 0) tally.push(span(" · "), span(`${failed} 个失败`, "error"));
  	tiles.push(
  		stat(
--			"runs",
-+			"轮",
- 			"Runs",
- 			state.maxExperiments !== null
- 				? [span(String(current.length)), span(` / ${state.maxExperiments}`, "muted")]
+ 			"runs",
 @@ -789,12 +788,12 @@ function describeStats(runtime: AutoresearchDashboardRuntime, current: readonly
  				node("meter", {
  					value: current.length / total,
@@ -271979,15 +271650,6 @@ index a4090e0..758faa0 100644
  		...state.secondaryMetrics.map((metric, index): TspTableColumn => ({
  			id: `secondary${index}`,
  			head: head(metric.name, metric.unit),
-@@ -923,7 +922,7 @@ function describeRuns(
- 			});
- 			return { id: String(index), cells };
- 		});
--	return node("table", { cols, rows, role: "omp.autoresearch.runs" }, undefined, "runs");
-+	return node("table", { cols, rows, role: "omp.autoresearch.runs" }, undefined, "轮");
- }
- 
- function statusCounts(results: readonly ExperimentResult[]): Record<ExperimentResult["status"], number> {
 @@ -939,7 +938,7 @@ function confidenceToken(confidence: number): string {
  // -- ANSI --------------------------------------------------------------------
  
@@ -273954,7 +273616,7 @@ index 1d465bf..557d2c3 100644
  		...(skillIconName && { iconName: skillIconName }),
  	});
 diff --git a/packages/tui/src/charts/chart-plan.ts b/packages/tui/src/charts/chart-plan.ts
-index c8d8af9..90ff72d 100644
+index c8d8af9..6387f67 100644
 --- a/packages/tui/src/charts/chart-plan.ts
 +++ b/packages/tui/src/charts/chart-plan.ts
 @@ -1594,8 +1594,7 @@ function assembleChart(table: TableAnalysis, plan: ChartPlan): ChartSpec | undef
@@ -273976,15 +273638,6 @@ index c8d8af9..90ff72d 100644
  }
  
  /**
-@@ -2673,7 +2672,7 @@ function sumFigure(points: readonly ChartPoint[]): string {
- 		return "";
- 	const decimals = Math.max(...matches.map(match => match[5]?.length ?? 0));
- 	const sum = points.reduce((total, point) => total + point.value, 0) / factor;
--	const digits = Math.abs(sum).toLocaleString("en-US", {
-+	const digits = Math.abs(sum).toLocaleString("zh-CN", {
- 		minimumFractionDigits: decimals,
- 		maximumFractionDigits: decimals,
- 		useGrouping: matches.some(match => match[4]!.includes(",")) || Math.abs(sum) >= 10_000,
 @@ -3104,8 +3103,8 @@ function chartFacts(spec: ChartSpec): Fact[] {
  				spec,
  				entry.points.map(point => point?.value),
@@ -274182,12 +273835,9 @@ index c8d8af9..90ff72d 100644
  				weight: CONSENSUS_WEIGHT + Math.abs(shift.b - shift.a) / 100,
  				striking: Math.abs(shift.b - shift.a) >= SHIFT_POINTS,
  			});
-@@ -3574,14 +3568,14 @@ function butterflyFacts(spec: ChartSpec): Fact[] {
- 	const [big, small] = [spec.series[high]!, spec.series[low]!];
- 	if (!(sums[high]! > 0)) return [];
+@@ -3576,12 +3570,12 @@ function butterflyFacts(spec: ChartSpec): Fact[] {
  	const figure = (entry: ChartSeries, sum: number) =>
--		sumFigure(entry.points.flatMap(point => (point ? [point] : []))) || sum.toLocaleString("en-US");
-+		sumFigure(entry.points.flatMap(point => (point ? [point] : []))) || sum.toLocaleString("zh-CN");
+ 		sumFigure(entry.points.flatMap(point => (point ? [point] : []))) || sum.toLocaleString("en-US");
  	const part = majorityPart(spec, big);
 -	const lead = part ? `; ${part.text.replace(/ of .*$/, ` of ${big.name}`)}` : "";
 +	const lead = part ? `; ${part.text.replace(/ of .*$/, `占 ${big.name}`)}` : "";
@@ -274205,7 +273855,7 @@ index c8d8af9..90ff72d 100644
  	const sum = entry.dim === "percent" ? "" : sumFigure(entry.points.flatMap(point => (point ? [point] : [])));
  	// Parts under a thousand (`786`, `368`) sum past it without the separator a reader expects.
 -	const whole = /^\d{4,}$/.test(sum) ? Number(sum).toLocaleString("en-US") : sum || "the total";
-+	const whole = /^\d{4,}$/.test(sum) ? Number(sum).toLocaleString("zh-CN") : sum || "总计";
++	const whole = /^\d{4,}$/.test(sum) ? Number(sum).toLocaleString("en-US") : sum || "总计";
  	return {
  		key: "share:top",
 -		text: `${spec.categories[top.at]} is ${percentText(part * 100)} of ${whole}`,
@@ -274397,7 +274047,7 @@ index c8d8af9..90ff72d 100644
  			weight: 0.9,
  			striking: false,
  		});
-@@ -4098,15 +4092,15 @@ export function percentText(percent: number): string {
+@@ -4098,8 +4092,8 @@ export function percentText(percent: number): string {
  /** A factor as people say it: `48× less`, `2.1× more`, or a percent within 2× (`−12%`, `+27%`). */
  function factorWords(factor: number): string {
  	if (factor === 0) return "−100%";
@@ -274408,14 +274058,6 @@ index c8d8af9..90ff72d 100644
  	const percent = Math.round((factor - 1) * 100);
  	return percent === 0 ? "same" : `${percent > 0 ? "+" : "−"}${Math.abs(percent)}%`;
  }
- 
- /** `48`, `2.1`: whole from 10, one decimal below. */
- function roundFactor(factor: number): string {
--	return factor >= 10 ? Math.round(factor).toLocaleString("en-US") : Number(factor.toFixed(1)).toString();
-+	return factor >= 10 ? Math.round(factor).toLocaleString("zh-CN") : Number(factor.toFixed(1)).toString();
- }
- 
- /**
 @@ -4426,7 +4420,7 @@ function statFacts(spec: ChartSpec): Fact[] {
  				key: `stat:${entry.name}`,
  				text: transition
@@ -274684,7 +274326,7 @@ index f790117..d8d733f 100644
  /** Leading status marks. */
  const STATUS_MARKS: readonly (readonly [RegExp, Status])[] = [
 diff --git a/packages/tui/src/chat/advisor-message.ts b/packages/tui/src/chat/advisor-message.ts
-index 529aa52..ef5b218 100644
+index 529aa52..e7ab1ae 100644
 --- a/packages/tui/src/chat/advisor-message.ts
 +++ b/packages/tui/src/chat/advisor-message.ts
 @@ -65,7 +65,7 @@ class AdvisorHeader implements Component {
@@ -274701,7 +274343,7 @@ index 529aa52..ef5b218 100644
  			const rail = uiTheme.fg("dim", uiTheme.symbol("advisor.rail"));
  			const hidden = this.#hidden;
 -			lines.push(`  ${rail} ${uiTheme.fg("dim", `… +${hidden} more ${hidden === 1 ? "note" : "notes"}`)}`);
-+			lines.push(`  ${rail} ${uiTheme.fg("dim", `…… 还有 +${hidden} 个 ${hidden === 1 ? "note" : "条备注"}`)}`);
++			lines.push(`  ${rail} ${uiTheme.fg("dim", `…… 还有 +${hidden} 个 ${hidden === 1 ? "note" : "notes"}`)}`);
  		}
  		const rendered = lines.map(line => truncateToWidth(line, width, Ellipsis.Unicode));
  		this.#cache = { width, lines: rendered };
@@ -274720,13 +274362,11 @@ index 529aa52..ef5b218 100644
  };
  
  function rankOf(entry: AdvisorNote): AdvisorRank {
-@@ -217,8 +217,8 @@ export function createAdvisorMessageCard(
- ): AdvisorMessageCard {
+@@ -218,7 +218,7 @@ export function createAdvisorMessageCard(
  	const notes = details?.notes ?? [];
  	const blockers = notes.filter(note => note.severity === "blocker").length;
--	const meta: string[] = [`${notes.length} ${notes.length === 1 ? "note" : "notes"}`];
+ 	const meta: string[] = [`${notes.length} ${notes.length === 1 ? "note" : "notes"}`];
 -	if (blockers > 0) meta.push(uiTheme.fg("error", `${blockers} blocker${blockers === 1 ? "" : "s"}`));
-+	const meta: string[] = [`${notes.length} ${notes.length === 1 ? "note" : "条备注"}`];
 +	if (blockers > 0) meta.push(uiTheme.fg("error", `${blockers} 个阻塞项${blockers === 1 ? "" : "s"}`));
  	let override: boolean | undefined;
  	let lastGlobal = getExpanded();
@@ -274741,7 +274381,7 @@ index 529aa52..ef5b218 100644
  			"head",
  		);
 diff --git a/packages/tui/src/chat/assistant-message.ts b/packages/tui/src/chat/assistant-message.ts
-index b6d3e98..38da46b 100644
+index b6d3e98..97143ac 100644
 --- a/packages/tui/src/chat/assistant-message.ts
 +++ b/packages/tui/src/chat/assistant-message.ts
 @@ -97,7 +97,7 @@ function nativeEmbedRuns(source: string, streaming: boolean): EmbedSegment[] {
@@ -274828,7 +274468,7 @@ index b6d3e98..38da46b 100644
  				{
  					role: "omp.assistant.recovered",
 -					head: [span(`↻ Recovered after ${attempt} ${attempt === 1 ? "retry" : "retries"}`, "muted")],
-+					head: [span(`↻ ${attempt} ${attempt === 1 ? "retry" : "次重试"} 后已恢复`, "muted")],
++					head: [span(`↻ ${attempt} ${attempt === 1 ? "retry" : "retries"} 后已恢复`, "muted")],
  					collapsible: true,
  					collapsed: true,
  				},
@@ -275376,23 +275016,18 @@ index 2f4a747..41e548f 100644
  			},
  		});
 diff --git a/packages/tui/src/chat/spotlight.ts b/packages/tui/src/chat/spotlight.ts
-index 98a4d5d..e8e94d6 100644
+index 98a4d5d..7bd790b 100644
 --- a/packages/tui/src/chat/spotlight.ts
 +++ b/packages/tui/src/chat/spotlight.ts
-@@ -346,10 +346,10 @@ export function spotlightNoticeCard(original: SpotlightOriginal, heldOut = false
+@@ -346,7 +346,7 @@ export function spotlightNoticeCard(original: SpotlightOriginal, heldOut = false
  		else if (spotlightTone(original, i) === "error") hot++;
  	}
  	const facts = [
 -		`${heldOut ? "would keep" : "kept"} ${kept.toLocaleString("en-US")} of ${original.lines.toLocaleString("en-US")} lines`,
-+		`${heldOut ? "将保留" : "kept"} ${kept.toLocaleString("'zh-CN'")}，共 ${original.lines.toLocaleString("'zh-CN'")} 行`,
++		`${heldOut ? "将保留" : "kept"} ${kept.toLocaleString("en-US")}，共 ${original.lines.toLocaleString("en-US")} 行`,
  	];
--	if (scored > 0) facts.push(`${scored.toLocaleString("en-US")} by score`);
--	if (hot > 0) facts.push(`${hot.toLocaleString("en-US")} cut though hot`);
-+	if (scored > 0) facts.push(`${scored.toLocaleString("'zh-CN'")} by score`);
-+	if (hot > 0) facts.push(`${hot.toLocaleString("'zh-CN'")} cut though hot`);
- 	return propNode(
- 		col(
- 			[
+ 	if (scored > 0) facts.push(`${scored.toLocaleString("en-US")} by score`);
+ 	if (hot > 0) facts.push(`${hot.toLocaleString("en-US")} cut though hot`);
 @@ -374,16 +374,16 @@ const SHOOTING_STAR_TOKENS = 10_000;
  function noticeSpans(spotlight: SpotlightDetails): TspSpan[] {
  	const saving = spotlightSaving(spotlight);
@@ -276359,7 +275994,7 @@ index 5fe75ad..b4112e1 100644
  	return `${APC}${GLYPH_PROTOCOL_ID};r;cp=${cp.toString(16)};reply=0;upm=${metrics.upm};aw=${metrics.aw};lh=${metrics.lh};size=${size};${entry.glyf}${ST}`;
  }
 diff --git a/packages/tui/src/hotkeys-markdown.ts b/packages/tui/src/hotkeys-markdown.ts
-index 4457764..b4afa87 100644
+index 4457764..ce9d443 100644
 --- a/packages/tui/src/hotkeys-markdown.ts
 +++ b/packages/tui/src/hotkeys-markdown.ts
 @@ -49,7 +49,7 @@ function hints(keys: readonly KeyName[]): HotkeyPart {
@@ -276417,13 +276052,16 @@ index 4457764..b4afa87 100644
  			rows: [
 -				{ keys: [hints(["enter"])], action: "Send message" },
 -				{ keys: [hints(["shift+enter", "alt+enter"])], action: "New line" },
-+				{ keys: [hints(["enter"])], action: "发送消息" },
-+				{ keys: [hints(["shift+enter", "alt+enter"])], action: "换行" },
- 				{ keys: [hints(["ctrl+w", "alt+backspace"])], action: "Delete word backwards" },
- 				{ keys: [hints(["ctrl+u"])], action: "Delete to start of line" },
- 				{ keys: [hints(["ctrl+k"])], action: "Delete to end of line" },
+-				{ keys: [hints(["ctrl+w", "alt+backspace"])], action: "Delete word backwards" },
+-				{ keys: [hints(["ctrl+u"])], action: "Delete to start of line" },
+-				{ keys: [hints(["ctrl+k"])], action: "Delete to end of line" },
 -				{ keys: [act("app.clipboard.copyLine")], action: "Copy current line" },
 -				{ keys: [act("app.clipboard.copyPrompt")], action: "Copy whole prompt" },
++				{ keys: [hints(["enter"])], action: "发送消息" },
++				{ keys: [hints(["shift+enter", "alt+enter"])], action: "换行" },
++				{ keys: [hints(["ctrl+w", "alt+backspace"])], action: "删除前一个词" },
++				{ keys: [hints(["ctrl+u"])], action: "删除到行首" },
++				{ keys: [hints(["ctrl+k"])], action: "删除到行尾" },
 +				{ keys: [act("app.clipboard.copyLine")], action: "复制当前行" },
 +				{ keys: [act("app.clipboard.copyPrompt")], action: "复制整个提示词" },
  			],
@@ -276444,17 +276082,19 @@ index 4457764..b4afa87 100644
 -				{ keys: [act("app.thinking.cycle")], action: "Cycle thinking level" },
 -				{ keys: [act("app.model.cycleForward")], action: "Cycle role models (slow/default/smol)" },
 -				{ keys: [act("app.model.cycleBackward")], action: "Cycle role models (backward)" },
+-				{ keys: [act("app.model.selectTemporary")], action: "Select model (temporary)" },
+-				{ keys: [act("app.model.select")], action: "Select model (set roles)" },
+-				{ keys: [act("app.plan.toggle")], action: "Toggle plan mode" },
+-				{ keys: [act("app.history.search")], action: "Search prompt history" },
+-				{ keys: [act("app.tools.expand")], action: "Toggle tool output expansion" },
+-				{ keys: [act("app.tools.toggleVisibility")], action: "Toggle tool activity visibility" },
 +				{ keys: [act("app.suspend")], action: "挂起到后台" },
 +				{ keys: [act("app.display.reset")], action: "重置终端显示" },
 +				{ keys: [act("app.thinking.cycle")], action: "轮换思考级别" },
 +				{ keys: [act("app.model.cycleForward")], action: "轮换角色模型（slow/default/smol）" },
 +				{ keys: [act("app.model.cycleBackward")], action: "反向轮换角色模型" },
- 				{ keys: [act("app.model.selectTemporary")], action: "Select model (temporary)" },
- 				{ keys: [act("app.model.select")], action: "Select model (set roles)" },
--				{ keys: [act("app.plan.toggle")], action: "Toggle plan mode" },
--				{ keys: [act("app.history.search")], action: "Search prompt history" },
--				{ keys: [act("app.tools.expand")], action: "Toggle tool output expansion" },
--				{ keys: [act("app.tools.toggleVisibility")], action: "Toggle tool activity visibility" },
++				{ keys: [act("app.model.selectTemporary")], action: "选择模型（临时）" },
++				{ keys: [act("app.model.select")], action: "选择模型（设置角色）" },
 +				{ keys: [act("app.plan.toggle")], action: "切换计划模式" },
 +				{ keys: [act("app.history.search")], action: "搜索提示词历史" },
 +				{ keys: [act("app.tools.expand")], action: "切换工具输出展开" },
@@ -276469,14 +276109,15 @@ index 4457764..b4afa87 100644
 -				{ keys: [act("app.approval.approve")], action: "Approve a pending tool call" },
 -				{ keys: [act("app.thinking.toggle")], action: "Toggle thinking block visibility" },
 -				{ keys: [act("app.editor.external")], action: "Edit message in external editor" },
+-				{ keys: [act("app.local.open")], action: "Open a local:// file in external editor" },
+-				{ keys: [act("app.retry")], action: "Retry last failed assistant turn" },
+-				{ keys: [act("app.clipboard.pasteImage")], action: "Paste image or text from clipboard" },
 +				{ keys: [act("app.ask.hide")], action: "隐藏/显示待处理的询问问题" },
 +				{ keys: [act("app.ask.note")], action: "给询问选项添加或编辑备注" },
 +				{ keys: [act("app.approval.approve")], action: "批准待处理的工具调用" },
 +				{ keys: [act("app.thinking.toggle")], action: "切换思考块可见性" },
 +				{ keys: [act("app.editor.external")], action: "在外部编辑器中编辑消息" },
- 				{ keys: [act("app.local.open")], action: "Open a local:// file in external editor" },
--				{ keys: [act("app.retry")], action: "Retry last failed assistant turn" },
--				{ keys: [act("app.clipboard.pasteImage")], action: "Paste image or text from clipboard" },
++				{ keys: [act("app.local.open")], action: "在外部编辑器中打开 local:// 文件" },
 +				{ keys: [act("app.retry")], action: "重试上一次失败的助手轮次" },
 +				{ keys: [act("app.clipboard.pasteImage")], action: "从剪贴板粘贴图片或文本" },
  				{
@@ -276508,7 +276149,8 @@ index 4457764..b4afa87 100644
 -					action: "Open the agent hub",
 +					action: "打开代理中心",
  				},
- 				{ keys: [{ token: "#<number>" }], action: "GitHub issue/PR reference (e.g. `#3164` → `pr://`/`issue://`)" },
+-				{ keys: [{ token: "#<number>" }], action: "GitHub issue/PR reference (e.g. `#3164` → `pr://`/`issue://`)" },
++				{ keys: [{ token: "#<number>" }], action: "引用 GitHub issue/PR（如 `#3164` → `pr://`/`issue://`）" },
  				{
  					keys: [{ token: "#" }, { text: " / " }, { token: "#<text>" }],
 -					action: "Prompt actions (copy / undo / move cursor)",
@@ -276593,7 +276235,7 @@ index d209142..7bf82d4 100644
  	return undefined;
  }
 diff --git a/packages/tui/src/html-form/dialog.ts b/packages/tui/src/html-form/dialog.ts
-index 25d0924..b98c90c 100644
+index 25d0924..6dca837 100644
 --- a/packages/tui/src/html-form/dialog.ts
 +++ b/packages/tui/src/html-form/dialog.ts
 @@ -169,9 +169,9 @@ const OPEN_ACT = "open:";
@@ -276608,20 +276250,6 @@ index 25d0924..b98c90c 100644
  
  /** A picture block's state: still loading, failed (with why), or drawn by `rows` and described by `native`. */
  type MediaSlot =
-@@ -739,11 +739,11 @@ export class HtmlFormDialog implements Component, Focusable {
- 		this.#changed();
- 		if (this.#noteEditor) {
- 			if (event.type === "action" && event.act === "save-note") this.#requestSave();
--			else if (event.type === "action" && event.act === "cancel") this.#closeNote();
-+			else if (event.type === "action" && event.act === "取消") this.#closeNote();
- 			return;
- 		}
- 		if (event.type === "action") {
--			if (event.act === "cancel") {
-+			if (event.act === "取消") {
- 				this.#cancel();
- 				return;
- 			}
 @@ -915,8 +915,8 @@ export class HtmlFormDialog implements Component, Focusable {
  	/** One dim row standing in for a picture that is loading or could not be shown. */
  	#mediaNote(block: MediaBlock, slot: MediaSlot): string {
@@ -276734,7 +276362,7 @@ index 25d0924..b98c90c 100644
  				text(this.#noteEditHint(), { role: "omp.ask.note" }),
 -				actionButton("Keep", "cancel", { keys: "escape" }),
 -				actionButton("Save", "save-note", { keys: "enter" }),
-+				actionButton("保留", "取消", { keys: "escape" }),
++				actionButton("保留", "cancel", { keys: "escape" }),
 +				actionButton("保存", "save-note", { keys: "enter" }),
  			]);
  		}
@@ -276746,7 +276374,7 @@ index 25d0924..b98c90c 100644
  			lead ? text([span(lead, "muted")], { truncate: "end", role: "omp.ask.summary" }) : null,
  			...(lead ? [null] : []),
 -			actionButton("Cancel", "cancel"),
-+			actionButton("取消", "取消"),
++			actionButton("取消", "cancel"),
  			...(stop.kind === "option" || stop.kind === "select"
  				? [
  						actionButton(
@@ -278826,7 +278454,7 @@ index 055be80..983c9a9 100644
  	}
  }
 diff --git a/packages/tui/src/overlays/agents-hub.ts b/packages/tui/src/overlays/agents-hub.ts
-index 8026389..1aa7c07 100644
+index 8026389..d2b506d 100644
 --- a/packages/tui/src/overlays/agents-hub.ts
 +++ b/packages/tui/src/overlays/agents-hub.ts
 @@ -83,11 +83,11 @@ const SOURCE_ORDER: Record<AgentSource, number> = { project: 0, user: 1, bundled
@@ -278875,16 +278503,7 @@ index 8026389..1aa7c07 100644
  	}
  	return { identifier, whenToUse, systemPrompt };
  }
-@@ -215,7 +215,7 @@ export class AgentsHubComponent implements Component {
- 	#allAgents: HubAgent[] = [];
- 	#entries: SidebarEntry[] = [];
- 	#activeEntryId = "all";
--	#focus: "scope" | "list" = "list";
-+	#focus: "范围" | "list" = "list";
- 
- 	#rows: ListRow[] = [];
- 	#rowIndex = 0;
-@@ -262,14 +262,14 @@ export class AgentsHubComponent implements Component {
+@@ -262,7 +262,7 @@ export class AgentsHubComponent implements Component {
  		return lines.slice(0, rows);
  	};
  	readonly #frame: HubFrame = new HubFrame(
@@ -278893,14 +278512,6 @@ index 8026389..1aa7c07 100644
  		{ min: 16, max: 24 },
  		(width, rows) =>
  			this.#frame.renderSidebar(
- 				this.#entries,
- 				width,
- 				rows,
--				{ id: this.#activeEntryId, focused: this.#focus === "scope", follow: true, clamp: false },
-+				{ id: this.#activeEntryId, focused: this.#focus === "范围", follow: true, clamp: false },
- 				this.#sidebarStyle,
- 			),
- 		this.#renderBodyPane,
 @@ -282,7 +282,7 @@ export class AgentsHubComponent implements Component {
  		this.#deps = deps;
  		this.#callbacks = callbacks;
@@ -279031,39 +278642,6 @@ index 8026389..1aa7c07 100644
  		await this.#reload();
  	}
  
-@@ -754,12 +754,12 @@ export class AgentsHubComponent implements Component {
- 		}
- 
- 		if (matchesKey(data, "tab") || matchesKey(data, "shift+tab")) {
--			this.#focus = this.#focus === "scope" ? "list" : "scope";
-+			this.#focus = this.#focus === "范围" ? "list" : "范围";
- 			this.#requestRender();
- 			return;
- 		}
- 		if (matchesKey(data, "left")) {
--			this.#focus = "scope";
-+			this.#focus = "范围";
- 			this.#requestRender();
- 			return;
- 		}
-@@ -769,7 +769,7 @@ export class AgentsHubComponent implements Component {
- 			return;
- 		}
- 
--		if (this.#focus === "scope") {
-+		if (this.#focus === "范围") {
- 			if (matchesSelectUp(data)) {
- 				this.#moveSidebar(-1);
- 				this.#requestRender();
-@@ -990,7 +990,7 @@ export class AgentsHubComponent implements Component {
- 					this.#activeEntryId = clicked.id;
- 					this.#buildRows();
- 					this.#rowIndex = 0;
--					this.#focus = "scope";
-+					this.#focus = "范围";
- 				}
- 			}
- 			return true;
 @@ -1029,21 +1029,21 @@ export class AgentsHubComponent implements Component {
  		if (this.#loadError) return truncateToWidth(theme.fg("error", ` ${this.#loadError}`), width);
  		if (this.#assigning) {
@@ -279227,9 +278805,8 @@ index 8026389..1aa7c07 100644
 -			return `${generate} generate · ${enter} newline · ${tab} scope · ${cancel} cancel`;
 +			return `${generate} 生成 · ${enter} 换行 · ${tab} 范围 · ${cancel} 取消`;
  		}
--		if (this.#focus === "scope") {
+ 		if (this.#focus === "scope") {
 -			return `${upDown} scopes · ${formatKeyHints(["right", "enter"])} agents · ${cancel} close`;
-+		if (this.#focus === "范围") {
 +			return `${upDown} 范围 · ${formatKeyHints(["right", "enter"])} 代理 · ${cancel} 关闭`;
  		}
 -		return `${enter} configure · ${formatKeyHint("space")} enable/disable · ${upDown} rows · type to search · ${formatKeyHint("ctrl+r")} reload · ${cancel} close`;
@@ -279257,63 +278834,6 @@ index 8026389..1aa7c07 100644
  			describeHubSidebar(this.#entries, this.#activeEntryId, this.#sidebarStyle, "scopes"),
  			this.#describeBody(),
  			node("col", { gap: "xs" }, footer, "footer"),
-@@ -1318,7 +1317,7 @@ export class AgentsHubComponent implements Component {
- 				if (strip?.kind !== "chips" || !Number.isInteger(index) || !strip.chips[index]) return;
- 				strip.index = index;
- 				if (activate) this.#activateStripChip();
--			} else if (target === "agents") {
-+			} else if (target === "代理") {
- 				// Like the mouse path: the list is inert under a strip, the create flow, or the model browser.
- 				if (this.#strip || this.#createActive || this.#assigning) return;
- 				const index = this.#rows.findIndex(rowDef => listRowId(rowDef) === event.item);
-@@ -1337,7 +1336,7 @@ export class AgentsHubComponent implements Component {
- 					this.#buildRows();
- 					this.#rowIndex = 0;
- 					this.#listScroll = 0;
--					this.#focus = activate ? "list" : "scope";
-+					this.#focus = activate ? "list" : "范围";
- 				}
- 			} else {
- 				return;
-@@ -1370,7 +1369,7 @@ export class AgentsHubComponent implements Component {
- 				if (!Number.isInteger(index) || !strip.chips[index]) return;
- 				strip.index = index;
- 				this.#activateStripChip();
--			} else if (pick.act === "apply") {
-+			} else if (pick.act === "应用") {
- 				this.#activateStripChip();
- 			} else if (pick.act === "back") {
- 				this.#stripBack(strip);
-@@ -1379,17 +1378,17 @@ export class AgentsHubComponent implements Component {
- 		}
- 		const agent = this.#selectedAgent();
- 		switch (pick.act) {
--			case "scope": {
-+			case "范围": {
- 				const entry = this.#entries.find(candidate => candidate.id === pick.value);
- 				if (!entry || entry.kind === "separator" || entry.kind === "new") return;
- 				this.#activeEntryId = entry.id;
- 				this.#buildRows();
- 				this.#rowIndex = 0;
- 				this.#listScroll = 0;
--				this.#focus = "scope";
-+				this.#focus = "范围";
- 				return;
- 			}
--			case "configure":
-+			case "配置":
- 				this.#activateRow(this.#rows[this.#rowIndex]);
- 				return;
- 			case "toggle":
-@@ -1401,7 +1400,7 @@ export class AgentsHubComponent implements Component {
- 			case "new":
- 				this.#beginCreateFlow();
- 				return;
--			case "reload":
-+			case "重载":
- 				void this.#reload();
- 				return;
- 		}
 @@ -1412,14 +1411,14 @@ export class AgentsHubComponent implements Component {
  		const counts: Record<AgentSource, number> = { project: 0, user: 0, bundled: 0 };
  		for (const agent of this.#allAgents) counts[agent.source]++;
@@ -279332,13 +278852,13 @@ index 8026389..1aa7c07 100644
  			})),
  		];
  		const entry = this.#activeEntry();
-@@ -1428,38 +1427,38 @@ export class AgentsHubComponent implements Component {
+@@ -1428,30 +1427,30 @@ export class AgentsHubComponent implements Component {
  		let actions: TspPickerAction[];
  		if (strip) {
  			actions = [
 -				{ id: "apply", label: strip.property ? "Apply" : "Open", keys: ["enter"], primary: true },
 -				{ id: "back", label: strip.property ? "Back" : "Cancel", keys: ["esc"], end: true },
-+				{ id: "应用", label: strip.property ? "应用" : "打开", keys: ["enter"], primary: true },
++				{ id: "apply", label: strip.property ? "应用" : "打开", keys: ["enter"], primary: true },
 +				{ id: "back", label: strip.property ? "返回" : "取消", keys: ["esc"], end: true },
  			];
  		} else {
@@ -279346,7 +278866,7 @@ index 8026389..1aa7c07 100644
 +			const noAgent = agent ? undefined : "选择一个代理";
  			actions = [
 -				{ id: "configure", label: agent ? "Configure" : "Create", keys: ["enter"], primary: true },
-+				{ id: "配置", label: agent ? "配置" : "创建", keys: ["enter"], primary: true },
++				{ id: "configure", label: agent ? "配置" : "创建", keys: ["enter"], primary: true },
  				{
  					id: "toggle",
 -					label: "Toggle",
@@ -279360,7 +278880,7 @@ index 8026389..1aa7c07 100644
 -				{ id: "reload", label: "Reload", keys: ["ctrl", "r"] },
 +				{ id: "model", label: "模型", disabled: noAgent },
 +				{ id: "new", label: "新建代理" },
-+				{ id: "重载", label: "重载", keys: ["ctrl", "r"] },
++				{ id: "reload", label: "重载", keys: ["ctrl", "r"] },
  				CLOSE_ACTION,
  			];
  		}
@@ -279371,9 +278891,8 @@ index 8026389..1aa7c07 100644
 +				title: "代理",
  				subtitle: this.#notice ?? undefined,
  				icon: "users",
--				noun: "agents",
-+				noun: "代理",
- 				size: "lg",
+ 				noun: "agents",
+@@ -1459,7 +1458,7 @@ export class AgentsHubComponent implements Component {
  				layout: "rows",
  				preview: "side",
  				...pickerQuery(this.#search),
@@ -279382,15 +278901,6 @@ index 8026389..1aa7c07 100644
  				scopes,
  				scope: entry.kind === "source" ? entry.id : "all",
  				columns: entry.kind === "source" ? AGENT_COLUMNS : [...AGENT_COLUMNS, SOURCE_COLUMN],
-@@ -1480,7 +1479,7 @@ export class AgentsHubComponent implements Component {
- 						}
- 					: null,
- 				actions,
--				focus: strip ? "strip" : this.#focus === "scope" ? "scopes" : "list",
-+				focus: strip ? "strip" : this.#focus === "范围" ? "scopes" : "list",
- 			},
- 			this.#describePreview(selectedRow),
- 		);
 @@ -1488,7 +1487,7 @@ export class AgentsHubComponent implements Component {
  
  	#pickerItem(rowDef: ListRow): TspPickerItem {
@@ -279497,7 +279007,7 @@ index 8026389..1aa7c07 100644
  				: this.#describeAgentItem(rowDef.agent),
  		);
  		const selectedRow = this.#rows[this.#rowIndex];
-@@ -1629,10 +1626,10 @@ export class AgentsHubComponent implements Component {
+@@ -1629,7 +1626,7 @@ export class AgentsHubComponent implements Component {
  				virtual: true,
  				grow: 1,
  				tone: this.#focus === "list" ? "accent" : undefined,
@@ -279505,11 +279015,7 @@ index 8026389..1aa7c07 100644
 +				aria: "代理",
  			},
  			items,
--			"agents",
-+			"代理",
- 		);
- 		return [search, list, this.#describeDetail()];
- 	}
+ 			"agents",
 @@ -1645,9 +1642,9 @@ export class AgentsHubComponent implements Component {
  		};
  		if (agent.overrideModel) badge(agent.overrideModel, "warning");
@@ -279599,7 +279105,7 @@ index 8026389..1aa7c07 100644
  				"pattern",
  			);
  		}
-@@ -1806,15 +1803,15 @@ export class AgentsHubComponent implements Component {
+@@ -1806,9 +1803,9 @@ export class AgentsHubComponent implements Component {
  		const strip = this.#strip;
  		if (strip) {
  			if (strip.kind === "pattern") {
@@ -279611,13 +279117,6 @@ index 8026389..1aa7c07 100644
  					cancel("back"),
  				];
  			}
- 			return [
- 				{ keys: ["left", "right"], label: "choose" },
--				{ keys: ["enter"], label: strip.property ? "apply" : "open" },
-+				{ keys: ["enter"], label: strip.property ? "应用" : "打开" },
- 				cancel(strip.property ? "back" : "cancel"),
- 			];
- 		}
 @@ -1822,7 +1819,7 @@ export class AgentsHubComponent implements Component {
  			return [
  				{ keys: ["enter"], label: "pick" },
@@ -279627,41 +279126,15 @@ index 8026389..1aa7c07 100644
  				cancel("cancel"),
  			];
  		}
-@@ -1830,7 +1827,7 @@ export class AgentsHubComponent implements Component {
- 			if (this.#createSpec) {
- 				return [
- 					{ keys: ["enter"], label: "save" },
--					{ keys: ["tab"], label: "scope" },
-+					{ keys: ["tab"], label: "范围" },
- 					{ keys: ["r"], label: "regenerate" },
- 					cancel("cancel"),
- 				];
-@@ -1839,19 +1836,19 @@ export class AgentsHubComponent implements Component {
- 			return [
- 				{ keys: boundKeys("app.message.followUp", ["ctrl+q", "ctrl+enter"]), label: "generate" },
- 				{ keys: ["enter"], label: "newline" },
--				{ keys: ["tab"], label: "scope" },
-+				{ keys: ["tab"], label: "范围" },
- 				cancel("cancel"),
- 			];
- 		}
--		if (this.#focus === "scope") {
--			return [upDown("scopes"), { keys: ["right", "enter"], label: "agents" }, cancel("close")];
-+		if (this.#focus === "范围") {
-+			return [upDown("scopes"), { keys: ["right", "enter"], label: "代理" }, cancel("close")];
- 		}
- 		return [
--			{ keys: ["enter"], label: "configure" },
-+			{ keys: ["enter"], label: "配置" },
+@@ -1850,7 +1847,7 @@ export class AgentsHubComponent implements Component {
+ 			{ keys: ["enter"], label: "configure" },
  			{ keys: ["space"], label: "enable/disable" },
  			upDown("rows"),
 -			{ keys: [], label: "type to search" },
--			{ keys: ["ctrl+r"], label: "reload" },
 +			{ keys: [], label: "输入以搜索" },
-+			{ keys: ["ctrl+r"], label: "重载" },
+ 			{ keys: ["ctrl+r"], label: "reload" },
  			cancel("close"),
  		];
- 	}
 diff --git a/packages/tui/src/overlays/annotation-overlay.ts b/packages/tui/src/overlays/annotation-overlay.ts
 index 193f6a6..bd78832 100644
 --- a/packages/tui/src/overlays/annotation-overlay.ts
@@ -281188,7 +280661,7 @@ index 31feab8..1c2e3a6 100644
  		);
  		return col(children, {
 diff --git a/packages/tui/src/overlays/copy-selector.ts b/packages/tui/src/overlays/copy-selector.ts
-index e1ad6f4..6a4b70f 100644
+index e1ad6f4..d96493e 100644
 --- a/packages/tui/src/overlays/copy-selector.ts
 +++ b/packages/tui/src/overlays/copy-selector.ts
 @@ -63,7 +63,7 @@ const EARLIER_TURNS_KEY = "earlier";
@@ -281237,35 +280710,6 @@ index e1ad6f4..6a4b70f 100644
  	]);
  }
  
-@@ -622,8 +622,8 @@ export class CopySelectorComponent implements Component {
- 			return;
- 		}
- 		if (event.type === "action") {
--			if (event.act === "blocks") this.#descend();
--			else if (event.act === "back") this.#ascend();
-+			if (event.act === "块") this.#descend();
-+			else if (event.act === "返回") this.#ascend();
- 			else if (event.act === "open") this.#openSelectedBlock();
- 			else if (event.act === "copy") this.#pickOutlined();
- 			return;
-@@ -638,7 +638,7 @@ export class CopySelectorComponent implements Component {
- 			const index = this.#targets.findIndex(target => target.turnId === event.item);
- 			if (index < 0) return;
- 			this.#selected = index;
--		} else if (event.key === "blocks" && this.#blocks) {
-+		} else if (event.key === "块" && this.#blocks) {
- 			const index = Number(event.item);
- 			if (!Number.isInteger(index) || !this.#blocks[index]) return;
- 			this.#blockSelected = index;
-@@ -656,7 +656,7 @@ export class CopySelectorComponent implements Component {
- 				case "pick":
- 					this.#pickOutlined();
- 					return;
--				case "blocks":
-+				case "块":
- 					this.#descend();
- 					return;
- 				case "open-link":
 @@ -719,8 +719,8 @@ export class CopySelectorComponent implements Component {
  		const focused = this.#blocks?.[this.#blockSelected];
  		const action = this.deps.actionLabel ?? "copy";
@@ -281290,7 +280734,7 @@ index e1ad6f4..6a4b70f 100644
 -				focused?.href && this.deps.onOpen ? pickerAction("open-link", "Open link", "o") : undefined,
 -				!descended && this.#truncated ? pickerAction("earlier", "Earlier turns", "a") : undefined,
 -				descended ? { ...CLOSE_ACTION, label: "Back" } : CLOSE_ACTION,
-+				!descended && blocks.length > 0 ? pickerAction("块", "块", "right") : undefined,
++				!descended && blocks.length > 0 ? pickerAction("blocks", "块", "right") : undefined,
 +				focused?.href && this.deps.onOpen ? pickerAction("open-link", "打开链接", "o") : undefined,
 +				!descended && this.#truncated ? pickerAction("earlier", "更早轮次", "a") : undefined,
 +				descended ? { ...CLOSE_ACTION, label: "返回" } : CLOSE_ACTION,
@@ -281307,21 +280751,12 @@ index e1ad6f4..6a4b70f 100644
  			}
  			blocks.forEach((block, index) => {
  				preview.push(
-@@ -775,33 +773,33 @@ export class CopySelectorComponent implements Component {
- 		}
- 		const target = this.#targets[this.#selected];
- 		const action = this.deps.actionLabel ?? "copy";
--		const upDown = actionHint(["tui.select.up", "tui.select.down"], this.#blocks ? "block" : "step");
--		const cancel = actionHint("tui.select.cancel", this.#blocks ? "back" : "close");
-+		const upDown = actionHint(["tui.select.up", "tui.select.down"], this.#blocks ? "块" : "step");
-+		const cancel = actionHint("tui.select.cancel", this.#blocks ? "返回" : "close");
- 		const children: NativeChild[] = [];
- 		let hints: (NativeHint | undefined)[];
+@@ -782,15 +780,15 @@ export class CopySelectorComponent implements Component {
  		if (this.#blocks && target) {
  			const block = this.#blocks[this.#blockSelected];
  			children.push(
 -				row([text([span("‹ back", "accent")], { actions: { click: "back" } })], { gap: "md" }),
-+				row([text([span("‹ 返回", "accent")], { actions: { click: "返回" } })], { gap: "md" }),
++				row([text([span("‹ 返回", "accent")], { actions: { click: "back" } })], { gap: "md" }),
  				node(
  					"list",
 -					{ selected: String(this.#blockSelected), empty: "No blocks" },
@@ -281335,19 +280770,6 @@ index e1ad6f4..6a4b70f 100644
  							undefined,
  							String(index),
  						);
- 					}),
--					"blocks",
-+					"块",
- 				),
- 			);
- 			if (block) children.push(this.#blockPreview(block, action));
- 			hints = [
- 				upDown,
--				{ keys: ["left", ...(cancel?.keys ?? [])], label: "back" },
-+				{ keys: ["left", ...(cancel?.keys ?? [])], label: "返回" },
- 				{ keys: ["enter"], label: action },
- 				block?.href && this.deps.onOpen ? { keys: ["o"], label: "open" } : undefined,
- 			];
 @@ -810,7 +808,7 @@ export class CopySelectorComponent implements Component {
  			children.push(
  				node(
@@ -281357,23 +280779,18 @@ index e1ad6f4..6a4b70f 100644
  					this.#transcriptItems(),
  					"list",
  				),
-@@ -820,8 +818,8 @@ export class CopySelectorComponent implements Component {
+@@ -820,7 +818,7 @@ export class CopySelectorComponent implements Component {
  				const body: NativeChild[] = [turnPreview(target, item.content)];
  				if (blocks.length > 0) {
  					body.push(
 -						text([span(`${blocks.length} block${blocks.length === 1 ? "" : "s"} ›`, "accent")], {
--							actions: { click: "blocks" },
 +						text([span(`${blocks.length} 块${blocks.length === 1 ? "" : "s"} ›`, "accent")], {
-+							actions: { click: "块" },
+ 							actions: { click: "blocks" },
  						}),
  					);
- 				}
-@@ -829,17 +827,17 @@ export class CopySelectorComponent implements Component {
- 			}
- 			hints = [
+@@ -831,15 +829,15 @@ export class CopySelectorComponent implements Component {
  				upDown,
--				blocks.length > 0 ? { keys: ["right"], label: "blocks" } : undefined,
-+				blocks.length > 0 ? { keys: ["right"], label: "块" } : undefined,
+ 				blocks.length > 0 ? { keys: ["right"], label: "blocks" } : undefined,
  				{ keys: ["enter"], label: action },
 -				this.#truncated ? { keys: ["a"], label: "earlier turns" } : undefined,
 +				this.#truncated ? { keys: ["a"], label: "更早轮次" } : undefined,
@@ -285577,7 +284994,7 @@ index 59bedce..c63e285 100644
  	}
  }
 diff --git a/packages/tui/src/overlays/plan-review-overlay.ts b/packages/tui/src/overlays/plan-review-overlay.ts
-index 9d2350a..c8dbbeb 100644
+index 9d2350a..67ec441 100644
 --- a/packages/tui/src/overlays/plan-review-overlay.ts
 +++ b/packages/tui/src/overlays/plan-review-overlay.ts
 @@ -75,9 +75,9 @@ import type { TspDocComment, TspMenuItem } from "@oh-my-pi/pi-wire";
@@ -285786,41 +285203,25 @@ index 9d2350a..c8dbbeb 100644
  						items: slider.segments.map((segment, i) => ({
  							id: `tier:${i}`,
  							label: segment.label,
-@@ -2185,12 +2184,12 @@ export class PlanReviewOverlay implements Component {
+@@ -2185,7 +2184,7 @@ export class PlanReviewOverlay implements Component {
  				"button",
  				{
  					role: "omp.btn",
 -					text: "Cancel",
 +					text: "取消",
  					...(cancelKey ? { keys: keyNames(cancelKey) } : {}),
--					actions: { click: "cancel" },
-+					actions: { click: "取消" },
+ 					actions: { click: "cancel" },
  				},
- 				undefined,
--				"cancel",
-+				"取消",
- 			),
- 		);
- 		return node("row", { role: "omp.plan.dock", gap: "sm", align: "center" }, children, "dock");
 @@ -2202,7 +2201,7 @@ export class PlanReviewOverlay implements Component {
  		return node(
  			"row",
  			{ role: "omp.plan.tools", gap: "sm", align: "center", justify: "end" },
 -			[actionButton("Cancel", "cancel", cancelKey ? { keys: cancelKey } : {})],
-+			[actionButton("取消", "取消", cancelKey ? { keys: cancelKey } : {})],
++			[actionButton("取消", "cancel", cancelKey ? { keys: cancelKey } : {})],
  			"tools",
  		);
  	}
-@@ -2295,7 +2294,7 @@ export class PlanReviewOverlay implements Component {
- 			case "save":
- 				this.#save();
- 				return;
--			case "cancel":
-+			case "取消":
- 				this.#committed = true;
- 				this.callbacks.onCancel();
- 				return;
-@@ -2427,17 +2426,17 @@ export class PlanReviewOverlay implements Component {
+@@ -2427,11 +2426,11 @@ export class PlanReviewOverlay implements Component {
  				const where = annotation ? annotationWhere(annotation.target) : "section";
  				return item(`c${i}`, {
  					label: sanitizeStatusText(annotation?.note ?? ""),
@@ -285834,13 +285235,6 @@ index 9d2350a..c8dbbeb 100644
  				selectList("chooser", entries, { selected: `c${chooser.selected}` }),
  				hintsRow(
  					[
- 						actionHint(["tui.select.up", "tui.select.down"], "choose"),
- 						{ keys: ["enter"], label: "edit" },
--						actionHint("tui.select.cancel", "cancel"),
-+						actionHint("tui.select.cancel", "取消"),
- 					],
- 					"chooserHints",
- 				),
 @@ -2445,15 +2444,15 @@ export class PlanReviewOverlay implements Component {
  		}
  		if (this.#annotating) {
@@ -285851,8 +285245,7 @@ index 9d2350a..c8dbbeb 100644
  			const hints: (NativeHint | undefined)[] = [
  				actionHint("tui.input.submit", "save"),
  				actionHint("tui.input.newLine", "newline"),
--				actionHint("tui.select.cancel", "cancel"),
-+				actionHint("tui.select.cancel", "取消"),
+ 				actionHint("tui.select.cancel", "cancel"),
  			];
 -			if (this.#editingAnnotation) hints.push({ keys: [], label: "empty deletes" });
 -			if (this.#externalEditorLabel) hints.push({ keys: [], label: `${this.#externalEditorLabel} editor` });
@@ -285885,15 +285278,6 @@ index 9d2350a..c8dbbeb 100644
  			}
  			return hints;
  		}
-@@ -2523,7 +2522,7 @@ export class PlanReviewOverlay implements Component {
- 				break;
- 		}
- 		hints.push(key("tab", "regions"));
--		hints.push(this.#helpSuffix ? { keys: [], label: this.#helpSuffix } : actionHint("tui.select.cancel", "cancel"));
-+		hints.push(this.#helpSuffix ? { keys: [], label: this.#helpSuffix } : actionHint("tui.select.cancel", "取消"));
- 		return hints;
- 	}
- 
 @@ -2537,7 +2536,7 @@ export class PlanReviewOverlay implements Component {
  
  		const committed = this.#committed;
@@ -286688,7 +286072,7 @@ index 7298d39..54edc02 100644
  				const account = accountsByValue.get(item.value);
  				if (!account) return undefined;
 diff --git a/packages/tui/src/overlays/session-info-overlay.ts b/packages/tui/src/overlays/session-info-overlay.ts
-index 95358f6..9d323af 100644
+index 95358f6..1b7b7ba 100644
 --- a/packages/tui/src/overlays/session-info-overlay.ts
 +++ b/packages/tui/src/overlays/session-info-overlay.ts
 @@ -120,7 +120,7 @@ export class SessionInfoOverlay implements Component {
@@ -286753,7 +286137,7 @@ index 95358f6..9d323af 100644
  	#describeContext(context: ContextUsage, meter: boolean): NativeNode {
  		const value = Math.min(1, Math.max(0, context.percent / 100));
 -		const title = `${context.tokens.toLocaleString("en-US")} of ${context.contextWindow.toLocaleString("en-US")} tokens`;
-+		const title = `${context.tokens.toLocaleString("'zh-CN'")}/${context.contextWindow.toLocaleString("'zh-CN'")} 词元`;
++		const title = `${context.tokens.toLocaleString("en-US")}/${context.contextWindow.toLocaleString("en-US")} 词元`;
  		return node(
  			"col",
  			{ role: "omp.info.context", title },
@@ -287103,7 +286487,7 @@ index d1e27e5..170222d 100644
  					: null,
  			},
 diff --git a/packages/tui/src/overlays/settings-defs.ts b/packages/tui/src/overlays/settings-defs.ts
-index a300dbb..b412ee1 100644
+index a300dbb..1089459 100644
 --- a/packages/tui/src/overlays/settings-defs.ts
 +++ b/packages/tui/src/overlays/settings-defs.ts
 @@ -32,30 +32,30 @@ export const SETTING_TABS: SettingTab[] = [
@@ -287160,7 +286544,7 @@ index a300dbb..b412ee1 100644
   */
  export const TAB_GROUPS: Record<SettingTab, readonly string[]> = {
 -	appearance: ["Theme", "Composer", "Status Line", "Display", "Images"],
-+	appearance: ["Theme", "Composer", "状态栏", "Display", "Images"],
++	appearance: ["主题", "输入框", "状态栏", "显示", "图片"],
  	model: ["Thinking", "Sampling", "Prompt", "Retry & Fallback", "Advisor", "Prewalk", "Vision"],
  	interaction: [
  		"Input",
@@ -287623,7 +287007,7 @@ index 3e761b5..9c172be 100644
  			const zoomed = await new Bun.Image(Buffer.from(frame.data, "base64"))
  				.resize(edgePx, edgePx, { filter: "nearest" })
 diff --git a/packages/tui/src/overlays/spotlight-sheet.ts b/packages/tui/src/overlays/spotlight-sheet.ts
-index 2dbceb7..d9cf2b6 100644
+index 2dbceb7..390b5d3 100644
 --- a/packages/tui/src/overlays/spotlight-sheet.ts
 +++ b/packages/tui/src/overlays/spotlight-sheet.ts
 @@ -69,11 +69,11 @@ type LineClass = "a" | "s" | "n" | "c" | "hot" | "cut";
@@ -287694,7 +287078,7 @@ index 2dbceb7..d9cf2b6 100644
  	const n = to - from + 1;
  	const note: TspSpan[] = [
 -		span(`${count(n)} ${n === 1 ? "line" : "lines"}${peak === undefined ? "" : ` · peak ${fixed(peak)}`}`, "muted"),
-+		span(`${count(n)} ${n === 1 ? "line" : "行"}${peak === undefined ? "" : ` · 峰值 ${fixed(peak)}`}`, "muted"),
++		span(`${count(n)} ${n === 1 ? "line" : "lines"}${peak === undefined ? "" : ` · 峰值 ${fixed(peak)}`}`, "muted"),
  	];
  	const out: TspCodeFold = { from: lineNumber(window, from), to: lineNumber(window, to) };
  	const label = foldLabel(sheet, from, to);
@@ -287813,7 +287197,7 @@ index 764488e..b70fa16 100644
  			noun: "levels",
  			current: currentLevel ? [currentLevel] : [],
 diff --git a/packages/tui/src/overlays/tree-selector.ts b/packages/tui/src/overlays/tree-selector.ts
-index 6da3fc7..d3ec0e2 100644
+index 6da3fc7..def0112 100644
 --- a/packages/tui/src/overlays/tree-selector.ts
 +++ b/packages/tui/src/overlays/tree-selector.ts
 @@ -179,7 +179,7 @@ interface EntryPart {
@@ -288122,44 +287506,19 @@ index 6da3fc7..d3ec0e2 100644
 -						pickerAction("summarize", "Summarize & switch", "shift+enter"),
 -						pickerAction("label", "Label", "shift+l"),
 -						pickerAction("filter", "Filter", "ctrl+o"),
-+						pickerAction("切换", "切换", "enter", { primary: true }),
++						pickerAction("switch", "切换", "enter", { primary: true }),
 +						pickerAction("summarize", "总结并切换", "shift+enter"),
 +						pickerAction("label", "标签", "shift+l"),
-+						pickerAction("筛选", "筛选", "ctrl+o"),
++						pickerAction("filter", "筛选", "ctrl+o"),
  						CLOSE_ACTION,
  					],
  		};
-@@ -1682,7 +1667,7 @@ export class TreeSelectorComponent extends OverlayPanel {
- 			case "tab":
- 				if (event.value !== undefined) list.setFilterMode(event.value);
- 				return;
--			case "switch":
-+			case "切换":
- 				list.confirm(false);
- 				return;
- 			case "summarize":
-@@ -1691,7 +1676,7 @@ export class TreeSelectorComponent extends OverlayPanel {
- 			case "label":
- 				if (!list.getSearchQuery()) list.editLabel();
- 				return;
--			case "filter":
-+			case "筛选":
- 				list.cycleFilter(1);
- 				return;
- 			case "close":
-@@ -1725,21 +1710,21 @@ export class TreeSelectorComponent extends OverlayPanel {
- 			return memo.node;
- 		}
- 		const children: NativeChild[] = [
--			node("tabs", { items: FILTER_TABS, active: filterMode }, undefined, "filter"),
-+			node("tabs", { items: FILTER_TABS, active: filterMode }, undefined, "筛选"),
- 			search,
+@@ -1730,16 +1715,16 @@ export class TreeSelectorComponent extends OverlayPanel {
  			content,
  			hintsRow([
--				{ keys: ["enter"], label: "switch" },
+ 				{ keys: ["enter"], label: "switch" },
 -				{ keys: ["alt+up", "alt+down"], label: "previous/next turn" },
 -				actionHint(["app.tree.previousBranch", "app.tree.nextBranch"], "previous/next branch"),
-+				{ keys: ["enter"], label: "切换" },
 +				{ keys: ["alt+up", "alt+down"], label: "上一个/下一个轮次" },
 +				actionHint(["app.tree.previousBranch", "app.tree.nextBranch"], "上一个/下一个分支"),
  				actionHint(["tui.select.pageUp", "tui.select.pageDown"], "page"),
@@ -288167,8 +287526,7 @@ index 6da3fc7..d3ec0e2 100644
 -				{ keys: ["shift+enter"], label: "summarize & switch" },
 +				{ keys: ["shift+enter"], label: "总结并切换" },
  				{ keys: ["shift+l"], label: "label" },
--				{ keys: ["ctrl+o"], label: "filter" },
-+				{ keys: ["ctrl+o"], label: "筛选" },
+ 				{ keys: ["ctrl+o"], label: "filter" },
  			]),
  		];
 -		const result = overlayCard("omp.overlay.tree", "Session Tree", children);
@@ -288176,15 +287534,6 @@ index 6da3fc7..d3ec0e2 100644
  		this.#nativeMemo = { content, query, cursor, filterMode, node: result };
  		return result;
  	}
-@@ -1752,7 +1737,7 @@ export class TreeSelectorComponent extends OverlayPanel {
- 			return;
- 		}
- 		if (event.type !== "select" && event.type !== "activate") return;
--		if (event.key === "filter") {
-+		if (event.key === "筛选") {
- 			if (event.type === "select") this.#treeList.setFilterMode(event.item);
- 			return;
- 		}
 diff --git a/packages/tui/src/overlays/usage-dashboard.ts b/packages/tui/src/overlays/usage-dashboard.ts
 index 45ac453..ad0fed2 100644
 --- a/packages/tui/src/overlays/usage-dashboard.ts
@@ -290843,6 +290192,82 @@ index fb78024..f33026d 100644
  						"edit",
  					),
  				);
+diff --git a/packages/tui/src/prompt/tips.txt b/packages/tui/src/prompt/tips.txt
+index 9a6c608..8e74060 100644
+--- a/packages/tui/src/prompt/tips.txt
++++ b/packages/tui/src/prompt/tips.txt
+@@ -1,35 +1,35 @@
+-Tired of typing "keep going"? Just send a '.'
+-Type `#` anywhere in your prompt for quick actions — copy the line or the whole prompt, undo, jump the cursor
+-Type `/` at the start of your prompt to browse every command
+-Start your prompt with `!` to run it as bash — `!!` runs it without adding the output to context
+-Start your prompt with `$ ` to run Python — `$$ ` runs it without adding the output to context
+-You can /btw to ask a side question
+-Use /tan to fork the current conversation into a background agent
+-With default keybindings, {key:ctrl+d} deletes the character under the cursor instead of quitting your draft — see /hotkeys for your exit key
+-Find out which model you emotionally abuse the most with `omp stats`
+-Try task isolation to create CoW worktrees
+-Need a cheap nested model call? Use `completion(x...)`. Have a big batch of tasks? Ask clanker to use it!
+-Spaghetti code? Try complaining with /omfg
+-Did you know? Each kitty/tmux/cmux/zellij/wezterm split keeps its own session — `omp -c` resumes the right one
+-Drop the word `ultrathink` in your message for harder multi-step reasoning — watch it glow rainbow as you type
+-Agent overthinking? Say `chillax` — on models with per-message effort, thinking drops to the lowest level, even mid-turn — watch it glow as you type
+-Say `orchestrate` in your message to drive a multi-phase task with parallel subagents — watch it glow as you type
+-Say `workflowz` in your message to drive the task with parallel subagents in eval — watch it glow as you type
+-Bulk data to classify or triage? Say `jevify` in your message — the eval kernel's `judge()` processes the batch and you read only what it flags — watch it glow as you type
+-Log in to several accounts of the same provider — `/login` again — and omp load-balances across them automatically
+-Run `omp auth-broker serve` once and every machine pulls live tokens over the wire — refresh keys never leave the host; `omp auth-gateway` fronts it as a drop-in proxy any OpenAI-compatible client can hit
+-Press {key:alt+p} (or /switch) to switch provider, and {key:ctrl+p} to cycle role models smol -> slow -> etc
+-Press {key:ctrl+r} to search your prompt history and reuse a past message
+-`/force read` pins the next turn to one specific tool when the model keeps reaching for the wrong one
+-`/copy code` grabs the last code block to your clipboard — `/copy cmd` grabs the last shell/python command
+-`/shake` rips heavy tool results out of context to reclaim tokens without a full /compact — `/shake images` drops just images
+-Pair up live: `/collab` shares your session through an end-to-end encrypted relay link — a teammate runs `/join <link>` to watch tool calls stream and prompt the agent from their own omp
+-Press {tap:left} to drill into a running or finished agent and inspect its tool calls and transcript
+-Hit a Codex rate limit? `/usage reset` spends a saved reset credit to immediately restore your quota
+-No native tool_calling? Inference provider botches parsing them? `PI_DIALECT=glm|kimi|anthropic…` rolls it locally for them!
+-Turn on `/advisor` to attach a second model that reviews every turn and quietly injects advice
+-Try starting your prompt with a ->, and writing a list (1. Do X, 2. Do Y)
+-Press {key:shift+tab} to cycle through reasoning effort levels
+-omp can reconfigure and extend itself — ask any questions you have!
+-Lint/type errors piling up? `omp cleanse` (or /cleanse right here) hunts project diagnostics and fixes them with parallel subagents — {key:escape} cancels
+-[NO-TERN] Psst, omp has a natural habitat 🐦 [tern](https://scl.so/tern)
+\ No newline at end of file
++懒得一遍遍输入“keep going”？发一个 '.' 就行
++在提示词任意位置输入 `#` 可调出快捷操作 — 复制当前行或整段提示词、撤销、移动光标
++在提示词开头输入 `/` 可浏览所有命令
++提示词以 `!` 开头会作为 bash 运行 — `!!` 运行后不把输出加入上下文
++提示词以 `$ ` 开头会运行 Python — `$$ ` 运行后不把输出加入上下文
++可以用 /btw 提一个旁支问题
++用 /tan 把当前对话分叉成一个后台智能体
++默认快捷键下，{key:ctrl+d} 删除光标处的字符，而不是退出草稿 — 退出键见 /hotkeys
++用 `omp stats` 看看你把哪个模型折腾得最狠
++试试任务隔离，创建写时复制（CoW）的 worktree
++需要便宜的嵌套模型调用？用 `completion(x...)`。有一大批任务？让智能体去用它！
++代码像一团面条？用 /omfg 吐槽一下
++你知道吗？kitty/tmux/cmux/zellij/wezterm 的每个分屏都有自己的会话 — `omp -c` 会恢复对应的那个
++在消息里写上 `ultrathink` 可获得更强的多步推理 — 输入时它会泛起彩虹光
++agent 想太多？说一声 `chillax`——对支持逐消息 effort 的模型，思考会降到最低档，回合中途也生效——边打字边看它发光
++在消息里写上 `orchestrate`，用并行子智能体推进多阶段任务 — 输入时它会发光
++在消息里写上 `workflowz`，在 eval 中用并行子智能体推进任务 — 输入时它会发光
++有大批数据要分类或分诊？在消息里写上 `jevify` — eval 内核的 `judge()` 会处理整批，你只需看它标出的部分 — 输入时它会发光
++同一服务商可登录多个账户 — 再执行一次 `/login` — omp 会自动在它们之间负载均衡
++运行一次 `omp auth-broker serve`，每台机器都能在线获取实时令牌 — 刷新密钥不会离开主机；`omp auth-gateway` 把它包装成任何 OpenAI 兼容客户端都能直接使用的代理
++按 {key:alt+p}（或 /switch）切换服务商，按 {key:ctrl+p} 轮换角色模型 smol -> slow -> 等
++按 {key:ctrl+r} 搜索提示词历史并复用以前的消息
++当模型总是选错工具时，`/force read` 可把下一回合固定到指定工具
++`/copy code` 把最后一个代码块复制到剪贴板 — `/copy cmd` 复制最后一条 shell/python 命令
++`/shake` 把占空间的工具结果移出上下文以回收 token，无需完整 /compact — `/shake images` 只丢弃图片
++实时结对：`/collab` 通过端到端加密的中继链接共享你的会话 — 队友运行 `/join <link>` 即可观看工具调用，并从自己的 omp 向智能体提问
++按 {tap:left} 进入正在运行或已结束的智能体，查看它的工具调用和对话记录
++撞上 Codex 限流？`/usage reset` 消耗一次已保存的重置额度，立即恢复配额
++没有原生 tool_calling？推理服务商解析总出错？`PI_DIALECT=glm|kimi|anthropic…` 会在本地替它们处理！
++开启 `/advisor` 可挂接第二个模型，审阅每个回合并悄悄注入建议
++试试以 -> 开头写提示词，再列一个清单（1. 做 X，2. 做 Y）
++按 {key:shift+tab} 轮换推理强度等级
++omp 可以重新配置和扩展自己 — 有任何问题尽管问！
++Lint/类型错误越积越多？`omp cleanse`（或在这里用 /cleanse）会找出项目诊断问题并用并行子智能体修复 — {key:escape} 取消
++[NO-TERN] 嘘，omp 有个天然栖息地 🐦 [tern](https://scl.so/tern)
 diff --git a/packages/tui/src/prompt/tools-markdown.ts b/packages/tui/src/prompt/tools-markdown.ts
 index d41190c..c58c251 100644
 --- a/packages/tui/src/prompt/tools-markdown.ts
@@ -290867,19 +290292,6 @@ index d41190c..c58c251 100644
  	}
  
  	return ["| Tool | Description |", "|------|-------------|", ...rows].join("\n");
-diff --git a/packages/tui/src/prompt/usage-amounts.ts b/packages/tui/src/prompt/usage-amounts.ts
-index 9074a76..a4b10c9 100644
---- a/packages/tui/src/prompt/usage-amounts.ts
-+++ b/packages/tui/src/prompt/usage-amounts.ts
-@@ -39,7 +39,7 @@ export function isRemainingOnlyAbsoluteAmount(limit: UsageLimit): boolean {
- 
- function formatQuantity(value: number, unit: UsageLimit["amount"]["unit"], suffix: string): string {
- 	if (unit === "usd") return `$${value.toFixed(2)} ${suffix}`;
--	const formatted = new Intl.NumberFormat("en-US", { notation: "compact", maximumFractionDigits: 1 }).format(value);
-+	const formatted = new Intl.NumberFormat("zh-CN", { notation: "compact", maximumFractionDigits: 1 }).format(value);
- 	return `${formatted} ${unit} ${suffix}`;
- }
- 
 diff --git a/packages/tui/src/prompt/welcome.ts b/packages/tui/src/prompt/welcome.ts
 index de635cd..c971b1e 100644
 --- a/packages/tui/src/prompt/welcome.ts
@@ -292128,7 +291540,7 @@ index fe8868a..c9aecb0 100644
  		},
  	];
 diff --git a/packages/tui/src/status-line/segments.ts b/packages/tui/src/status-line/segments.ts
-index 4c8140f..d77d4e9 100644
+index 4c8140f..73d5f16 100644
 --- a/packages/tui/src/status-line/segments.ts
 +++ b/packages/tui/src/status-line/segments.ts
 @@ -323,11 +323,11 @@ function modelThinkingDisplay(ctx: SegmentContext): string {
@@ -292271,7 +291683,7 @@ index 4c8140f..d77d4e9 100644
 -		if (position.branch) facts.push(`branch ${position.branch.index} of ${position.branch.count}`);
 -		if (position.ahead > 0) facts.push(`${position.ahead} ${position.ahead === 1 ? "turn" : "turns"} ahead`);
 +		if (position.branch) facts.push(`分支 ${position.branch.index}/${position.branch.count}`);
-+		if (position.ahead > 0) facts.push(`领先 ${position.ahead} ${position.ahead === 1 ? "轮" : "轮"}`);
++		if (position.ahead > 0) facts.push(`领先 ${position.ahead} ${position.ahead === 1 ? "turn" : "turns"}`);
  		return {
  			spans: [span(label, "accent")],
  			icon: "tree",
@@ -295237,7 +294649,7 @@ index 98234e8..ed67d8e 100644
  		const head = fileRow(current.path, { chip, key: "file" });
  		files.push(
 diff --git a/packages/tui/src/tools/job-widget.ts b/packages/tui/src/tools/job-widget.ts
-index 1d93a3c..acec4f3 100644
+index 1d93a3c..6428a05 100644
 --- a/packages/tui/src/tools/job-widget.ts
 +++ b/packages/tui/src/tools/job-widget.ts
 @@ -312,7 +312,7 @@ export function describeJobWidgetsHovercard(entries: readonly JobWidgetEntry[]):
@@ -295245,7 +294657,7 @@ index 1d93a3c..acec4f3 100644
  	if (rest > 0) {
  		children.push(
 -			text([span(`+${rest} more ${rest === 1 ? "job" : "jobs"} · /jobs`, "dim")], {
-+			text([span(`+${rest} 个${rest === 1 ? "job" : "任务"} · /jobs`, "dim")], {
++			text([span(`+${rest} 个${rest === 1 ? "job" : "jobs"} · /jobs`, "dim")], {
  				role: "omp.jobs.hovercard.more",
  				wrap: "none",
  			}),
@@ -297160,7 +296572,7 @@ index 7798a19..d6092f2 100644
  					preview: { lines: 3 },
  				};
 diff --git a/packages/tui/src/tools/wait.ts b/packages/tui/src/tools/wait.ts
-index dd94809..95b594f 100644
+index dd94809..afb50bf 100644
 --- a/packages/tui/src/tools/wait.ts
 +++ b/packages/tui/src/tools/wait.ts
 @@ -266,7 +266,7 @@ const TILES_SHOWN = 9;
@@ -297181,7 +296593,7 @@ index dd94809..95b594f 100644
  		return new Text([header, formatEmptyMessage(fallback, uiTheme)].join("\n"), 0, 0);
  	}
  
-@@ -296,24 +296,24 @@ function jobsRenderResult(
+@@ -296,11 +296,11 @@ function jobsRenderResult(
  	// The title already carries the running count, so meta lists only the
  	// settled categories — "waiting on 19 of 19 · 19 running" read awkward.
  	const meta: string[] = [];
@@ -297195,9 +296607,8 @@ index dd94809..95b594f 100644
  	}
  
  	const headerIcon: ToolUIStatus =
- 		counts.failed > 0 ? "warning" : counts.running > 0 || agents.length > 0 ? "info" : "success";
--	const jobsNoun = jobs.length === 1 ? "job" : "jobs";
-+	const jobsNoun = jobs.length === 1 ? "job" : "任务";
+@@ -308,12 +308,12 @@ function jobsRenderResult(
+ 	const jobsNoun = jobs.length === 1 ? "job" : "jobs";
  	const description =
  		jobs.length === 0
 -			? `${agents.length} running agent${agents.length === 1 ? "" : "s"} — no jobs`
@@ -297263,7 +296674,7 @@ index dd94809..95b594f 100644
  	if (hidden > 0 || cut) {
  		const hint = formatExpandHint(theme, expanded, true);
 -		const marker = hidden > 0 ? `… +${hidden} more ${hidden === 1 ? "line" : "lines"}` : "…";
-+		const marker = hidden > 0 ? `… +${hidden} 个${hidden === 1 ? "line" : "行"}` : "…";
++		const marker = hidden > 0 ? `… +${hidden} 个${hidden === 1 ? "line" : "lines"}` : "…";
  		lines.push(`${prefix}${theme.fg("dim", `${marker}${hint ? ` ${hint}` : ""}`)}`);
  	}
  	return lines;
@@ -297276,7 +296687,7 @@ index dd94809..95b594f 100644
  					: `IRC ${from} ${uiTheme.nav.selected} ${card.to?.trim() || "?"}`;
  	const body = card.body ?? "";
  	const meta: string[] = [];
-@@ -804,26 +804,26 @@ function describeJobsResult(
+@@ -804,7 +804,7 @@ function describeJobsResult(
  	const agents = result.details?.agents ?? [];
  	if (jobs.length === 0 && agents.length === 0) {
  		return {
@@ -297285,11 +296696,8 @@ index dd94809..95b594f 100644
  			tone: "warning",
  			body: [text([span(plainText(resultText(result) || "No jobs to process"), "dim")])],
  		};
- 	}
- 	const counts = { completed: 0, failed: 0, cancelled: 0, running: 0 };
- 	for (const job of jobs) counts[job.status]++;
--	const noun = jobs.length === 1 ? "job" : "jobs";
-+	const noun = jobs.length === 1 ? "job" : "任务";
+@@ -814,16 +814,16 @@ function describeJobsResult(
+ 	const noun = jobs.length === 1 ? "job" : "jobs";
  	const title =
  		jobs.length === 0
 -			? `${agents.length} running agent${agents.length === 1 ? "" : "s"} — no jobs`
@@ -297316,7 +296724,7 @@ index dd94809..95b594f 100644
  	if (sorted.length > TILES_SHOWN) {
  		const rest = sorted.length - TILES_SHOWN;
 -		body.push(text([span(`+${rest} more ${rest === 1 ? "job" : "jobs"} · /jobs`, "dim")], { role: "omp.wait.more" }));
-+		body.push(text([span(`+${rest} 个${rest === 1 ? "job" : "任务"} · /jobs`, "dim")], { role: "omp.wait.more" }));
++		body.push(text([span(`+${rest} 个${rest === 1 ? "job" : "jobs"} · /jobs`, "dim")], { role: "omp.wait.more" }));
  	}
  	for (const agent of agents) {
  		const spans: TspSpan[] = [span(plainText(agent.id), "muted")];
@@ -308947,7 +308355,7 @@ index 81491fc..3fbe4a3 100644
 +	}
  }
 diff --git a/python/robomp/web/scripts/verify-cards.ts b/python/robomp/web/scripts/verify-cards.ts
-index 9524e58..1862294 100755
+index 9524e58..9432c17 100755
 --- a/python/robomp/web/scripts/verify-cards.ts
 +++ b/python/robomp/web/scripts/verify-cards.ts
 @@ -12,9 +12,9 @@ import type { StatusResponse } from "../src/types";
@@ -309323,7 +308731,7 @@ index 9524e58..1862294 100755
 +			latest_event: {
 +				delivery_id: "fail-del-1",
 +				event_type: "issues",
-+				state: "失败",
++				state: "failed",
 +				attempts: 1,
 +				received_at: "2026-06-18T00:00:00Z",
 +				last_error: "triage failed error",
@@ -309353,7 +308761,7 @@ index 9524e58..1862294 100755
 +			number: 3,
 +			branch: null,
 +			pr_number: null,
-+			state: "新",
++			state: "new",
 +			classification: "bug",
 +			updated_at: "2026-06-18T00:00:00Z",
 +			latest_event: {
@@ -309371,7 +308779,7 @@ index 9524e58..1862294 100755
 +			number: 4,
 +			branch: null,
 +			pr_number: null,
-+			state: "新",
++			state: "new",
 +			classification: "bug",
 +			updated_at: "2026-06-18T00:00:00Z",
 +			latest_event: null,
@@ -309388,7 +308796,7 @@ index 9524e58..1862294 100755
 +			latest_event: {
 +				delivery_id: "fail-del-8",
 +				event_type: "issues",
-+				state: "失败",
++				state: "failed",
 +				attempts: 1,
 +				received_at: "2026-06-18T00:00:00Z",
 +				last_error: null,
@@ -309455,7 +308863,7 @@ index 9524e58..1862294 100755
 +			event_type: "issues",
 +			repo: "octo/widget",
 +			issue_key: "octo/widget#10",
-+			state: "失败",
++			state: "failed",
 +			attempts: 1,
 +			received_at: "2026-06-18T00:00:00Z",
 +			last_error: "old error",
@@ -309466,7 +308874,7 @@ index 9524e58..1862294 100755
 +			event_type: "issues",
 +			repo: "octo/widget",
 +			issue_key: null,
-+			state: "失败",
++			state: "failed",
 +			attempts: 1,
 +			received_at: "2026-06-18T00:00:00Z",
 +			last_error: "orphan failed error",
@@ -310593,7 +310001,7 @@ index 9524e58..1862294 100755
 +		name: "failed-full-card",
 +		ok:
 +			!!fullFailedCard &&
-+			fullFailedCard.bucket === "失败" &&
++			fullFailedCard.bucket === "failed" &&
 +			fullFailedCard.errorText === "triage failed error" &&
 +			fullFailedCard.actions.includes("retry"),
 +		detail: `Failed full card check: ${JSON.stringify(fullFailedCard)}`,
@@ -310640,7 +310048,7 @@ index 9524e58..1862294 100755
 +		name: "compact-orphan-failed",
 +		ok:
 +			!!compactOrphanFailed &&
-+			compactOrphanFailed.bucket === "失败" &&
++			compactOrphanFailed.bucket === "failed" &&
 +			!compactOrphanFailed.stepper &&
 +			compactOrphanFailed.actions.includes("retry"),
 +		detail: `Compact orphan failed check: ${JSON.stringify(compactOrphanFailed)}`,
@@ -310651,7 +310059,7 @@ index 9524e58..1862294 100755
 +		name: "failed-without-error-text",
 +		ok:
 +			!!failedWithoutErr &&
-+			failedWithoutErr.bucket === "失败" &&
++			failedWithoutErr.bucket === "failed" &&
 +			failedWithoutErr.errorText === "" &&
 +			failedWithoutErr.actions.includes("retry"),
 +		detail: `Failed without error text check: ${JSON.stringify(failedWithoutErr)}`,
@@ -310706,7 +310114,7 @@ index 9524e58..1862294 100755
 +	// card is a failed card (DOM order mirrors buildWorkItems sort order).
 +	results.push({
 +		name: "failed-sorts-first",
-+		ok: cards.length > 0 && cards[0].bucket === "失败",
++		ok: cards.length > 0 && cards[0].bucket === "failed",
 +		detail: `First rendered card: ${JSON.stringify(cards[0] ?? null)}`,
 +	});
 +
@@ -311359,7 +310767,7 @@ index 9524e58..1862294 100755
 +	process.exit(1);
  });
 diff --git a/python/robomp/web/scripts/verify-live.ts b/python/robomp/web/scripts/verify-live.ts
-index a45be1e..bc698dd 100644
+index a45be1e..7a5f77b 100644
 --- a/python/robomp/web/scripts/verify-live.ts
 +++ b/python/robomp/web/scripts/verify-live.ts
 @@ -5,174 +5,185 @@ import puppeteer from "puppeteer-core";
@@ -311605,7 +311013,7 @@ index a45be1e..bc698dd 100644
 +		runningCard.bucket === "running" &&
 +		runningCard.metaText.includes("claude-3-5-sonnet") &&
 +		runningCard.metaText.includes("last action edit") &&
-+		runningCard.metaText.includes("已耗时");
++		runningCard.metaText.includes("elapsed");
 +	const mergedExcluded = mergedCard === undefined;
 +
 +	console.log(`Failed sorted first: ${failedSortedFirst}`);
@@ -314972,7 +314380,7 @@ index 4b550bf..5cf383c 100644
  
  render(() => <App />, root);
 diff --git a/python/robomp/web/src/state.ts b/python/robomp/web/src/state.ts
-index a94afc6..b11f71a 100644
+index a94afc6..dd283dc 100644
 --- a/python/robomp/web/src/state.ts
 +++ b/python/robomp/web/src/state.ts
 @@ -30,31 +30,31 @@ export { isFetching, lastTickAt, lastTickError };
@@ -315077,7 +314485,7 @@ index a94afc6..b11f71a 100644
 +		});
 +	} catch (err) {
 +		const detail = err instanceof ApiError ? err.message : String(err);
-+		const status = err instanceof ApiError ? `error ${err.status}` : "错误";
++		const status = err instanceof ApiError ? `error ${err.status}` : "error";
 +		setTriggerStatus({ kind: "err", text: `${status}: ${detail}` });
 +	}
 +	void tick();
@@ -320530,7 +319938,7 @@ index 88f3af2..3215a90 100644
 -For aggregate requests (input starts with `# AGGREGATE`): the per-session verdicts arrive as one compact JSON object per line under `Per-session data (JSON, one per line):`. Synthesize *recurring* patterns across sessions into `systemicIssues` (issue + evidence + fix), `quickWins` (one-line habit changes ranked by savings), and a 2–4 sentence `summary` addressed directly to the user. Cite only sessions and figures present in that data, and refer to sessions by their title. Never re-attribute main-context turns as subagent spend (prior failure: a 160-request main-context debugging phase was misreported as a "runaway child"). Do not restate per-session findings verbatim; find the patterns.
 +For aggregate requests (input starts with `# AGGREGATE`): the per-session verdicts arrive as one compact JSON object per line under `Per-session data (JSON, one per line):`. Synthesize _recurring_ patterns across sessions into `systemicIssues` (issue + evidence + fix), `quickWins` (one-line habit changes ranked by savings), and a 2–4 sentence `summary` addressed directly to the user. Cite only sessions and figures present in that data, and refer to sessions by their title. Never re-attribute main-context turns as subagent spend (prior failure: a 160-request main-context debugging phase was misreported as a "runaway child"). Do not restate per-session findings verbatim; find the patterns.
 diff --git a/scripts/session-stats/audit.ts b/scripts/session-stats/audit.ts
-index 81c6391..d0f8e33 100755
+index 81c6391..d57a7b0 100755
 --- a/scripts/session-stats/audit.ts
 +++ b/scripts/session-stats/audit.ts
 @@ -707,7 +707,7 @@ function baseLabel(stem: string): string {
@@ -320542,37 +319950,6 @@ index 81c6391..d0f8e33 100755
  }
  
  function buildDigest(g: SessionGroup): string {
-@@ -1188,7 +1188,7 @@ function printScanReport(res: AuditResult): void {
- 	const tools = mergeToolAggs(allScans);
- 	console.log(`\ntool traffic, all contexts (arg/result tokens are ~estimates):`);
- 	console.log(
--		`  ${pad("tool", 16)} ${padl("calls", 7)} ${padl("argTok", 9)} ${padl("resTok", 9)} ${padl("res/call", 9)} ${padl("errs", 6)} ${padl("residency", 11)}`,
-+		`  ${pad("tool", 16)} ${padl("调用", 7)} ${padl("argTok", 9)} ${padl("resTok", 9)} ${padl("res/call", 9)} ${padl("errs", 6)} ${padl("residency", 11)}`,
- 	);
- 	const toolRows = [...tools.entries()].sort((a, b) => b[1].resultToks - a[1].resultToks).slice(0, 16);
- 	for (const [name, agg] of toolRows) {
-diff --git a/scripts/tool-prompt-usage.ts b/scripts/tool-prompt-usage.ts
-index e0513fe..daa4c17 100755
---- a/scripts/tool-prompt-usage.ts
-+++ b/scripts/tool-prompt-usage.ts
-@@ -195,7 +195,7 @@ function printTable(estimates: PromptEstimate[], encoding: Encoding): void {
- 	const totalChars = rows.reduce((sum, row) => sum + row.chars, 0);
- 	const totalLines = rows.reduce((sum, row) => sum + row.lines, 0);
- 	const tokenWidth = Math.max(
--		"tokens".length,
-+		"词元".length,
- 		String(totalTokens).length,
- 		...rows.map(row => String(row.tokens).length),
- 	);
-@@ -205,7 +205,7 @@ function printTable(estimates: PromptEstimate[], encoding: Encoding): void {
- 	const encodingName = encoding === Encoding.Cl100kBase ? "cl100k_base" : "o200k_base";
- 	console.log(`Tool prompt token estimates (${encodingName})`);
- 	console.log(
--		`${"tokens".padStart(tokenWidth)}  ${"chars".padStart(charWidth)}  ${"lines".padStart(lineWidth)}  prompt`,
-+		`${"词元".padStart(tokenWidth)}  ${"chars".padStart(charWidth)}  ${"lines".padStart(lineWidth)}  prompt`,
- 	);
- 	console.log(`${"-".repeat(tokenWidth)}  ${"-".repeat(charWidth)}  ${"-".repeat(lineWidth)}  ${"-".repeat(6)}`);
- 	for (const row of rows) {
 diff --git a/sdk/python/omp-rpc/pyproject.toml b/sdk/python/omp-rpc/pyproject.toml
 index b4e37f7..4735448 100644
 --- a/sdk/python/omp-rpc/pyproject.toml
