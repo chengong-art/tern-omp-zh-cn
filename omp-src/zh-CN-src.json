@@ -23449,10 +23449,6 @@
       "zh": "…（已截断）"
     },
     {
-      "en": "deleted file",
-      "zh": "已删除文件"
-    },
-    {
       "en": "Error: Could not include any files in the diff",
       "zh": "错误：diff 中无法包含任何文件"
     },
@@ -27001,12 +26997,6 @@
     {
       "en": "# CPU Profile Summary\n\nNo significant CPU activity recorded.",
       "zh": "# CPU Profile 摘要\n\n未记录到显著 CPU 活动。"
-    }
-  ],
-  "packages/coding-agent/src/debug/raw-sse-buffer.ts": [
-    {
-      "en": "data: ",
-      "zh": "数据："
     }
   ],
   "packages/coding-agent/src/debug/remote-debugger.ts": [
@@ -45881,10 +45871,6 @@
     {
       "en": "cannot run ",
       "zh": "无法运行 "
-    },
-    {
-      "en": "not running",
-      "zh": "未运行"
     }
   ],
   "packages/coding-agent/src/plan-mode/approved-plan.ts": [
@@ -60597,10 +60583,6 @@
       "zh": "控制台等待输入"
     },
     {
-      "en": "not a tty",
-      "zh": "不是 tty"
-    },
-    {
       "en": "PTY error: ",
       "zh": "PTY 错误："
     }
@@ -61695,10 +61677,6 @@
     {
       "en": "Unable to safely override process.cwd for Puppeteer import",
       "zh": "无法为 Puppeteer 导入安全地覆盖 process.cwd"
-    },
-    {
-      "en": "Unexpected server response: ",
-      "zh": "意外的服务器响应："
     }
   ],
   "packages/coding-agent/src/tools/browser/native-windows.ts": [
@@ -71369,10 +71347,6 @@
     {
       "en": "Copy failed: ",
       "zh": "复制失败："
-    },
-    {
-      "en": "data: ",
-      "zh": "数据："
     },
     {
       "en": "follow off",
@@ -90945,12 +90919,6 @@
       "zh": "未找到匹配"
     }
   ],
-  "packages/coding-agent/test/tools/bash-interactive.test.ts": [
-    {
-      "en": "not a tty",
-      "zh": "不是 tty"
-    }
-  ],
   "packages/coding-agent/test/tools/binary-metadata.test.ts": [
     {
       "en": "truncated header",
@@ -102133,10 +102101,6 @@
     {
       "en": "Custom shell path not found: ",
       "zh": "未找到自定义 shell 路径："
-    },
-    {
-      "en": "not a tty",
-      "zh": "不是 tty"
     }
   ],
   "packages/utils/src/ptree.ts": [

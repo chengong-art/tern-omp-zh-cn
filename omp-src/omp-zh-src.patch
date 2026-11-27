@@ -41450,18 +41450,9 @@ index 1b55ad7d..55fa32f1 100644
  }
  
 diff --git a/packages/coding-agent/src/commit/conventional/diff.ts b/packages/coding-agent/src/commit/conventional/diff.ts
-index a568801c..f5599bc4 100644
+index a568801c..29ca0799 100644
 --- a/packages/coding-agent/src/commit/conventional/diff.ts
 +++ b/packages/coding-agent/src/commit/conventional/diff.ts
-@@ -32,7 +32,7 @@ const SOURCE_EXTENSIONS: Record<string, true> = {
- const DIFF_HEADER_PREFIXES = [
- 	"index ",
- 	"new file",
--	"deleted file",
-+	"已删除文件",
- 	"rename ",
- 	"copy ",
- 	"similarity index",
 @@ -133,10 +133,10 @@ export class ConventionalFileDiff {
  	/** Truncate content in place while preserving metadata and useful edges. */
  	truncate(maxSize: number): void {
@@ -41475,15 +41466,6 @@ index a568801c..f5599bc4 100644
  			return;
  		}
  		const lines = splitLines(this.content);
-@@ -219,7 +219,7 @@ export function parsePromptDiff(diff: string): ConventionalFileDiff[] {
- 		} else if (inDiffHeader && DIFF_HEADER_PREFIXES.some(prefix => line.startsWith(prefix))) {
- 			headerLines.push(line);
- 			if (line.startsWith("new file")) current.status = "added";
--			else if (line.startsWith("deleted file")) current.status = "deleted";
-+			else if (line.startsWith("已删除文件")) current.status = "deleted";
- 			else if (line.startsWith("rename ")) current.status = "renamed";
- 		} else if (line.startsWith("@@")) {
- 			inDiffHeader = false;
 @@ -254,7 +254,7 @@ export function scrubDiffForPrompt(diff: string, maxFileBytes = MAX_PROMPT_FILE_
  /** Truncate a diff by file priority while retaining whole-file scope. */
  export function smartTruncateDiff(diff: string, maxLength: number, config: ConventionalGenerationConfig): string {
@@ -46747,19 +46729,6 @@ index 8584a6cd..9d1f5a86 100644
  	}
  }
  
-diff --git a/packages/coding-agent/src/debug/raw-sse-buffer.ts b/packages/coding-agent/src/debug/raw-sse-buffer.ts
-index 0a2a6a4e..11dc7ea1 100644
---- a/packages/coding-agent/src/debug/raw-sse-buffer.ts
-+++ b/packages/coding-agent/src/debug/raw-sse-buffer.ts
-@@ -131,7 +131,7 @@ function compactToolLines(raw: readonly string[]): string[] | null {
- 			const parsed = JSON.parse(line.slice(start));
- 			if (!compactToolsDeep(parsed)) return line;
- 			changed = true;
--			return `data: ${JSON.stringify(parsed)}`;
-+			return `数据：${JSON.stringify(parsed)}`;
- 		} catch {
- 			return line;
- 		}
 diff --git a/packages/coding-agent/src/debug/remote-debugger.ts b/packages/coding-agent/src/debug/remote-debugger.ts
 index 170fc6e4..df2cd9d5 100644
 --- a/packages/coding-agent/src/debug/remote-debugger.ts
@@ -77478,7 +77447,7 @@ index a15496cf..7a0dc6cd 100644
  		}
  		this.#conn.unref();
 diff --git a/packages/coding-agent/src/ovnfs/daemon.ts b/packages/coding-agent/src/ovnfs/daemon.ts
-index 4c7fd174..974ae877 100644
+index 4c7fd174..039bb89d 100644
 --- a/packages/coding-agent/src/ovnfs/daemon.ts
 +++ b/packages/coding-agent/src/ovnfs/daemon.ts
 @@ -36,7 +36,7 @@ async function start(command: string): Promise<Daemon> {
@@ -77504,15 +77473,6 @@ index 4c7fd174..974ae877 100644
  	}
  	return { socket: status.socket };
  }
-@@ -68,7 +68,7 @@ export async function runningDaemon(command: string): Promise<Daemon | undefined
- 		child.exited,
- 	]);
- 	if (code !== 0) {
--		if (stderr.trim() === "not running") return undefined;
-+		if (stderr.trim() === "未运行") return undefined;
- 		throw new Error(`${command} status failed: ${stderr.trim() || `exit status ${code}`}`);
- 	}
- 	const status: unknown = JSON.parse(stdout);
 diff --git a/packages/coding-agent/src/plan-mode/approved-plan.ts b/packages/coding-agent/src/plan-mode/approved-plan.ts
 index ad50a610..3694723e 100644
 --- a/packages/coding-agent/src/plan-mode/approved-plan.ts
@@ -98523,18 +98483,9 @@ index 12b38b32..9960f74c 100644
  			if (cappedParseErrors.length) {
  				outputLines.push("", ...formatParseErrors(cappedParseErrors, parseErrorsTotal));
 diff --git a/packages/coding-agent/src/tools/bash-interactive.ts b/packages/coding-agent/src/tools/bash-interactive.ts
-index 84e32296..399a949e 100644
+index 84e32296..ee471879 100644
 --- a/packages/coding-agent/src/tools/bash-interactive.ts
 +++ b/packages/coding-agent/src/tools/bash-interactive.ts
-@@ -38,7 +38,7 @@ function terminalEnv(exports: Record<string, string>): Record<string, string> {
- 		if (env[name] === guards[name]) delete env[name];
- 	}
- 	// procmgr's spawn env marks the session's stdin as no terminal.
--	if (env.GPG_TTY === "not a tty") delete env.GPG_TTY;
-+	if (env.GPG_TTY === "不是 tty") delete env.GPG_TTY;
- 	env.TERM ??= "xterm-256color";
- 	return env;
- }
 @@ -115,7 +115,7 @@ class InputWaitWatch {
  		if (cfgPtyNotify.get(this.#settings) === "off") return;
  		notifyTerminal({
@@ -100311,7 +100262,7 @@ index 815ebfa5..933bdc69 100644
  	pagesAwaitingChooser.add(page);
  	try {
 diff --git a/packages/coding-agent/src/tools/browser/launch.ts b/packages/coding-agent/src/tools/browser/launch.ts
-index dc9eac1a..94f65560 100644
+index dc9eac1a..aec92bfc 100644
 --- a/packages/coding-agent/src/tools/browser/launch.ts
 +++ b/packages/coding-agent/src/tools/browser/launch.ts
 @@ -161,7 +161,7 @@ export function isPuppeteerTargetClose(error: unknown): boolean {
@@ -100346,7 +100297,7 @@ index dc9eac1a..94f65560 100644
  		// Bun's `ws` shim (1.4.4+) rejects a refused upgrade with only "Unexpected server response: <status>";
  		// name the debugger endpoint the way Bun's native WebSocket error does.
 -		if (failure.message.startsWith("Unexpected server response: ")) {
-+		if (failure.message.startsWith("意外的服务器响应：")) {
++		if (failure.message.startsWith("Unexpected server response:")) {
  			const endpoint =
  				options.browserWSEndpoint ??
  				(options.browserURL && (await debuggerEndpointOf(options.browserURL))) ??
@@ -114791,18 +114742,9 @@ index ded9333f..1cd75e89 100644
  			<Button act="quit" label="Quit" keys="q" />,
  		];
 diff --git a/packages/coding-agent/src/ui/apps/raw-sse/model.ts b/packages/coding-agent/src/ui/apps/raw-sse/model.ts
-index d2907cc0..2dae56bc 100644
+index d2907cc0..aabc4762 100644
 --- a/packages/coding-agent/src/ui/apps/raw-sse/model.ts
 +++ b/packages/coding-agent/src/ui/apps/raw-sse/model.ts
-@@ -44,7 +44,7 @@ export function expandPrettyDataLines(raw: readonly string[]): string[] {
- 			out.push(line);
- 			continue;
- 		}
--		for (const pretty of JSON.stringify(parsed, null, 2).split("\n")) out.push(`data: ${pretty}`);
-+		for (const pretty of JSON.stringify(parsed, null, 2).split("\n")) out.push(`数据：${pretty}`);
- 	}
- 	return out;
- }
 @@ -87,7 +87,7 @@ export class RawSseViewerModel {
  		this.#options = options;
  		this.#unsubscribe = options.buffer.subscribe(() => this.#revision.update(n => n + 1));
@@ -150993,19 +150935,6 @@ index 2033cdbb..8fa3f43e 100644
  			expect(text).toContain("Parse issues mean the query may be mis-scoped");
  			expect(details?.parseErrors).toHaveLength(1);
  			expect(details?.parseErrors?.[0]).toContain("broken.ts: parse error (syntax tree contains error nodes)");
-diff --git a/packages/coding-agent/test/tools/bash-interactive.test.ts b/packages/coding-agent/test/tools/bash-interactive.test.ts
-index 014785b0..31654ad5 100644
---- a/packages/coding-agent/test/tools/bash-interactive.test.ts
-+++ b/packages/coding-agent/test/tools/bash-interactive.test.ts
-@@ -83,7 +83,7 @@ describe("runInteractiveBashPty", () => {
- 				CI: "true",
- 				NO_COLOR: "1",
- 				GIT_EDITOR: "true",
--				GPG_TTY: "not a tty",
-+				GPG_TTY: "不是 tty",
- 			});
- 
- 			expect(output).toContain("probe=from-session term=xterm-256color");
 diff --git a/packages/coding-agent/test/tools/binary-metadata.test.ts b/packages/coding-agent/test/tools/binary-metadata.test.ts
 index 1d8f258b..177c1e61 100644
 --- a/packages/coding-agent/test/tools/binary-metadata.test.ts
@@ -170851,18 +170780,9 @@ index 5d60a050..a28e1bb3 100644
  }
  
 diff --git a/packages/utils/src/procmgr.ts b/packages/utils/src/procmgr.ts
-index 9c18d56f..8847674a 100644
+index 9c18d56f..b68bfc5a 100644
 --- a/packages/utils/src/procmgr.ts
 +++ b/packages/utils/src/procmgr.ts
-@@ -47,7 +47,7 @@ function buildSpawnEnv(shell: string): Record<string, string> {
- 		...(capturedChildShellEnv ?? filterChildShellEnv(Bun.env, spawnEnvProjectDir)),
- 		SHELL: shell,
- 		GIT_EDITOR: "true",
--		GPG_TTY: "not a tty",
-+		GPG_TTY: "不是 tty",
- 		OMPCODE: "1",
- 		CLAUDECODE: "1",
- 		...(noCI ? {} : { CI: "true" }),
 @@ -210,7 +210,8 @@ export function getShellConfig(customShellPath?: string, options: ShellConfigOpt
  	// earlier successful resolution in the same process.
  	if (customShellPath) {
