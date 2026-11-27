@@ -21403,7 +21403,7 @@ index f1f35c47..2b500e3e 100644
  }
  
 diff --git a/packages/catalog/src/wire/image-fetchers.ts b/packages/catalog/src/wire/image-fetchers.ts
-index 65612837..b5ab5486 100644
+index 65612837..1a9becd5 100644
 --- a/packages/catalog/src/wire/image-fetchers.ts
 +++ b/packages/catalog/src/wire/image-fetchers.ts
 @@ -63,36 +63,35 @@ export interface ImageFetcherIdentity {
@@ -21411,9 +21411,8 @@ index 65612837..b5ab5486 100644
  	"openai-file-downloader": {
  		vendor: "openai",
 -		label: "OpenAI File Downloader",
--		userAgent: "OpenAI File Downloader",
 +		label: "OpenAI 文件下载器",
-+		userAgent: "OpenAI 文件下载器",
+ 		userAgent: "OpenAI File Downloader",
  		markerHeaders: ["openai-internal-smokescreener"],
  		observedVia: "chatgpt.com/backend-api/codex/responses, input_image.image_url",
 -		note: "Issues two near-simultaneous GETs per image; a blob server must treat a duplicate hit as expected rather than as replay.",
@@ -21593,28 +21592,6 @@ index f22fd926..cad4f1c8 100644
  		}) as FetchImpl;
  
  		const selection = await discoverGitLabDuoWorkflowNamespace({ apiKey: TEST_TOKEN, fetch });
-diff --git a/packages/catalog/test/image-fetchers.test.ts b/packages/catalog/test/image-fetchers.test.ts
-index 0788eb02..c3931a98 100644
---- a/packages/catalog/test/image-fetchers.test.ts
-+++ b/packages/catalog/test/image-fetchers.test.ts
-@@ -4,7 +4,7 @@ import { identifyImageFetcher } from "@oh-my-pi/pi-catalog/wire/image-fetchers";
- /** Header sets captured from live provider fetches of a URL-sourced image. */
- const captured = {
- 	openai: {
--		"user-agent": "OpenAI File Downloader",
-+		"user-agent": "OpenAI 文件下载器",
- 		"openai-internal-smokescreener": "responses-role",
- 		accept: "*/*",
- 		"accept-encoding": "gzip, deflate, br, zstd",
-@@ -81,7 +81,7 @@ describe("identifyImageFetcher", () => {
- 		});
- 		expect(
- 			identifyImageFetcher({
--				"User-Agent": "OpenAI File Downloader",
-+				"User-Agent": "OpenAI 文件下载器",
- 				"OpenAI-Internal-Smokescreener": "responses-role",
- 			}),
- 		).toMatchObject({ id: "openai-file-downloader", corroborated: true });
 diff --git a/packages/catalog/test/issue-6563-repro.test.ts b/packages/catalog/test/issue-6563-repro.test.ts
 index b04be3cd..e4b7c601 100644
 --- a/packages/catalog/test/issue-6563-repro.test.ts
@@ -140522,19 +140499,6 @@ index db598721..9f5dbadc 100644
  		expect(summary.models[0].stats).toBeNull();
  	});
  });
-diff --git a/packages/coding-agent/test/blob-broker.test.ts b/packages/coding-agent/test/blob-broker.test.ts
-index e404ebb2..c0f16b58 100644
---- a/packages/coding-agent/test/blob-broker.test.ts
-+++ b/packages/coding-agent/test/blob-broker.test.ts
-@@ -94,7 +94,7 @@ describe("LocalBlobBackend (serve mode)", () => {
- 		expect(await backend.ensureBlob("key-2", "image/jpeg", () => bytes)).not.toEqual(publication);
- 
- 		const response = await fetch(publication?.url ?? "", {
--			headers: { "user-agent": "OpenAI File Downloader", "openai-internal-smokescreener": "responses-role" },
-+			headers: { "user-agent": "OpenAI 文件下载器", "openai-internal-smokescreener": "responses-role" },
- 		});
- 		expect(response.status).toBe(200);
- 		expect(response.headers.get("content-type")).toBe("image/png");
 diff --git a/packages/coding-agent/test/blob-uploaders-cloud-drives.test.ts b/packages/coding-agent/test/blob-uploaders-cloud-drives.test.ts
 index fe01af28..eec44cfc 100644
 --- a/packages/coding-agent/test/blob-uploaders-cloud-drives.test.ts

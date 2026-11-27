@@ -7,9 +7,9 @@
 | 项 | 值 |
 | --- | --- |
 | 基线 | `@oh-my-pi/pi-coding-agent` **19.2.1**，commit `b55cd1bb664d8ab46ddc77f2a34eb47555dbf1ac` |
-| 词表 | `zh-CN-src.json`，**24,270 条** `{en, zh}` 对照，覆盖 2,693 个文件 |
-| 补丁 | `omp-zh-src.patch`，**2,701 个文件**改动，`git apply` 干净应用 |
-| 测试 | `bun test` 41,767 个测试：除断言英文原文的失败外无翻译引起的破坏；二进制 `--smoke-test` 通过 |
+| 词表 | `zh-CN-src.json`，**24,270 条** `{en, zh}` 对照，覆盖 2,691 个文件 |
+| 补丁 | `omp-zh-src.patch`，**2,699 个文件**改动，`git apply` 干净应用 |
+| 测试 | `bun test` 39,631 个测试：失败项经纯净基线对照核实全部为"断言英文原文"类或环境性(基线同样失败)；二进制 `--smoke-test` 通过 |
 
 ## 用法
 

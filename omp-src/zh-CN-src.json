@@ -10193,12 +10193,6 @@
       "zh": "未找到"
     }
   ],
-  "packages/catalog/test/image-fetchers.test.ts": [
-    {
-      "en": "OpenAI File Downloader",
-      "zh": "OpenAI 文件下载器"
-    }
-  ],
   "packages/catalog/test/issue-6563-repro.test.ts": [
     {
       "en": "not found",
@@ -33297,6 +33291,10 @@
     {
       "en": ".",
       "zh": "。"
+    },
+    {
+      "en": ". Available: ",
+      "zh": "'。可用："
     },
     {
       "en": "' for ",
@@ -67857,6 +67855,14 @@
       "zh": "?q= 选择器仅支持图片（位图文件、.svg:img、文件级图片 URL、PDF 页截图）。"
     },
     {
+      "en": "The ':img' selector only rasterizes .svg and .svgz files. Read a raster image such as PNG or JPEG without ':img'.",
+      "zh": "':img' 选择器只栅格化 .svg 和 .svgz 文件。对 PNG/JPEG 等位图请不带 ':img' 读取。"
+    },
+    {
+      "en": "The ':img' selector requires a file-backed path.",
+      "zh": "':img' 选择器需要文件系统路径。"
+    },
+    {
       "en": "The file is empty.",
       "zh": "文件为空。"
     },
@@ -87363,12 +87369,6 @@
       "zh": "无输出"
     }
   ],
-  "packages/coding-agent/test/blob-broker.test.ts": [
-    {
-      "en": "OpenAI File Downloader",
-      "zh": "OpenAI 文件下载器"
-    }
-  ],
   "packages/coding-agent/test/blob-uploaders-cloud-drives.test.ts": [
     {
       "en": "Sent via omp",
@@ -101943,6 +101943,10 @@
     {
       "en": "Expected object key",
       "zh": "应为对象键"
+    },
+    {
+      "en": "Expected value after ':'",
+      "zh": "':' 之后应有值"
     },
     {
       "en": "Unexpected end of JSON input",
