@@ -30,7 +30,7 @@
 - View：`Show all commands`、`Ask Carly…`
 - 其他菜单项仍为英文（如 `Enter Full Screen`、`Hide Others`、`Show All`、`Quit tern`）；标准 `Edit`/`Window` 菜单项按预期保留英文。
 
-已编译好的 macOS arm64 单文件二进制和打好的源码包在 [Releases](https://github.com/chengong-art/tern-omp-zh-cn/releases)（tag `omp-19.1.1-zh-cn`；19.2.1 版二进制待发布）里，不用自己装 bun 和 Rust 工具链。
+已编译好的 macOS arm64 单文件二进制和打好的源码包在 [Releases](https://github.com/chengong-art/tern-omp-zh-cn/releases)（最新 tag `omp-19.2.1-zh-cn`）里，不用自己装 bun 和 Rust 工具链。
 
 各版本的验证状态见上表。Tern 的补丁按特征在二进制里定位改写点，换版本后个别条目可能定位不到（会列出来，那几处保持英文）；omp 的补丁按原文匹配，新版本里改过措辞的条目会被跳过并列出来。
 
