@@ -16,7 +16,7 @@ jobs:
         run: python3 omp-src/validate.py
 
       - name: Clone oh-my-pi baseline
-        run: git clone --depth 1 --branch v19.1.1 https://github.com/can1357/oh-my-pi.git upstream
+        run: git clone --depth 1 --branch v19.2.1 https://github.com/can1357/oh-my-pi.git upstream
 
       - name: Check patch applies and patched tree is clean
         run: |
